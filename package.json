@@ -1,0 +1,25 @@
+{
+  "name": "musicjunky",
+  "version": "1.0.0",
+  "description": "A place to find and share music uploaded by the world.",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashermanwmf/musicjunky.git"
+  },
+  "author": "Andrew Sherman, Alex Ting, Melba Madrigal, Jemil Ezzet",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ashermanwmf/musicjunky/issues"
+  },
+  "homepage": "https://github.com/ashermanwmf/musicjunky#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "multer": "^1.2.0"
+  }
+}
