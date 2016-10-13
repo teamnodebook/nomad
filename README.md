@@ -1,2 +1,2 @@
-# musicjunky
-A place to find and share music uploaded by the world.
+# nomad
+A platform to find events near you and change the world.
