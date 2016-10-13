@@ -1,10 +1,10 @@
 {
-  "name": "musicjunky",
+  "name": "nomad",
   "version": "1.0.0",
   "description": "A place to find and share music uploaded by the world.",
   "main": "server.js",
   "scripts": {
-    "start": "npm run build; nodemon",
+    "start": "webpack && nodemon server.js",
     "dev": "webpack -d --watch",
     "build": "webpack"
   },
