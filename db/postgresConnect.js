@@ -36,6 +36,32 @@ module.exports = pool;
 
 /* SAMPLE QUERY FOR DATABSE */
 
+// promise based
+
+// new Promise(function(resolve, reject) {
+// 	pool.connect(function(err, client, done) {
+// 	  if(err) {
+// 	  	reject(err);
+// 	  }
+// 	  resolve(client);
+// 	});
+// }).then(function(client) {
+// 	client.query("select * from public.dates "+ 
+//   							"where fk_event = ("+
+//   							"select id from public.events "+ 
+//   							"where host = 'Melba')", 
+//   							function(err, result) {
+							 
+// 							    if(err) {
+// 							      return console.error('error running query', err);
+// 							    }
+// 							    console.log(result.rows, ' do we have rows from our query');
+// 							    //output: 1 
+// 							  });
+// });
+
+// non promise based 
+
 // pool.connect(function(err, client, done) {
 //   if(err) {
 //     return console.error('error fetching client from pool', err);
