@@ -54,6 +54,10 @@
 
 	var _reactDom = __webpack_require__(34);
 
+	var _LandingPage = __webpack_require__(172);
+
+	var _LandingPage2 = _interopRequireDefault(_LandingPage);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -68,17 +72,53 @@
 	  function App(props) {
 	    _classCallCheck(this, App);
 
-	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+	    _this.state = {
+	      userDefined: false
+	    };
+	    return _this;
 	  }
 
 	  _createClass(App, [{
+	    key: 'setAttendee',
+	    value: function setAttendee() {
+	      this.setState({
+	        userDefined: true,
+	        user: 'attendee'
+	      });
+	      console.log('attendee clicked', this.state.user);
+	    }
+	  }, {
+	    key: 'setNomad',
+	    value: function setNomad() {
+	      this.setState({
+	        userDefined: true,
+	        user: 'nomad'
+	      });
+	      console.log('nomad clicked', this.state.user);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        'Hello World'
-	      );
+	      if (!this.state.userDefined) {
+	        return (
+	          // Landing Page
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(_LandingPage2.default, { setAttendee: this.setAttendee.bind(this), setNomad: this.setNomad.bind(this) })
+	          )
+	        );
+	      } else {
+	        // check user type
+
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          'Poop'
+	        );
+	      }
 	    }
 	  }]);
 
@@ -21453,6 +21493,34 @@
 
 	module.exports = ReactDOMNullInputValuePropHook;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 172 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var LandingPage = function LandingPage(props) {
+
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'form',
+	      null,
+	      _react2.default.createElement('input', { type: 'button', value: 'Find', onClick: props.setAttendee }),
+	      _react2.default.createElement('input', { type: 'button', value: 'Create', onClick: props.setNomad })
+	    )
+	  );
+	};
+
+	module.exports = LandingPage;
 
 /***/ }
 /******/ ]);
