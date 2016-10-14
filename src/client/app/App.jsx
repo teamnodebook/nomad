@@ -10,12 +10,31 @@ class App extends React.Component {
     };
   }
 
+  setAttendee () {
+    this.setState({
+      userDefined: true,
+      user: 'attendee'
+    });
+    console.log('attendee clicked', this.state.user);
+
+  }
+
+  setNomad () {
+    this.setState({
+      userDefined: true,
+      user: 'nomad',
+    })
+    console.log('nomad clicked', this.state.user);
+  }
+
+
+
   render () {
     if (!this.state.userDefined) {
       return (
         // Landing Page
         <div>
-          <LandingPage />
+          <LandingPage setAttendee={this.setAttendee.bind(this)} setNomad={this.setNomad.bind(this)}/>
         </div>
       )
     } else {

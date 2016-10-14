@@ -81,6 +81,24 @@
 	  }
 
 	  _createClass(App, [{
+	    key: 'setAttendee',
+	    value: function setAttendee() {
+	      this.setState({
+	        userDefined: true,
+	        user: 'attendee'
+	      });
+	      console.log('attendee clicked', this.state.user);
+	    }
+	  }, {
+	    key: 'setNomad',
+	    value: function setNomad() {
+	      this.setState({
+	        userDefined: true,
+	        user: 'nomad'
+	      });
+	      console.log('nomad clicked', this.state.user);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      if (!this.state.userDefined) {
@@ -89,7 +107,7 @@
 	          _react2.default.createElement(
 	            'div',
 	            null,
-	            _react2.default.createElement(_LandingPage2.default, null)
+	            _react2.default.createElement(_LandingPage2.default, { setAttendee: this.setAttendee.bind(this), setNomad: this.setNomad.bind(this) })
 	          )
 	        );
 	      } else {
@@ -21496,16 +21514,8 @@
 	    _react2.default.createElement(
 	      'form',
 	      null,
-	      _react2.default.createElement(
-	        'button',
-	        null,
-	        'Find'
-	      ),
-	      _react2.default.createElement(
-	        'button',
-	        null,
-	        'Create'
-	      )
+	      _react2.default.createElement('input', { type: 'button', value: 'Find', onClick: props.setAttendee }),
+	      _react2.default.createElement('input', { type: 'button', value: 'Create', onClick: props.setNomad })
 	    )
 	  );
 	};
