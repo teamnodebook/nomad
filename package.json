@@ -4,9 +4,8 @@
   "description": "A place to find and share music uploaded by the world.",
   "main": "server.js",
   "scripts": {
-    "start": "webpack && nodemon server.js",
-    "dev": "nodemon server.js",
-    "build": "webpack --watch"
+    "start": "nodemon server.js",
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
