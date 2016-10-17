@@ -16,6 +16,11 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.static(path.join(__dirname, 'src/client/public/'))); // static files
 
+// turn lat and long into radians
+Number.prototype.toRad = function() {
+	return this * Math.PI / 180;
+};
+
 app.post('/api/createEvent', (req, res) =>{
 	// var sampleObj = {
 	// 									info: {
