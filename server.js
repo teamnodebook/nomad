@@ -15,7 +15,7 @@ const port = process.env.PORT || 5000; // port
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(express.static(path.join(__dirname, 'src/client/public/'))); // static files
+app.use(express.static(path.join(__dirname, '/client'))); // static files
 
 app.get('/createEvent', (req, res) =>{
 	// var sampleObj = {
@@ -29,9 +29,9 @@ app.get('/createEvent', (req, res) =>{
 	// 										long: -122.431297
 	// 									},
 	// 									time: [
-	// 										{start: '2016-10-14T21:43:22.809Z', 
+	// 										{start: '2016-10-14T21:43:22.809Z',
 	// 											end: '2016-10-14T23:43:22.809Z'},
-	// 										{start: '2016-11-14T21:43:22.809Z', 
+	// 										{start: '2016-11-14T21:43:22.809Z',
 	// 											end: '2016-11-14T23:43:22.809Z'}
 	// 									]
 	// 								};
@@ -39,7 +39,7 @@ app.get('/createEvent', (req, res) =>{
 	// let insertTimes = (client) =>{
 	// 	_.each(sampleObj.time, (time) =>{
 	// 		client.query(`insert into public.dates
-	// 								(start_date, end_date, fk_event) 
+	// 								(start_date, end_date, fk_event)
 	// 								values ('${time.start}',
 	// 								'${time.end}',
 	// 								(select id from public.events where name='${sampleObj.info.name}' and lat=${sampleObj.location.lat} and long=${sampleObj.location.long}))`,
@@ -60,8 +60,8 @@ app.get('/createEvent', (req, res) =>{
 	// 	});
 	// }).then((client) =>{
 	// 	client.query(`insert into public.events
-	// 								(name, host, description, lat, long) 
-	// 								values ('${sampleObj.info.name}', 
+	// 								(name, host, description, lat, long)
+	// 								values ('${sampleObj.info.name}',
 	// 								'${sampleObj.info.host}',
 	// 								'${sampleObj.info.description}',
 	// 								${sampleObj.location.lat},
