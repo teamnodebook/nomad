@@ -1,4 +1,4 @@
-angular.module('nomad', ['ngRoute'])
+angular.module('nomad', ['ngRoute', 'explorer'])
 .config(function($routeProvider) {
   $routeProvider
     .when('/', {
