@@ -1,5 +1,6 @@
 // db name = aqua
-// require('dotenv').config();
+// require('dotenv').config(); //comment out before push
+
 const pg = require('pg');
 
 const config = {
