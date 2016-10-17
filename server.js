@@ -10,14 +10,13 @@ const app = express();
 
 const pool = require('./db/postgresConnect.js');
 
-
 const port = process.env.PORT || 5000; // port
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.static(path.join(__dirname, 'src/client/public/'))); // static files
 
-app.get('/createEvent', (req, res) =>{
+app.post('/api/createEvent', (req, res) =>{
 	// var sampleObj = {
 	// 									info: {
 	// 										name: 'Rap battle',
