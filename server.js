@@ -10,7 +10,6 @@ const app = express();
 
 const pool = require('./db/postgresConnect.js');
 
-
 const port = process.env.PORT || 5000; // port
 
 app.use(bodyParser.json()); // for parsing application/json
@@ -19,9 +18,9 @@ app.use(express.static(path.join(__dirname, 'src/client/public/'))); // static f
 
 app.get('/api/getEvent', (req,res) =>{
 	const sampleEvent = {
-											radius: ,
-											long: ,
-											lat:
+											radius: '',
+											long: '',
+											lat: ''
 										}
 	const longRange = x;
 	const latRange = y;										
@@ -32,7 +31,7 @@ app.get('/api/getEvent', (req,res) =>{
 //select * from events where lat < `${longRange}` and long < `${latRange}`
 })
 
-app.get('/api/createEvent', (req, res) =>{
+app.post('/api/createEvent', (req, res) =>{
 	// var sampleObj = {
 	// 									info: {
 	// 										name: 'Rap battle',
