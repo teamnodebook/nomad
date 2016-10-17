@@ -18,9 +18,9 @@ app.use(express.static(path.join(__dirname, 'src/client/public/'))); // static f
 
 app.get('/api/getEvent', (req,res) =>{
 	const sampleEvent = {
-											radius: ,
-											long: ,
-											lat:
+											radius: '',
+											long: '',
+											lat: ''
 										}
 	const longRange = x;
 	const latRange = y;										
