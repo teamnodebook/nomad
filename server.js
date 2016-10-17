@@ -17,19 +17,41 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.use(express.static(path.join(__dirname, 'src/client/public/'))); // static files
 
 app.get('/api/getEvent', (req,res) =>{
-	const sampleEvent = {
-											radius: '',
-											long: '',
-											lat: ''
-										}
-	const longRange = x;
-	const latRange = y;										
+
+	// const sampleEvent = {
+	// 										radius: 1,
+	// 										long: -2.136357735948972,
+	// 										lat: 0.659570546402485
+	// 									}
+	// new Promise((resolve, reject) =>{
+	// 	pool.connect(function(err, client, done) {
+	// 	  if(err) {
+	// 	  	reject(err);
+	// 	  }
+	// 	  resolve(client);
+	// 	});
+	// }).then((client) => {
+	// 	client.query(`select name, host, description, lat, long, start_date, end_date 
+	// 								from public.events inner join public.dates on public.dates.fk_event = public.events.id
+	// 								where acos(sin(${sampleEvent.lat}) * sin(public.events.lat) + 
+	// 								cos(${sampleEvent.lat}) * cos(public.events.lat) * 
+	// 								cos(public.events.long - (${sampleEvent.long}))) * 6371 <= ${sampleEvent.radius}`, 
+	// 								(err, result)=>{
+	// 									console.log(err, 'check error');
+	// 									console.log(result.rows, 'result from getEvent');
+	// 									const events = {
+	// 										events: result.rows
+	// 									}
+	// 									res.send(events).end();
+	// 								}
+	// 	);
+	// });
 
 //join events with dates where event id = foreign key id
 //where long and lat are like
 
 //select * from events where lat < `${longRange}` and long < `${latRange}`
-})
+});
 
 app.post('/api/createEvent', (req, res) =>{
 	// var sampleObj = {
