@@ -16,10 +16,20 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.static(path.join(__dirname, 'src/client/public/'))); // static files
 
-// turn lat and long into radians
-Number.prototype.toRad = function() {
-	return this * Math.PI / 180;
-};
+app.get('/api/getEvent', (req,res) =>{
+	const sampleEvent = {
+											radius: ,
+											long: ,
+											lat:
+										}
+	const longRange = x;
+	const latRange = y;										
+
+//join events with dates where event id = foreign key id
+//where long and lat are like
+
+//select * from events where lat < `${longRange}` and long < `${latRange}`
+})
 
 app.post('/api/createEvent', (req, res) =>{
 	// var sampleObj = {
