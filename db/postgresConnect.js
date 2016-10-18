@@ -33,7 +33,6 @@ module.exports = pool;
 //   							"select id from public.events "+ 
 //   							"where host = 'Melba')", 
 //   							function(err, result) {
-							 
 // 							    if(err) {
 // 							      return console.error('error running query', err);
 // 							    }
@@ -54,8 +53,7 @@ module.exports = pool;
 //   							"where host = 'Melba')", 
 //   							function(err, result) {
 // 							    //call `done()` to release the client back to the pool 
-// 							    done();
-							 
+// 							    done()						 
 // 							    if(err) {
 // 							      return console.error('error running query', err);
 // 							    }
@@ -63,10 +61,3 @@ module.exports = pool;
 // 							    //output: 1 
 // 							  });
 // });
-
-// query for finding db items that fall within requested radius
-// SELECT name, host, description, lat, long, start_date, end_date from events inner join dates on dates.fk_event = events.id  WHERE acos(sin(LAT_CENTERPOINT_RAIDIANS) * sin(lat) + cos(LAT_CENTERPOINT_RAIDIANS) * cos(lat) * cos(long - (LONG_CENTERPOINT__RAIDIANS))) * 6371 <= 1;
-
-
-
-
