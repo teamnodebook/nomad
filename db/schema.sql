@@ -1,6 +1,6 @@
 -- postgres schemas
 
-create table events(
+create table public.events(
 	id serial,
 	name varchar,
 	host varchar,
@@ -10,7 +10,7 @@ create table events(
 	Primary key (id)
 );
 
-create table dates(
+create table public.dates(
 	id serial,
 	start_date varchar,
 	end_date varchar,
