@@ -1,5 +1,5 @@
 // db name = aqua
-// require('dotenv').config(); //comment out before push
+require('dotenv').config(); //comment out before push
 
 const pg = require('pg');
 
@@ -11,10 +11,11 @@ const config = {
   port: 5432, 
   ssl: true 
 };
-
 const pool = new pg.Pool(config);
-
+console.log("pool: ", pool);
 module.exports = pool;
+module.exports = config;
+
 
 /* SAMPLE QUERY FOR DATABSE */
 
@@ -40,6 +41,7 @@ module.exports = pool;
 // 							    //output: 1 
 // 							  });
 // });
+
 
 // non promise based 
 
