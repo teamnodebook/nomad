@@ -55,7 +55,7 @@ cp.then((client) =>{
 									(start_date, end_date, fk_event)
 									values ('${time.start}',
 									'${time.end}',
-									(select id from public.events where name='${obj.info.name.replace(/(')/g, '\"')}}' and lat=${obj.location.lat} and long=${obj.location.long}))`,
+									(select id from public.events where name='${obj.info.name.replace(/(')/g, '\"')}' and lat=${obj.location.lat} and long=${obj.location.long}))`,
 									(err, result) =>{
 										console.log(err, 'check error insert times')
 										console.log(result, ' result from insert statement insert times')
@@ -66,9 +66,9 @@ cp.then((client) =>{
 	_.each(data, (obj) =>{
 		client.query(`insert into public.events
 										(name, host, description, lat, long)
-										values ('${obj.info.name.replace(/(')/g, '\"')}}',
+										values ('${obj.info.name.replace(/(')/g, '\"')}',
 										'${obj.info.host.replace(/(')/g, '\"')}}',
-										'${obj.info.description.replace(/(')/g, '\"')}}',
+										'${obj.info.description.replace(/(')/g, '\"')}',
 										${obj.location.lat},
 										${obj.location.long})`,
 									(err, result) =>{
