@@ -11,8 +11,8 @@ new Promise((resolve, reject) =>{
 	  console.log('we have a client and are ready to query');
 	  client.query('drop table public.events, public.dates', 
 	  						(err, result) =>{
-									console.log(err, 'check error drop table')
-									console.log(result, ' result from insert statement')
+									//console.log(err, 'check error drop table')
+									//console.log(result, ' result from insert statement')
 								});
 	  resolve(client);
 	});
@@ -42,7 +42,7 @@ new Promise((resolve, reject) =>{
 				console.log(result, ' result from insert statement create table')
 
 				let insertTimes = (client, obj) =>{
-					_.each(obj.times, (time) =>{
+					_.each(obj.time, (time) =>{
 						client.query(`insert into public.dates
 												(start_date, end_date, fk_event)
 												values ('${time.start}',
