@@ -102,8 +102,9 @@ angular.module('explorer', [])
 })
 .factory('Events', ($http) => {
   const getEvents = (locationObj) => {
+    console.log(locationObj);
     return $http({
-      method: 'GET',
+      method: 'POST',
       url: '/api/getEvent',
       data: locationObj
     })

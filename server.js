@@ -16,36 +16,38 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.static(path.join(__dirname, '/client'))); // static files
 
-app.get('/api/getEvent', (req,res) =>{
+app.post('/api/getEvent', (req,res) =>{
+	console.log(req.body);
 
-	// const sampleEvent = {
-	// 										radius: 1,
-	// 										long: -2.136357735948972,
-	// 										lat: 0.659570546402485
-	// 									}
-	// new Promise((resolve, reject) =>{
-	// 	pool.connect(function(err, client, done) {
-	// 	  if(err) {
-	// 	  	reject(err);
-	// 	  }
-	// 	  resolve(client);
-	// 	});
-	// }).then((client) => {
-	// 	client.query(`select name, host, description, lat, long, start_date, end_date 
-	// 								from public.events inner join public.dates on public.dates.fk_event = public.events.id
-	// 								where acos(sin(${sampleEvent.lat}) * sin(public.events.lat) + 
-	// 								cos(${sampleEvent.lat}) * cos(public.events.lat) * 
-	// 								cos(public.events.long - (${sampleEvent.long}))) * 6371 <= ${sampleEvent.radius}`, 
-	// 								(err, result)=>{
-	// 									console.log(err, 'check error');
-	// 									console.log(result.rows, 'result from getEvent');
-	// 									const events = {
-	// 										events: result.rows
-	// 									}
-	// 									res.send(events).end();
-	// 								}
-	// 	);
-	// });
+	new Promise((resolve, reject) =>{
+		pool.connect(function(err, client, done) {
+		  if(err) {
+		  	reject(err);
+		  }
+		  resolve(client);
+		});
+	}).then((client) => {
+		console.log(`select name, host, description, lat, long, start_date, end_date
+									from public.events inner join public.dates on public.dates.fk_event = public.events.id
+									where acos(sin(${req.body.lat}) * sin(public.events.lat) +
+									cos(${req.body.lat}) * cos(public.events.lat) *
+									cos(public.events.long - (${req.body.long}))) * 6371 <= ${req.body.radius}`);
+		client.query(`select name, host, description, lat, long, start_date, end_date
+									from public.events inner join public.dates on public.dates.fk_event = public.events.id
+									where acos(sin(${req.body.lat}) * sin(public.events.lat) +
+									cos(${req.body.lat}) * cos(public.events.lat) *
+									cos(public.events.long - (${req.body.long}))) * 6371 <= ${req.body.radius}`,
+									(err, result)=>{
+										console.log('RESULT: ', result);
+										console.log(err, 'check error');
+										console.log(result.rows, 'result from getEvent');
+										const events = {
+											events: result.rows
+										}
+										res.send(events).end();
+									}
+		);
+	});
 
 //join events with dates where event id = foreign key id
 //where long and lat are like
@@ -71,7 +73,7 @@ app.post('/api/createEvent', (req, res) =>{
 	// 											end: '2016-11-14T23:43:22.809Z'}
 	// 									]
 	// 								},
-	//								{same as above object} 
+	//								{same as above object}
 	// 								]
 
 	// let insertTimes = (client) =>{
@@ -139,7 +141,7 @@ app.listen(port, () =>{
 
 /*
 	function to help make seed data
-	
+
 	var latlong = function(lat, long) {
 		var latRad = lat.toRad();
 		var longRad = long.toRad();
