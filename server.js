@@ -84,6 +84,7 @@ app.post('/api/createEvent', (req, res) =>{
 	// 								(err, result) =>{
 	// 									console.log(err, 'check error')
 	// 									console.log(result, ' result from insert statement')
+	//									res.send('Success').end();
 	// 								});
 	// 	});
 	// };

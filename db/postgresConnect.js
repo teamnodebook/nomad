@@ -33,7 +33,6 @@ module.exports = pool;
 //   							"select id from public.events "+ 
 //   							"where host = 'Melba')", 
 //   							function(err, result) {
-							 
 // 							    if(err) {
 // 							      return console.error('error running query', err);
 // 							    }
@@ -54,8 +53,7 @@ module.exports = pool;
 //   							"where host = 'Melba')", 
 //   							function(err, result) {
 // 							    //call `done()` to release the client back to the pool 
-// 							    done();
-							 
+// 							    done()						 
 // 							    if(err) {
 // 							      return console.error('error running query', err);
 // 							    }
