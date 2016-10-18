@@ -97,34 +97,71 @@ angular.module('explorer', [])
       lat: MapMath.toRad(searchLoc.geometry.location.lat()),
       long: MapMath.toRad(searchLoc.geometry.location.lng())
     }
-    Events.getEvents(searchObj);
+    Events.getEvents(searchObj, (events) => {
+      Events.mapEvents(events, $scope.map, $scope.bounds);
+    });
+
   });
 })
-.factory('Events', ($http) => {
-  const getEvents = (locationObj) => {
-    console.log(locationObj);
+.factory('Events', ($http, MapMath) => {
+  const getEvents = (locationObj, cb) => {
     return $http({
       method: 'POST',
       url: '/api/getEvent',
       data: locationObj
     })
     .then((resp) => {
-      console.log(resp.data);
-      return resp.data;
+      const events = resp.data.events;
+      cb(events);
     })
     .catch((err) => {
       console.log(err);
     });
   };
+
+  const mapEvents = (events, map, bounds) => {
+    const markerArr = [];
+    events.forEach((event) => {
+      const icon = {
+        url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 25)
+      };
+      markerArr.push(
+        new google.maps.Marker({
+          map: map,
+          icon: icon,
+          title: event.name,
+          position: {lat: MapMath.toLatLong(Number(event.lat)), lng: MapMath.toLatLong(Number(event.long))}
+        })
+      );
+    });
+    markerArr.forEach((marker) => {
+      marker.setMap(map);
+      bounds.extend(marker.getPosition());
+    });
+
+    map.fitBounds(bounds);
+  };
+
   return {
-    getEvents: getEvents
+    getEvents: getEvents,
+    mapEvents: mapEvents
   };
 })
 .factory('MapMath', () => {
   const toRad = (number) => {
     return number * Math.PI / 180;
   };
+  const toLatLong = (radians) => {
+    return radians * (180 / Math.PI);
+  }
   return {
-    toRad: toRad
+    toRad: toRad,
+    toLatLong: toLatLong
   };
+
+
 })
