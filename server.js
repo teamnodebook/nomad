@@ -54,7 +54,7 @@ app.get('/api/getEvent', (req,res) =>{
 });
 
 app.post('/api/createEvent', (req, res) =>{
-	// var sampleObj = {
+	// var sampleObj = [{
 	// 									info: {
 	// 										name: 'Rap battle',
 	// 										host: 'Jemil',
@@ -70,7 +70,9 @@ app.post('/api/createEvent', (req, res) =>{
 	// 										{start: '2016-11-14T21:43:22.809Z',
 	// 											end: '2016-11-14T23:43:22.809Z'}
 	// 									]
-	// 								};
+	// 								},
+	//								{same as above object} 
+	// 								]
 
 	// let insertTimes = (client) =>{
 	// 	_.each(sampleObj.time, (time) =>{
