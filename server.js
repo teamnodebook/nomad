@@ -54,6 +54,7 @@ app.get('/api/getEvent', (req,res) =>{
 });
 
 app.post('/api/createEvent', (req, res) =>{
+	console.log(req.body);
 	// var sampleObj = {
 	// 									info: {
 	// 										name: 'Rap battle',
@@ -108,7 +109,7 @@ app.post('/api/createEvent', (req, res) =>{
 	// 								insertTimes(client);
 	// 							});
 	// });
-
+	res.send();
 });
 
 app.listen(port, () =>{
