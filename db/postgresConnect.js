@@ -1,5 +1,7 @@
 // db name = aqua
-require('dotenv').config(); //comment out before push
+if(process.env.NODE_ENV !== 'production'){
+	require('dotenv').config(); //comment out before push
+}
 
 const pg = require('pg');
 
