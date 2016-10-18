@@ -12,10 +12,8 @@ const config = {
   ssl: true 
 };
 const pool = new pg.Pool(config);
-console.log("pool: ", pool);
-module.exports = pool;
-module.exports = config;
 
+module.exports = pool;
 
 /* SAMPLE QUERY FOR DATABSE */
 
