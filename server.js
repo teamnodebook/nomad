@@ -135,3 +135,16 @@ app.listen(port, () =>{
 		]
 	}
 	*/
+
+/*
+	function to help make seed data
+	
+	var latlong = function(lat, long) {
+		var latRad = lat.toRad();
+		var longRad = long.toRad();
+		return `${latRad}, ${longRad}`;
+	}
+	Number.prototype.toRad = function() {
+		return this * Math.PI / 180;
+	}
+*/
