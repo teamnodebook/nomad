@@ -27,11 +27,6 @@ app.post('/api/getEvent', (req,res) =>{
 		  resolve(client);
 		});
 	}).then((client) => {
-		console.log(`select name, host, description, lat, long, start_date, end_date
-									from public.events inner join public.dates on public.dates.fk_event = public.events.id
-									where acos(sin(${req.body.lat}) * sin(public.events.lat) +
-									cos(${req.body.lat}) * cos(public.events.lat) *
-									cos(public.events.long - (${req.body.long}))) * 6371 <= ${req.body.radius}`);
 		client.query(`select name, host, description, lat, long, start_date, end_date
 									from public.events inner join public.dates on public.dates.fk_event = public.events.id
 									where acos(sin(${req.body.lat}) * sin(public.events.lat) +
