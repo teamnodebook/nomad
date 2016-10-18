@@ -47,7 +47,7 @@ new Promise((resolve, reject) =>{
 												(start_date, end_date, fk_event)
 												values ('${time.start}',
 												'${time.end}',
-												(select id from public.events where name='${obj.info.name}' and lat=${obj.location.lat} and long=${obj.location.long}))`,
+												(select id from public.events where name='${obj.info.name.replace(/(')/g, '\"')}}' and lat=${obj.location.lat} and long=${obj.location.long}))`,
 												(err, result) =>{
 													console.log(err, 'check error insert times')
 													console.log(result, ' result from insert statement insert times')
@@ -58,16 +58,20 @@ new Promise((resolve, reject) =>{
 				_.each(data, (obj) =>{
 				client.query(`insert into public.events
 												(name, host, description, lat, long)
-												values ('${obj.info.name}',
-												'${obj.info.host}',
-												'${obj.info.description}',
+												values ('${obj.info.name.replace(/(')/g, '\"')}}',
+												'${obj.info.host.replace(/(')/g, '\"')}}',
+												'${obj.info.description.replace(/(')/g, '\"')}}',
 												${obj.location.lat},
 												${obj.location.long})`,
 											(err, result) =>{
+												console.log(obj.info.name)
 												console.log(err, 'check error insert event')
 												console.log(result, ' result from insert statement insert event')
 												insertTimes(client, obj);
+												return;
 											});
 				});
 			});
+}).then((client) =>{
+	console.log(client, 'chained then')
 });
