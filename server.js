@@ -108,7 +108,7 @@ app.post('/api/createEvent', (req, res) =>{
 	// 								insertTimes(client);
 	// 							});
 	// });
-
+	res.send();
 });
 
 app.listen(port, () =>{
