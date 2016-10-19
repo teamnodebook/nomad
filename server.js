@@ -12,6 +12,10 @@ const pool = require('./db/postgresConnect.js');
 
 const port = process.env.PORT || 5000; // port
 
+Number.prototype.toRad = function() {
+	return this * Math.PI / 180;
+}
+
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.static(path.join(__dirname, '/client'))); // static files
@@ -49,65 +53,48 @@ app.post('/api/getEvent', (req,res) =>{
 });
 
 app.post('/api/createEvent', (req, res) =>{
-	console.log(req.body)
-	// var sampleObj = [{
-	// 									info: {
-	// 										name: 'Rap battle',
-	// 										host: 'Jemil',
-	// 										description: 'Lets battle'
-	// 									},
-	// 									location: {
-	// 										lat: 37.773972,
-	// 										long: -122.431297
-	// 									},
-	// 									time: [
-	// 										{start: '2016-10-14T21:43:22.809Z',
-	// 											end: '2016-10-14T23:43:22.809Z'},
-	// 										{start: '2016-11-14T21:43:22.809Z',
-	// 											end: '2016-11-14T23:43:22.809Z'}
-	// 									]
-	// 								},
-	//								{same as above object}
-	// 								]
 
-	// let insertTimes = (client) =>{
-	// 	_.each(sampleObj.time, (time) =>{
-	// 		client.query(`insert into public.dates
-	// 								(start_date, end_date, fk_event)
-	// 								values ('${time.start}',
-	// 								'${time.end}',
-	// 								(select id from public.events where name='${sampleObj.info.name}' and lat=${sampleObj.location.lat} and long=${sampleObj.location.long}))`,
-	// 								(err, result) =>{
-	// 									console.log(err, 'check error')
-	// 									console.log(result, ' result from insert statement')
-	//									res.send('Success').end();
-	// 								});
-	// 	});
-	// };
+	//turn lat and long into radians
+	req.body.location.lat = req.body.location.lat.toRad();
+	req.body.location.long = req.body.location.long.toRad();
 
-	// // insert into public.events (name, host, description, lat, long) values(,,,,,,);
-	// new Promise((resolve, reject) =>{
-	// 	pool.connect(function(err, client, done) {
-	// 	  if(err) {
-	// 	  	reject(err);
-	// 	  }
-	// 	  resolve(client);
-	// 	});
-	// }).then((client) =>{
-	// 	client.query(`insert into public.events
-	// 								(name, host, description, lat, long)
-	// 								values ('${sampleObj.info.name}',
-	// 								'${sampleObj.info.host}',
-	// 								'${sampleObj.info.description}',
-	// 								${sampleObj.location.lat},
-	// 								${sampleObj.location.long})`,
-	// 							(err, result) =>{
-	// 								console.log(err, 'check error')
-	// 								console.log(result, ' result from insert statement')
-	// 								insertTimes(client);
-	// 							});
-	// });
-	res.send();
+	let insertTimes = (client) =>{
+		_.each(req.body.time, (time) =>{
+			client.query(`insert into public.dates
+									(start_date, end_date, fk_event)
+									values ('${time.start}',
+									'${time.end}',
+									(select id from public.events where name='${req.body.info.name}' and lat=${req.body.location.lat} and long=${req.body.location.long}))`,
+									(err, result) =>{
+										console.log(err, 'check error')
+										console.log(result, ' result from insert statement')
+										res.send('Success').end();
+									});
+		});
+	};
+
+	// insert into public.events (name, host, description, lat, long) values(,,,,,,);
+	new Promise((resolve, reject) =>{
+		pool.connect(function(err, client, done) {
+		  if(err) {
+		  	reject(err);
+		  }
+		  resolve(client);
+		});
+	}).then((client) =>{
+		client.query(`insert into public.events
+									(name, host, description, lat, long)
+									values ('${req.body.info.name}',
+									'${req.body.info.host}',
+									'${req.body.info.description}',
+									${req.body.location.lat},
+									${req.body.location.long})`,
+								(err, result) =>{
+									console.log(err, 'check error')
+									console.log(result, ' result from insert statement')
+									insertTimes(client);
+								});
+	});
 });
 
 app.listen(port, () =>{
@@ -140,8 +127,5 @@ app.listen(port, () =>{
 		var latRad = lat.toRad();
 		var longRad = long.toRad();
 		return `${latRad}, ${longRad}`;
-	}
-	Number.prototype.toRad = function() {
-		return this * Math.PI / 180;
 	}
 */
