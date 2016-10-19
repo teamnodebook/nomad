@@ -2,12 +2,13 @@
   <h3>Create an Event</h3>
   <div></div>
     <form>
+      <div id='map'></div>
       <h5>Event Name</h5></br>
       <input type='text' ng-model='eventName'>
       <h5>Host Name</h5></br>
       <input type='text' ng-model='hostName'>
       <h5>Date</h5></br>
-      <input type="date" value="yyyy-mm-dd" class="input-medium search-query" onkeypress="return false" placeholder="date">
+      <input type="date" value="yyyy-mm-dd" class="input-medium search-query" onkeypress="return false" ng-model='date'>
       <h5>Start Time</h5></br>
       <input type='time' ng-model='startTime'>
       <h5>End Time</h5></br>
@@ -20,8 +21,4 @@
       </div>
       <input type='button' value='Submit' ng-click='sendNomadInfo()'>
     </form>
-  <div>
-    <div id='map'></div>
-  </div>
-
 </div>
