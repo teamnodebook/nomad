@@ -17,7 +17,6 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.use(express.static(path.join(__dirname, '/client'))); // static files
 
 app.post('/api/getEvent', (req,res) =>{
-	console.log(req.body);
 
 	new Promise((resolve, reject) =>{
 		pool.connect(function(err, client, done) {
@@ -33,7 +32,6 @@ app.post('/api/getEvent', (req,res) =>{
 									cos(${req.body.lat}) * cos(public.events.lat) *
 									cos(public.events.long - (${req.body.long}))) * 6371 <= ${req.body.radius}`,
 									(err, result)=>{
-										console.log('RESULT: ', result);
 										console.log(err, 'check error');
 										console.log(result.rows, 'result from getEvent');
 										const events = {
