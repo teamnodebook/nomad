@@ -1,9 +1,9 @@
-angular.module('nomad', ['ngRoute', 'explorer'])
+angular.module('nomad', ['ngRoute', 'explorer', 'nomadForm'])
 .config(function($routeProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'app/landing.html',
-      controller: 'landingCtrl'
+      // controller: 'landingCtrl'
     })
     .when('/nomad', {
       templateUrl: 'app/nomad.html',

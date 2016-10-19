@@ -1,17 +1,27 @@
-<div>
+<div ng-controller='nomadCtrl'>
   <h3>Create an Event</h3>
-
-  <form>
-    <h5>Event Name</h5></br>
-    <input type='text'>
-    <h5>Host Name</h5></br>
-    <input type='text'>
-    <h5>Start Time</h5></br>
-    <input type='text'>
-    <h5>End Time</h5></br>
-    <input type='text'>
-    <h5>Location</h5></br>
-    <input type='text'>
-  </form>
+  <div></div>
+    <form>
+      <h5>Event Name</h5></br>
+      <input type='text' ng-model='eventName'>
+      <h5>Host Name</h5></br>
+      <input type='text' ng-model='hostName'>
+      <h5>Date</h5></br>
+      <input type="date" value="yyyy-mm-dd" class="input-medium search-query" onkeypress="return false" placeholder="date">
+      <h5>Start Time</h5></br>
+      <input type='time' ng-model='startTime'>
+      <h5>End Time</h5></br>
+      <input type='time' ng-model='endTime'>
+      <h5>Description</h5></br>
+      <textarea ng-model='description'></textarea>
+      <div id='container'>
+        <input id='locSearch' class='controls' type='text' placeholder='search your location'>
+        <input id='submitSearch' class='controls' type='button' value='search' ng-click='setMapCenter()'>
+      </div>
+      <input type='button' value='Submit' ng-click='sendNomadInfo()'>
+    </form>
+  <div>
+    <div id='map'></div>
+  </div>
 
 </div>
