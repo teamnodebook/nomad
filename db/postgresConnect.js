@@ -6,10 +6,10 @@ if(process.env.NODE_ENV !== 'production'){
 const pg = require('pg');
 
 const config = {
-  user: 'pusakwcqcmnflu',
-  database: 'd8u564vucg6odv',
-  password: '8AMCLwF7uYBZ149XB2We5oT0Kg',
-  host: 'ec2-54-225-101-191.compute-1.amazonaws.com',
+  user: process.env.DB_USER,
+  database: process.env.DB_NAME,
+  password: process.env.DB_PASS,
+  host: process.env.DB_HOST,
   port: 5432,
   ssl: true
 };
