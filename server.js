@@ -49,6 +49,7 @@ app.post('/api/getEvent', (req,res) =>{
 });
 
 app.post('/api/createEvent', (req, res) =>{
+	console.log(req.body)
 	// var sampleObj = [{
 	// 									info: {
 	// 										name: 'Rap battle',
