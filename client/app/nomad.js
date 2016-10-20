@@ -1,38 +1,47 @@
 angular.module('nomadForm', [])
-.controller('nomadCtrl', ($scope) => {
+.factory('params', function() {
+  return {};
+})
+.controller('nomadCtrl', ($scope, params) => {
   var pos, lat, long, markers;
-  
-  $scope.log = () => {
-    console.log('poop');
+
+  $scope.eventName = params.eventName;
+  $scope.hostName = params.host;
+  $scope.description = params.description;
+
+  $scope.confirm = () => {
+    var startTime = $scope.startTime;
+    var endTime = $scope.endTime;
+    var startHour = Number(startTime.toISOString().slice(11, 13)) - 8;
+    var startMinutes = Number(startTime.toISOString().slice(14, 16));
+    var endHour = Number(endTime.toISOString().slice(11, 13)) - 8;
+    var endMinutes = Number(endTime.toISOString().slice(14, 16));
+    if (startHour < 0) {
+      startHour += 24;
+    }
+    if (endHour < 0) {
+      endHour += 24;
+    }
+    if (startMinutes < 10) {
+      startMinutes = '0' + String(startMinutes);
+    }
+    if (endMinutes < 10) {
+      endMinutes = '0' + String(endMinutes);
+    }
+    params.date = $scope.date.toString().slice(0, 10);
+    params.origStartTime = startTime.toISOString();
+    params.origEndTime = endTime.toISOString();
+    params.origDate = $scope.date.toISOString();
+    params.lat = lat;
+    params.long = long;
+    params.startTime = String(startHour) + ':' + startMinutes;
+    params.endTime = String(endHour) + ':' + endMinutes;
+    params.eventName = $scope.eventName;
+    params.host = $scope.hostName;
+    params.description = $scope.description;
   };
 
-  $scope.sendNomadInfo = () => {
-    var startTime = $scope.date.toISOString().split('T')[0] + 'T' + $scope.startTime.toISOString().split('T')[1];
-    var endTime = $scope.date.toISOString().split('T')[0] + 'T' + $scope.endTime.toISOString().split('T')[1];
-    fetch('/api/createEvent', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-              info: {
-                name: $scope.eventName,
-                host: $scope.hostName,
-                description: $scope.description,
-              },
-              location: {
-                lat: lat,
-                long: long
-              },
-              time: [{
-                start: startTime,
-                end: endTime
-              }]
-            })
-    });
-  };
-
-  var markers = [];
+  markers = [];
 
   var geocoder = new google.maps.Geocoder();
 
@@ -51,6 +60,12 @@ angular.module('nomadForm', [])
 
       lat = pos.lat;
       long = pos.lng;
+
+      geocoder.geocode( { 'location': {lat: lat, lng: long } }, function(results, status) {
+        if (status === 'OK') {
+          params.loc = results[0].formatted_address;
+        }
+      });
 
       nomadMap.setCenter(pos);
 
@@ -76,6 +91,7 @@ angular.module('nomadForm', [])
           nomadMap.setCenter(results[0].geometry.location);
           lat = results[0].geometry.location.lat();
           long = results[0].geometry.location.lng();
+          params.loc = address;
           markers[0].setMap(null);
           markers.shift();
           markers.push(new google.maps.Marker({

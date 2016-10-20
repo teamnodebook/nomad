@@ -43,3 +43,7 @@
 #submitSearch:focus {
   border-color: #4d90fe;
 }
+
+#confirmation {
+  visibility: hidden;
+}
