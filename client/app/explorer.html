@@ -2,6 +2,12 @@
   <h3>Explore Events</h3>
   <div id='container'>
     <input id='locSearch' class='controls' type='text' placeholder='search events in location'>
+    <select id='radiusSelect' class='controls' name='radiusSelect' ng-model='radius'>
+      <option value=''>select radius</option>
+      <option value='1'>1 mile</option>
+      <option value='2'>2 mile</option>
+      <option value='5'>5 mile</option>
+    </select>
   </div>
   <div id='map'></div>
 
