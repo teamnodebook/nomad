@@ -132,16 +132,23 @@ angular.module('explorer', [])
     const markerArr = [];
     events.forEach((event) => {
       // todo: change to better icon
-      const icon = {
-        url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(25, 25)
-      };
-      const marker = new google.maps.Marker({
+      // const icon = {
+      //   url: 'http://www.w3.org/2000/svg',
+      //   size: new google.maps.Size(71, 71),
+      //   origin: new google.maps.Point(0, 0),
+      //   anchor: new google.maps.Point(17, 34),
+      //   scaledSize: new google.maps.Size(25, 25)
+      // };
+      const marker = new Marker({
         map: map,
-        icon: icon,
+        icon: {
+      		path: SQUARE_ROUNDED,
+          size: 0,
+          fillColor: '#00CCBB',
+      		fillOpacity: 0.5,
+      		strokeColor: '',
+      		strokeWeight: 0,
+        },
         title: event.name,
         position: {lat: MapMath.toLatLong(Number(event.lat)), lng: MapMath.toLatLong(Number(event.long))}
       });
