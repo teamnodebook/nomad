@@ -103,7 +103,6 @@ angular.module('explorer', [])
 
   // radiusChange function listening on ngChange of $scope.radius
   $scope.radiusChange = () => {
-    console.log('radiusChange invoked');
     const searchObj = {
       radius: MapMath.toKilometers($scope.radius),
       lat: MapMath.toRad($scope.searchLoc.geometry.location.lat()),
@@ -132,27 +131,46 @@ angular.module('explorer', [])
   const mapEvents = (events, map, bounds) => {
     const markerArr = [];
     events.forEach((event) => {
-      const icon = {
-        url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
-        size: new google.maps.Size(71, 71),
-        origin: new google.maps.Point(0, 0),
-        anchor: new google.maps.Point(17, 34),
-        scaledSize: new google.maps.Size(25, 25)
-      };
-      markerArr.push(
-        new google.maps.Marker({
-          map: map,
-          icon: icon,
-          title: event.name,
-          position: {lat: MapMath.toLatLong(Number(event.lat)), lng: MapMath.toLatLong(Number(event.long))}
-        })
-      );
+      // todo: change to better icon
+      // const icon = {
+      //   url: 'http://www.w3.org/2000/svg',
+      //   size: new google.maps.Size(71, 71),
+      //   origin: new google.maps.Point(0, 0),
+      //   anchor: new google.maps.Point(17, 34),
+      //   scaledSize: new google.maps.Size(25, 25)
+      // };
+      const marker = new Marker({
+        map: map,
+        icon: {
+      		path: SQUARE_ROUNDED,
+          size: 0,
+          fillColor: '#00CCBB',
+      		fillOpacity: 0.5,
+      		strokeColor: '',
+      		strokeWeight: 0,
+        },
+        title: event.name,
+        position: {lat: MapMath.toLatLong(Number(event.lat)), lng: MapMath.toLatLong(Number(event.long))}
+      });
+      const eventInfo = new google.maps.InfoWindow();
+      let open = false;
+      google.maps.event.addListener(marker, 'click', function() {
+        if (!open) {
+          eventInfo.setPosition(marker.position);
+          eventInfo.setContent(event.name);
+          eventInfo.open(map, marker);
+          open = true;
+        } else {
+          eventInfo.close();
+          open = false;
+        }
+      });
+      markerArr.push(marker);
     });
     markerArr.forEach((marker) => {
       marker.setMap(map);
       bounds.extend(marker.getPosition());
     });
-
     map.fitBounds(bounds);
   };
   return {
