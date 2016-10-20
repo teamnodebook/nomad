@@ -16,8 +16,6 @@ angular.module('explorer', [])
           lng: position.coords.longitude
         };
 
-        // $scope.infoWindow.setPosition(pos);
-        // $scope.infoWindow.setContent('You here fam.');
         $scope.map.setCenter(pos);
       }, function() {
         handleLocationError(true, $scope.infoWindow, $scope.map.getCenter());
@@ -30,19 +28,23 @@ angular.module('explorer', [])
 
   const initializeSearch = () => {
     const input = document.getElementById('locSearch');
+    const radius = document.getElementById('radiusSelect');
     $scope.locSearch = new google.maps.places.SearchBox(input);
     $scope.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
+    $scope.map.controls[google.maps.ControlPosition.TOP_LEFT].push(radius);
   };
   initializeSearch();
 
-  // Listeners for bound changes and searchbox inputs
-  $scope.map.addListener('bounds_changed', () => {
-    $scope.locSearch.setBounds($scope.map.getBounds());
-  });
 
+  // set markers and infowindow before search event
   $scope.markers = [];
   let infoWindow = null;
+
+  // Listeners for bound changes and searchbox inputs
+  // todo: see if bounds_changed listener is necessary
+  // $scope.map.addListener('bounds_changed', () => {
+  //   $scope.locSearch.setBounds($scope.map.getBounds());
+  // });
   $scope.locSearch.addListener('places_changed', () => {
     // clear infowindow from previous search
     if (infoWindow) {
@@ -93,13 +95,23 @@ angular.module('explorer', [])
 
     // get events using getEvents factory
     const searchObj = {
-      radius: 3, // todo: this is currently in kilometers
+      radius: MapMath.toKilometers(.5),
       lat: MapMath.toRad(searchLoc.geometry.location.lat()),
       long: MapMath.toRad(searchLoc.geometry.location.lng())
     }
     Events.getEvents(searchObj, (events) => {
       Events.mapEvents(events, $scope.map, $scope.bounds);
     });
+
+    // change radius event listener ng-model change
+    // const searchObj = {
+    //   radius: MapMath.toKilometers($scope.radius),
+    //   lat: MapMath.toRad(searchLoc.geometry.location.lat()),
+    //   long: MapMath.toRad(searchLoc.geometry.location.lng())
+    // }
+    // Events.getEvents(searchObj, (events) => {
+    //   Events.mapEvents(events, $scope.map, $scope.bounds);
+    // });
 
   });
 })
@@ -157,10 +169,14 @@ angular.module('explorer', [])
   };
   const toLatLong = (radians) => {
     return radians * (180 / Math.PI);
-  }
+  };
+  const toKilometers = (miles) => {
+    return miles * 1.609344;
+  };
   return {
     toRad: toRad,
-    toLatLong: toLatLong
+    toLatLong: toLatLong,
+    toKilometers: toKilometers
   };
 
 
