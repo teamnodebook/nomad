@@ -1,0 +1,11 @@
+<div ng-controller='nomadConfirmCtrl'>
+    <div ng-model='location'> {{ location }} </div>
+    <div ng-model='date'> {{ date }} </div>
+    <div ng-model='startTime'> {{ startTime }} </div>
+    <div ng-model='endTime'> {{ endTime }} </div>
+    <div ng-model='eventName'> {{ eventName }} </div>
+    <div ng-model='hostName'> {{ hostName }} </div>
+    <div ng-model='description'> {{ description }} </div>
+    <a href='#/nomad'> <input type='button' value='EDIT'> </a>
+    <input type='button' value='CONFIRM' ng-click='sendNomadInfo()'>
+</div>
