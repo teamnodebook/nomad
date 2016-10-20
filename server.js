@@ -21,7 +21,6 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.use(express.static(path.join(__dirname, '/client'))); // static files
 
 app.post('/api/getEvent', (req,res) =>{
-	console.log('get Event')
 	new Promise((resolve, reject) =>{
 		pool.connect(function(err, client, done) {
 		  if(err) {
