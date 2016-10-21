@@ -41,7 +41,7 @@ app.post('/api/getEvent', (req,res) =>{
 			return final;
 		}, {});
 
-		return _.chain(newData).map((event, index) =>{
+		return _.chain(newData).map((event) =>{
 			const key = `${event.lat},${event.long},${event.name}`;
 			if(times[key].check ===false){
 				event.time = times[key].times;
