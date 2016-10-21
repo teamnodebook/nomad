@@ -84,9 +84,9 @@ const data = require('../data.json');
 
 
 //=========================== REFACTORED VERSION ====================================
-const dropTableQuery = (clientInstance) => {
-  clientInstance.query('drop table public.events, public.dates');
-};
+// const dropTableQuery = (clientInstance) => {
+//   clientInstance.query('drop table public.events, public.dates');
+// };
 
 const createTablesQuery = (clientInstance) => {
 	clientInstance.query(
