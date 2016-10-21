@@ -2,7 +2,6 @@
   <h3>Create an Event</h3>
   <div></div>
     <form>
-      <div id='map'></div>
       <h5>Event Name</h5></br>
       <input type='text' ng-model='eventName'>
       <h5>Host Name</h5></br>
@@ -17,9 +16,9 @@
       <textarea ng-model='description'></textarea>
       <div id='container'>
         <input id='locSearch' class='controls' type='text' placeholder='search your location'>
-        <input id='submitSearch' class='controls' type='button' value='search' ng-click='setMapCenter()'>
+        <input type='button' value='Use Address' ng-click='useAddress()'>
       </div>
-      <a href='#/nomadConfirmation'><input type='button' value='Submit' ng-click='confirm()'></a>
+        <input type='button' value='Submit' ng-click='checkInputs()'>
     </form>
 
     <div id='confirmation'>Confirmation</div>

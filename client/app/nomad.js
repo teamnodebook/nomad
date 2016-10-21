@@ -2,14 +2,40 @@ angular.module('nomadForm', [])
 .factory('params', function() {
   return {};
 })
-.controller('nomadCtrl', ($scope, params) => {
-  var pos, lat, long, markers;
+.controller('nomadCtrl', ($scope, $location, params) => {
+
+  var lat, lng;
 
   $scope.eventName = params.eventName;
   $scope.hostName = params.host;
   $scope.description = params.description;
 
+  var input = document.getElementById('locSearch');
+  locSearch = new google.maps.places.SearchBox(input);
+
+  geocoder = new google.maps.Geocoder();
+
+  $scope.useAddress = () => {
+    var address = document.getElementById('locSearch').value;
+    geocoder.geocode( { address: address }, (results, status) => {
+      if (status === 'OK') {
+        lat = results[0].geometry.location.lat();
+        lng = results[0].geometry.location.lng();
+      }
+    });
+  }
+
+  $scope.checkInputs = () => {
+    if (lat && lng && $scope.eventName && $scope.hostName && $scope.startTime && $scope.endTime && $scope.description) {
+      $scope.confirm();
+      $location.path('/nomadConfirmation');
+    } else {
+      console.log('not cool');
+    }
+  }
+
   $scope.confirm = () => {
+    // time
     var startTime = $scope.startTime;
     var endTime = $scope.endTime;
     var startHour = Number(startTime.toISOString().slice(11, 13)) - 8;
@@ -28,12 +54,17 @@ angular.module('nomadForm', [])
     if (endMinutes < 10) {
       endMinutes = '0' + String(endMinutes);
     }
+
+    // date
     params.date = $scope.date.toString().slice(0, 10);
     params.origStartTime = startTime.toISOString();
     params.origEndTime = endTime.toISOString();
     params.origDate = $scope.date.toISOString();
+
+    // location
     params.lat = lat;
-    params.long = long;
+    params.long = lng;
+
     params.startTime = String(startHour) + ':' + startMinutes;
     params.endTime = String(endHour) + ':' + endMinutes;
     params.eventName = $scope.eventName;
@@ -41,66 +72,5 @@ angular.module('nomadForm', [])
     params.description = $scope.description;
   };
 
-  markers = [];
 
-  var geocoder = new google.maps.Geocoder();
-
-  var nomadMap = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 38, lng: -122},
-          scrollwheel: false,
-          zoom: 4
-        });
-
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-
-      lat = pos.lat;
-      long = pos.lng;
-
-      geocoder.geocode( { 'location': {lat: lat, lng: long } }, function(results, status) {
-        if (status === 'OK') {
-          params.loc = results[0].formatted_address;
-        }
-      });
-
-      nomadMap.setCenter(pos);
-
-      nomadMap.setZoom(15);
-
-      markers.push(new google.maps.Marker({
-                    position: pos,
-                    map: nomadMap
-                  }));
-    });
-  }
-
-  var input = document.getElementById('locSearch');
-  var submit = document.getElementById('submitSearch');
-  locSearch = new google.maps.places.SearchBox(input);
-  nomadMap.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-  nomadMap.controls[google.maps.ControlPosition.TOP_LEFT].push(submit);
-
-  $scope.setMapCenter = () => {
-    var address = document.getElementById('locSearch').value;
-    geocoder.geocode( {'address': address}, function(results, status) {
-        if (status === 'OK') {
-          nomadMap.setCenter(results[0].geometry.location);
-          lat = results[0].geometry.location.lat();
-          long = results[0].geometry.location.lng();
-          params.loc = address;
-          markers[0].setMap(null);
-          markers.shift();
-          markers.push(new google.maps.Marker({
-                        position: results[0].geometry.location,
-                        map: nomadMap
-                      }));
-        } else {
-          alert('geocode not successful ' + status);
-        }
-      });
-  };
 });
