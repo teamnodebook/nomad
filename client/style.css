@@ -3,23 +3,23 @@
 /*---------------------------------------------------------*/
 @font-face {
   font-family: 'ProximaNova-Reg';
-  src: url('/fonts/ProximaNova-Reg.otf');      
+  src: url('/fonts/ProximaNova-Reg.otf');
 }
 @font-face {
   font-family: 'ProximaNova-Black';
-  src: url('/fonts/ProximaNova-Black.otf');      
+  src: url('/fonts/ProximaNova-Black.otf');
 }
 @font-face {
   font-family: 'ProximaNova-Bold';
-  src: url('/fonts/ProximaNova-Bold.otf');      
+  src: url('/fonts/ProximaNova-Bold.otf');
 }
 @font-face {
   font-family: 'ProximaNova-Thin';
-  src: url('/fonts/ProximaNova-Thin.otf');      
+  src: url('/fonts/ProximaNova-Thin.otf');
 }
 @font-face {
   font-family: 'ProximaNova-Light';
-  src: url('/fonts/ProximaNova-Light.otf');      
+  src: url('/fonts/ProximaNova-Light.otf');
 }
 /*---------------------------------------------------------*/
 /*--------------------- APP-WIDE CSS ----------------------*/
@@ -51,8 +51,8 @@ a.nav-link:hover, a.nav-link:active {
   background: url(./assets/landing-bg.jpg) no-repeat;
   background-size: cover;
   height: 100%;
-  background-position: center; 
-  text-align: center;  
+  background-position: center;
+  text-align: center;
 }
 
 .landing-links{
@@ -62,8 +62,8 @@ a.nav-link:hover, a.nav-link:active {
 a.landing-pg-links:link, a.landing-pg-links:hover, a.landing-pg-links:active {
   text-decoration: none;
   color: #fff;
-  font-size: 16px; 
-  font-family:'ProximaNova-Reg';  
+  font-size: 16px;
+  font-family:'ProximaNova-Reg';
 }
 
 .landing-pg-links-main {
@@ -75,19 +75,19 @@ a.landing-pg-links:link, a.landing-pg-links:hover, a.landing-pg-links:active {
 
 .landing-sub-img-1 {
   background: url(./assets/pic1.jpg) no-repeat;
-  background-size: cover;  
+  background-size: cover;
   overflow: hidden;
   height: 175px;
-  background-position: center; 
-  text-align: center;  
+  background-position: center;
+  text-align: center;
 }
 
 .landing-sub-img-2 {
   background: url(./assets/pic2.jpg) no-repeat;
-  background-size: cover;  
+  background-size: cover;
   overflow: hidden;
-  height: 175px;  
-  background-position: center; 
+  height: 175px;
+  background-position: center;
   text-align: center;
 }
 
@@ -104,7 +104,7 @@ a.landing-pg-links:link, a.landing-pg-links:hover, a.landing-pg-links:active {
 /*-------------- Alex/Jemil original css ------------------*/
 /*---------------------------------------------------------*/
 #map {
-  height: 600px;
+  height: 200px;
   margin: 0;
   padding: 10px;
 }

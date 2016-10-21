@@ -5,7 +5,8 @@ angular.module('explorer', [])
     const mapOptions = {
       zoom: 14,
       center: new google.maps.LatLng(37.787661, -122.399811),
-      mapTypeId: 'roadmap'
+      mapTypeId: 'roadmap',
+      scrollwheel: false
     }
 
     $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
@@ -40,11 +41,14 @@ angular.module('explorer', [])
   // set markers and infowindow before search event
   $scope.searchLocMarker = [];
   $scope.eventMarkers = [];
+  $scope.eventList = [];
   let infoWindow = null;
   let eventInfo = null;
 
   // Listeners for searchbox inputs, and radius selects
   $scope.locSearch.addListener('places_changed', () => {
+    // todo: clear event list when new place is searched
+    $scope.eventList = [];
     // clear infowindow from previous search
     if (infoWindow) {
       infoWindow.close();
@@ -118,8 +122,10 @@ angular.module('explorer', [])
       lat: MapMath.toRad($scope.searchLoc.geometry.location.lat()),
       long: MapMath.toRad($scope.searchLoc.geometry.location.lng())
     }
+    $scope.eventList = [];
     Events.getEvents(searchObj, (events) => {
       Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers);
+      Events.listEvents(events, $scope.eventList);
     });
   };
 })
@@ -176,9 +182,16 @@ angular.module('explorer', [])
     });
     map.fitBounds(bounds);
   };
+  const listEvents = (events, list) => {
+    events.forEach((event) => {
+      list.push(event);
+    });
+    console.log('events: ', events);
+  }
   return {
     getEvents: getEvents,
-    mapEvents: mapEvents
+    mapEvents: mapEvents,
+    listEvents: listEvents
   };
 })
 .factory('MapMath', () => {
