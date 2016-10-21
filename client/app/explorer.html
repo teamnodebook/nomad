@@ -1,15 +1,15 @@
 <div ng-controller='mapCtrl'>
   <h3>Explore Events</h3>
-  <div id='container'>
-    <input id='locSearch' class='controls' type='text' placeholder='search events in location'>
-    <select id='radiusSelect' class='controls' name='radiusSelect' ng-model='radius' ng-change='radiusChange()'>
-      <option value=''>select radius</option>
-      <option value='1'>1 mile</option>
-      <option value='2'>2 mile</option>
-      <option value='5'>5 mile</option>
-    </select>
+  <input id='locSearch' class='controls' type='text' placeholder='search events in location'>
+  <select id='radiusSelect' class='controls' name='radiusSelect' ng-model='radius' ng-change='radiusChange()'>
+    <option value=''>select radius</option>
+    <option value='1'>1 mile</option>
+    <option value='2'>2 mile</option>
+    <option value='5'>5 mile</option>
+  </select>
+  <div class='row'>
+    <div class='col-md-12' id='map' ></div>
   </div>
-  <div id='map'></div>
   <div>
     <div ng-repeat='event in eventList'>{{event.name}}</div>
   </div>

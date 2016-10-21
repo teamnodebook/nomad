@@ -6,7 +6,15 @@ angular.module('explorer', [])
       zoom: 14,
       center: new google.maps.LatLng(37.787661, -122.399811),
       mapTypeId: 'roadmap',
-      scrollwheel: false
+      mapTypeControl:false,
+      scrollwheel: false,
+      streetViewControl: false,
+      panControl: false,
+      rotateControl: false,
+      zoomControl: true,
+      zoomControlOptions: {
+        position: google.maps.ControlPosition.LEFT_CENTER
+      },
     }
 
     $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
