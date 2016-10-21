@@ -4,7 +4,7 @@ angular.module('nomadForm', [])
 })
 .controller('nomadCtrl', ($scope, $location, params) => {
 
-  var lat, lng;
+  var address, lat, lng;
 
   $scope.eventName = params.eventName;
   $scope.hostName = params.host;
@@ -16,7 +16,7 @@ angular.module('nomadForm', [])
   geocoder = new google.maps.Geocoder();
 
   $scope.useAddress = () => {
-    var address = document.getElementById('locSearch').value;
+    address = document.getElementById('locSearch').value;
     geocoder.geocode( { address: address }, (results, status) => {
       if (status === 'OK') {
         lat = results[0].geometry.location.lat();
@@ -30,7 +30,7 @@ angular.module('nomadForm', [])
       $scope.confirm();
       $location.path('/nomadConfirmation');
     } else {
-      console.log('not cool');
+      alert('Some fields are missing');
     }
   }
 
@@ -62,6 +62,7 @@ angular.module('nomadForm', [])
     params.origDate = $scope.date.toISOString();
 
     // location
+    params.address = address;
     params.lat = lat;
     params.long = lng;
 
