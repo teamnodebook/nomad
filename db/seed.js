@@ -84,9 +84,9 @@ const data = require('../data.json');
 
 
 //=========================== REFACTORED VERSION ====================================
-const dropTableQuery = (clientInstance) => {
-  clientInstance.query('drop table public.events, public.dates');
-};
+// const dropTableQuery = (clientInstance) => {
+//   clientInstance.query('drop table public.events, public.dates');
+// };
 
 const createTablesQuery = (clientInstance) => {
 	clientInstance.query(
@@ -124,7 +124,7 @@ const seedTablesQuery = (clientInstance) => {
 		clientInstance.query(`insert into public.events
 										(name, host, description, lat, long)
 										values ('${obj.info.name.replace(/(')/g, '\"')}',
-										'${obj.info.host.replace(/(')/g, '\"')}}',
+										'${obj.info.host.replace(/(')/g, '\"')}',
 										'${obj.info.description.replace(/(')/g, '\"')}',
 										${obj.location.lat},
 										${obj.location.long})`).then(insertTimes(clientInstance, obj))
