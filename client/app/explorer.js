@@ -38,8 +38,10 @@ angular.module('explorer', [])
   initializeSearch();
 
   // set markers and infowindow before search event
-  $scope.markers = [];
+  $scope.searchLocMarker = [];
+  $scope.eventMarkers = [];
   let infoWindow = null;
+  let eventInfo = null;
 
   // Listeners for searchbox inputs, and radius selects
   $scope.locSearch.addListener('places_changed', () => {
@@ -54,10 +56,10 @@ angular.module('explorer', [])
     }
     $scope.searchLoc = places[0];
     // clear markers from previous search
-    $scope.markers.forEach((marker) => {
+    $scope.searchLocMarker.forEach((marker) => {
       marker.setMap(null);
     });
-    $scope.markers = [];
+    $scope.searchLocMarker = [];
     // set new bounds
     $scope.bounds = new google.maps.LatLngBounds();
     // create marker, infowindow, and fit bounds to location
@@ -74,7 +76,7 @@ angular.module('explorer', [])
       scaledSize: new google.maps.Size(25, 25)
     };
     // create a marker for location
-    $scope.markers.push(new google.maps.Marker({
+    $scope.searchLocMarker.push(new google.maps.Marker({
       map: $scope.map,
       icon: icon,
       title: $scope.searchLoc.name,
@@ -96,20 +98,28 @@ angular.module('explorer', [])
       lat: MapMath.toRad($scope.searchLoc.geometry.location.lat()),
       long: MapMath.toRad($scope.searchLoc.geometry.location.lng())
     }
-    Events.getEvents(searchObj, (events) => {
-      Events.mapEvents(events, $scope.map, $scope.bounds);
-    });
+    // Events.getEvents(searchObj, (events) => {
+    //   Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers);
+    // });
   });
 
   // radiusChange function listening on ngChange of $scope.radius
   $scope.radiusChange = () => {
+    if ($scope.radius === '') {
+      return console.log('Choose a proper radius.');
+    }
+    $scope.eventMarkers.forEach((marker) => {
+      marker.setMap(null);
+    });
+    $scope.eventMarkers = [];
+    $scope.bounds = new google.maps.LatLngBounds();
     const searchObj = {
       radius: MapMath.toKilometers($scope.radius),
       lat: MapMath.toRad($scope.searchLoc.geometry.location.lat()),
       long: MapMath.toRad($scope.searchLoc.geometry.location.lng())
     }
     Events.getEvents(searchObj, (events) => {
-      Events.mapEvents(events, $scope.map, $scope.bounds);
+      Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers);
     });
   };
 })
@@ -128,8 +138,7 @@ angular.module('explorer', [])
       console.log(err);
     });
   };
-  const mapEvents = (events, map, bounds) => {
-    const markerArr = [];
+  const mapEvents = (events, map, bounds, markers) => {
     events.forEach((event) => {
       // todo: change to better icon
       const icon = {
@@ -145,6 +154,7 @@ angular.module('explorer', [])
         title: event.name,
         position: {lat: MapMath.toLatLong(Number(event.lat)), lng: MapMath.toLatLong(Number(event.long))}
       });
+
       const eventInfo = new google.maps.InfoWindow();
       let open = false;
       google.maps.event.addListener(marker, 'click', function() {
@@ -158,9 +168,9 @@ angular.module('explorer', [])
           open = false;
         }
       });
-      markerArr.push(marker);
+      markers.push(marker);
     });
-    markerArr.forEach((marker) => {
+    markers.forEach((marker) => {
       marker.setMap(map);
       bounds.extend(marker.getPosition());
     });
@@ -186,4 +196,7 @@ angular.module('explorer', [])
     toLatLong: toLatLong,
     toKilometers: toKilometers
   };
+})
+.factory('', () => {
+
 })
