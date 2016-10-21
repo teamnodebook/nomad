@@ -1,0 +1,9 @@
+#listElement {
+  margin-bottom: 20px;
+}
+
+#eventDescription {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;
+}
