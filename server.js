@@ -27,12 +27,11 @@ app.post('/api/getEvent', (req,res) =>{
  		let newData = data;
  		
  		let times = _.reduce(data, (final, event) =>{
+ 			const key = `${event.lat},${event.long},${event.name}` 			
  			final = final || {};
- 			const key = `${event.lat},${event.long},${event.name}`
  			
  			if(final[key] === undefined){
- 				final[key] = {};
- 				final[key].check = false;
+ 				final[key] = {check: false};
  				final[key].times = [{start: event.start_date, end: event.end_date}];
  			}else{
  				final[key].times.push({start: event.start_date, end: event.end_date})
@@ -44,7 +43,7 @@ app.post('/api/getEvent', (req,res) =>{
  		return _.chain(newData).map((event) =>{
  			const key = `${event.lat},${event.long},${event.name}`;
  			
- 			if(times[key].check === false) {
+ 			if(times[key].check === false){
  				event.time = times[key].times;
  				times[key].check = true;
  				delete event.start_date;
@@ -75,8 +74,7 @@ app.post('/api/getEvent', (req,res) =>{
 										console.log(result.rows, 'result from getEvent');
 										const events = {
 											events: structure(result.rows)
-										}
-										console.log(events.events)
+										};
 										res.send(events).end();
 									}
 		);
