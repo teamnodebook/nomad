@@ -1,25 +1,29 @@
 <div ng-controller='nomadCtrl'>
-  <h3>Create an Event</h3>
+  <div>
+    <div class='create-event'>Create an Event</div>
+  </div>
   <div></div>
     <form>
-      <div id='map'></div>
       <h5>Event Name</h5></br>
       <input type='text' ng-model='eventName'>
       <h5>Host Name</h5></br>
       <input type='text' ng-model='hostName'>
-      <h5>Date</h5></br>
-      <input type="date" value="yyyy-mm-dd" class="input-medium search-query" onkeypress="return false" ng-model='date'>
-      <h5>Start Time</h5></br>
-      <input type='time' ng-model='startTime'>
-      <h5>End Time</h5></br>
-      <input type='time' ng-model='endTime'>
       <h5>Description</h5></br>
       <textarea ng-model='description'></textarea>
       <div id='container'>
         <input id='locSearch' class='controls' type='text' placeholder='search your location'>
-        <input id='submitSearch' class='controls' type='button' value='search' ng-click='setMapCenter()'>
+        <input type='button' value='Use Address' ng-click='useAddress()'>
       </div>
-      <a href='#/nomadConfirmation'><input type='button' value='Submit' ng-click='confirm()'></a>
+      <div>
+        <h5>Date</h5></br>
+        <input type="date" value="yyyy-mm-dd" class="input-medium search-query" onkeypress="return false" ng-model='date'>
+        <h5>Start Time</h5></br>
+        <input type='time' ng-model='startTime'>
+        <h5>End Time</h5></br>
+        <input type='time' ng-model='endTime'>
+      </div>
+      <!-- <input type='button' value='addTimes' ng-click='addTimes()'> -->
+      <input type='button' value='Submit' ng-click='checkInputs()'>
     </form>
 
     <div id='confirmation'>Confirmation</div>
