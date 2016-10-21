@@ -24,34 +24,38 @@ app.post('/api/getEvent', (req,res) =>{
 
 	//data is an array
 	let structure = (data) =>{
-		let newData = data;
+ 		let newData = data;
+ 		
+ 		let times = _.reduce(data, (final, event) =>{
+ 			final = final || {};
+ 			const key = `${event.lat},${event.long},${event.name}`
+ 			
+ 			if(final[key] === undefined){
+ 				final[key] = {};
+ 				final[key].check = false;
+ 				final[key].times = [{start: event.start_date, end: event.end_date}];
+ 			}else{
+ 				final[key].times.push({start: event.start_date, end: event.end_date})
+ 			}
+ 
+ 			return final;
+ 		}, {});
+ 
+ 		return _.chain(newData).map((event) =>{
+ 			const key = `${event.lat},${event.long},${event.name}`;
+ 			
+ 			if(times[key].check === false) {
+ 				event.time = times[key].times;
+ 				times[key].check = true;
+ 				delete event.start_date;
+ 				delete event.end_date;
+ 			}
 
-		let times = _.reduce(data, (final, event) =>{
-			final = final || {};
-			const key = `${event.lat},${event.long},${event.name}`
-			
-			if(final[key] === undefined){
-				final[key] = {};
-				final[key].check = false;
-				final[key].times = [{start: event.start_date, end: event.end_date}];
-			}else{
-				final[key].times.push({start: event.start_date, end: event.end_date})
-			}
-
-			return final;
-		}, {});
-
-		return _.chain(newData).map((event) =>{
-			const key = `${event.lat},${event.long},${event.name}`;
-			if(times[key].check ===false){
-				event.time = times[key].times;
-				times[key].check = true;
-			}
-			return event; 
-		}).filter((event) =>{
-			return event.time !== undefined || null;
-		});
-	};
+ 			return event; 
+ 		}).filter((event) =>{
+ 			return event.time !== undefined || null;
+ 		});
+ 	};
 
 	new Promise((resolve, reject) =>{
 		pool.connect(function(err, client, done) {
@@ -72,6 +76,7 @@ app.post('/api/getEvent', (req,res) =>{
 										const events = {
 											events: structure(result.rows)
 										}
+										console.log(events.events)
 										res.send(events).end();
 									}
 		);
