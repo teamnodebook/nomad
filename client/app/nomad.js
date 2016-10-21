@@ -15,6 +15,17 @@ angular.module('nomadForm', [])
 
   geocoder = new google.maps.Geocoder();
 
+  $scope.times = ['start'];
+
+  // $scope.addTimes = () => {
+  //   $scope.times.push({
+  //     startTime: $scope.startTime,
+  //     endTime: $scope.endTime
+  //   });
+  //   console.log($scope.startTime);
+  //   console.log($scope.times);
+  // }
+
   $scope.useAddress = () => {
     address = document.getElementById('locSearch').value;
     geocoder.geocode( { address: address }, (results, status) => {
@@ -26,6 +37,7 @@ angular.module('nomadForm', [])
   }
 
   $scope.checkInputs = () => {
+    console.log($scope.startTime);
     if (lat && lng && $scope.eventName && $scope.hostName && $scope.startTime && $scope.endTime && $scope.description) {
       $scope.confirm();
       $location.path('/nomadConfirmation');
