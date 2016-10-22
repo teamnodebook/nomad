@@ -1,34 +1,45 @@
 <div ng-controller='nomadCtrl'>
-  <div class='container rectangle-3'>
-    <div class='row'>
-      <div class='create-event'><p>Create an Event</p></div>
+  <div class='container container-fluid'>
+    <div class='row col-md-offset-3'>
+      <div class='create-event'><h3>Create Event</h3></div>
     </div>
-    <div></div>
+    <div>
       <form>
-        <h5>Event Name</h5></br>
-        <input class='rectangle-2' type='text' ng-model='eventName'>
-        <h5>Host Name</h5></br>
-        <input class='rectangle-2' type='text' ng-model='hostName'>
-        <h5>Description</h5></br>
-        <input class='rectangle-2' type='text' ng-model='description'></input>
-        <h5>Location</h5></br>
-        <div id='container'>
-          <input id='locSearch' class='controls' type='text' placeholder='search your location'>
-          <input type='button' value='Use Address' ng-click='useAddress()'>
+        <div class='col-md-6 col-md-offset-3'>
+          <h5>Event Name</h5></br>
+          <input class='rectangle-2' type='text' ng-model='eventName'>
         </div>
-        <div>
-          <h5>Date</h5></br>
-          <input type="date" value="yyyy-mm-dd" class="input-medium search-query" onkeypress="return false" ng-model='date'>
-          <div class='row'>
-            <h5>Start Time</h5></br>
-            <input type='time' ng-model='startTime'>
-            <h5>End Time</h5></br>
-            <input type='time' ng-model='endTime'>
-          </div>
+        <div class='col-md-6 col-md-offset-3'>
+          <h5>Host Name</h5></br>
+          <input class='rectangle-2' type='text' ng-model='hostName'>
+        </div>
+        <div class='col-md-6 col-md-offset-3'>
+          <h5>Event Description</h5></br>
+          <textarea class='rectangle-4' ng-model='description' style='resize:none'></textarea>
+        </div>
+        <div class='col-md-6 col-md-offset-3'>
+          <h5>Location</h5></br>
+          <input id='locSearch' class='controls rectangle-2' type='text' placeholder='search your location'>
+          <!-- <input type='button' value='Use Address' ng-click='useAddress()'> -->
+          <button type="button" class="btn btn-default location-submit-button" ng-click='useAddress()'>Use Address</button>
+        </div>
+        <div class='col-md-6 col-md-offset-3'>
+          <h5>Event Date</h5></br>
+          <input type="date" value="yyyy-mm-dd" class="input-medium search-query rectangle-2" onkeypress="return false" ng-model='date'>
+        </div>
+        <div class='col-md-6 col-md-offset-3'></br>
+          <h5 class='time'>Start Time</h5>
+          <h5 class='time col-md-offset-5'>End Time</h5>
+        </div>
+        <div class='col-md-6 col-md-offset-3'></br>
+          <input class='time rectangle-3' type='time' ng-model='startTime'>
+          <input class='time rectangle-3 col-md-offset-3' type='time' ng-model='endTime'>
         </div>
         <!-- <input type='button' value='addTimes' ng-click='addTimes()'> -->
-        <input type='button' value='Submit' ng-click='checkInputs()'>
+        <div class='col-md-6 col-md-offset-5'></br>
+          <!-- <input type='button' value='Submit' ng-click='checkInputs()'> -->
+          <button type="button" class="btn btn-default location-submit-button" ng-click='checkInputs()'>Submit Event</button>
+        </div>
       </form>
-      <div id='confirmation'>Confirmation</div>
     </div>
 </div>
