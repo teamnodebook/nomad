@@ -6,7 +6,7 @@ angular.module('nomadConfirm', ['nomadForm'])
   $scope.startTime = params.startTime;
   $scope.endTime = params.endTime;
   $scope.eventName = params.eventName;
-  $scope.hostName = params.hostName;
+  $scope.hostName = params.host;
   $scope.description = params.description;
 
   var confirmMap = new google.maps.Map(document.getElementById('map'), {
