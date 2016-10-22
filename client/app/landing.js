@@ -5,37 +5,47 @@ angular.module('landingPage', [])
 	$scope.locSearch = new google.maps.places.SearchBox(input);  
 	
 	$scope.setMapCenter = () => {  			 		
-		if(input.value){
-			$location.url("nomad");
-		}			  
-
+		// if(input.value){
+		// 	$location.url("nomad");
+		// }			  
 
 		var place = $scope.locSearch.getPlaces()	  
+		var lat = place[0].geometry.location.lat();
+		var long  = place[0].geometry.location.lng();
 	  console.log("lat: ", place[0].geometry.location.lat())
 	  console.log("long: ", place[0].geometry.location.lng())
+	  
+	  const toRad = (number) => {
+	    return number * Math.PI / 180;
+	  };
+	  
+	  const searchObj = {
+	  	radius: '1',
+	  	lat: lat,
+	  	long: long
+	  }
+	  
+	  const getEvents = (locationObj, cb) => {
+	    return $http({
+	      method: 'POST',
+	      url: '/api/getEvent',
+	      data: locationObj
+	    })
+	    .then((resp) => {
+	      const events = resp.data.events;
+	      // cb(events);
+	      console.log("events", events);
+	      $location.url("nomad");
+	    })
+	    .catch((err) => {
+	      console.log(err);
+	    });
+	  };
+  
 	  //need to look up what geocoder does - is it getting lat/long
 	  //need to look at alex's code to also get radius
 	  // make request 
 
-	  // var geocoder = new google.maps.Geocoder();  
-	  // geocoder.geocode( {'address': input}, function(results, status) {
-	  //   if (status === 'OK') {        
-	  //     lat = results[0].geometry.location.lat();
-	  //     long = results[0].geometry.location.lng();
-	  //     params.loc = input;
-	  //     markers[0].setMap(null);
-	  //     markers.shift();
-	  //     markers.push(new google.maps.Marker({
-	  //                   position: results[0].geometry.location,
-	  //                   map: nomadMap
-	  //                 }));
-	  //   } else {
-	  //     alert('geocode not successful ' + status);
-	  //   }
-	  // });
-
-// =
-	
-// look at geocoder ; add default radius in alex / jemils code
-
-}});
+	  // look at geocoder ; add default radius in alex / jemils code
+	}
+});
