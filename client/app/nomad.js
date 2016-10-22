@@ -85,35 +85,4 @@ angular.module('nomadForm', [])
     params.host = $scope.hostName;
     params.description = $scope.description;
   };
-
-      markers.push(new google.maps.Marker({
-                    position: pos,
-                    map: nomadMap
-                  }));
-    });
-
-  var input = document.getElementById('locSearch');
-  var submit = document.getElementById('submitSearch');
-  locSearch = new google.maps.places.SearchBox(input);
-  nomadMap.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-  nomadMap.controls[google.maps.ControlPosition.TOP_LEFT].push(submit);
-
-  $scope.setMapCenter = () => {
-    var address = document.getElementById('locSearch').value;
-    geocoder.geocode( {'address': address}, function(results, status) {
-        if (status === 'OK') {
-          nomadMap.setCenter(results[0].geometry.location);
-          lat = results[0].geometry.location.lat();
-          long = results[0].geometry.location.lng();
-          params.loc = address;
-          markers[0].setMap(null);
-          markers.shift();
-          markers.push(new google.maps.Marker({
-                        position: results[0].geometry.location,
-                        map: nomadMap
-                      }));
-        } else {
-          alert('geocode not successful ' + status);
-        }
-    });
-  };
+});
