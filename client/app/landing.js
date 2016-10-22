@@ -34,8 +34,8 @@ angular.module('landingPage', [])
 	  //   }
 	  // });
 
-=
-	}
+// =
+	
 // look at geocoder ; add default radius in alex / jemils code
 
-});
+}});

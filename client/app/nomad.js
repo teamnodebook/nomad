@@ -91,7 +91,6 @@ angular.module('nomadForm', [])
                     map: nomadMap
                   }));
     });
-  }
 
   var input = document.getElementById('locSearch');
   var submit = document.getElementById('submitSearch');
@@ -118,4 +117,3 @@ angular.module('nomadForm', [])
         }
     });
   };
-});
