@@ -101,6 +101,6 @@ angular.module('nomadForm', [])
         } else {
           alert('geocode not successful ' + status);
         }
-      });
+    });
   };
 });
