@@ -91,7 +91,7 @@ a.landing-pg-links:link, a.landing-pg-links:hover, a.landing-pg-links:active {
   text-align: center;
 }
 
-.location-submit-button {
+#location-submit-button {
   background-color: #4AC1C0;
   border: 1.75px #4AC1C0 solid;
   border-radius: 0px;
