@@ -9,6 +9,7 @@ angular.module('landingPage', [])
 			$location.url("nomad");
 		}			  
 
+
 		var place = $scope.locSearch.getPlaces()	  
 	  console.log("lat: ", place[0].geometry.location.lat())
 	  console.log("long: ", place[0].geometry.location.lng())
@@ -33,6 +34,7 @@ angular.module('landingPage', [])
 	  //   }
 	  // });
 
+=
 	}
 // look at geocoder ; add default radius in alex / jemils code
 
