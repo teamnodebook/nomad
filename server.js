@@ -6,6 +6,7 @@ const multer = require('multer');
 const upload = multer();
 const path = require('path');
 const _ = require('underscore');
+const dateFormat = require('dateformat');
 const app = express();
 
 const pool = require('./db/postgresConnect.js');
@@ -23,20 +24,30 @@ app.use(express.static(path.join(__dirname, '/client'))); // static files
 app.post('/api/getEvent', (req,res) =>{
 
 	//data is an array
-	let structure = (data) =>{
+	const structure = (data) =>{
  		let newData = data;
  		
  		let times = _.reduce(data, (final, event) =>{
  			const key = `${event.lat},${event.long},${event.name}` 			
  			final = final || {};
+
+ 			//format times to human readable
+ 			const newStart = dateFormat(new Date(event.start_date), "ddd, mmm dS, yy, h:MM TT")
+ 			const newEnd = dateFormat(new Date(event.end_date), "ddd, mmm dS, yy, h:MM TT")
+
+ 			const timeObj = {
+				start: newStart, 
+				end: newEnd
+			};
  			
  			if(final[key] === undefined){
  				final[key] = {check: false};
- 				final[key].times = [{start: event.start_date, end: event.end_date}];
+ 				// console.log(new Date(event.start_date), new Date(event.end_date));
+ 				final[key].times = [timeObj];
  			}else{
- 				final[key].times.push({start: event.start_date, end: event.end_date})
+ 				final[key].times.push(timeObj);
  			}
- 
+
  			return final;
  		}, {});
  
@@ -72,10 +83,11 @@ app.post('/api/getEvent', (req,res) =>{
 									to_timestamp(public.dates.start_date, 'YYYY-MM-DD') >= now();`,
 									(err, result)=>{
 										console.log(err, 'check error');
-										console.log(result.rows, 'result from getEvent');
+										// console.log(result.rows, 'result from getEvent');
 										const events = {
 											events: structure(result.rows)
 										};
+										console.log(JSON.stringify(events.events, null, 3));
 										res.send(events).end();
 									}
 		);

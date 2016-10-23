@@ -213,52 +213,8 @@ angular.module('explorer', ['landingPage'])
     map.fitBounds(bounds);
   };
 
-  //maybe a factory
-  const months = {
-    1:'Jan',
-    2:'Feb',
-    3:'Mar',
-    4:'Apr',
-    5:'May',
-    6:'Jun',
-    7:'Jul',
-    8:'Aug',
-    9:'Sep',
-    10:'Oct',
-    11:'Nov',
-    12:'Dec'
-  };
-
-  //maybe in the factory
-  const makeDate = (date) =>{
-    let day = date.getDate();
-    let year = date.getFullYear();
-    let month = date.getMonth()+1;
-
-    return `${months[month]}/${day}/${year}`;
-  }
-
   const listEvents = (events, list) => {
     events.forEach((event) => {
-     
-      event.time.forEach((time) => {
-        let newStart = Date.parse(time.start);
-        let newEnd = Date.parse(time.end);
-
-        const startDate = makeDate(new Date(newStart));
-        const endDate = makeDate(new Date(newEnd));
-      
-        if(startDate < event.start || event.start === undefined){
-          event.start = startDate;
-        }
-
-        if(endDate > event.end || event.end === undefined){
-          event.end = endDate;
-        }
-      });
-
-      console.log(event)
-
       list.push(event);
     });
 
