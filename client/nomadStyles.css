@@ -3,6 +3,7 @@ h5 {
 }
 .time {
     display: inline;
+    margin-left: 4%;
 }
 
 .create-event {
@@ -13,7 +14,7 @@ h5 {
 }
 
 
-.rectangle-2 {
+/*.rectangle-2 {
     width: 30em;
     height: 2em;
     border-radius: .5em;
@@ -35,4 +36,22 @@ h5 {
     border-radius: .5em;
     background-color: #ffffff;
     border: solid 0.05em #979797;
+}
+*/
+
+.message {
+    margin-top: 2%;
+}
+
+form, .title {
+    padding-left: 17%;
+}
+
+@media (max-width: 900px) {
+    form, .title, .time {
+        padding-left: 0%;
+    }
+    input, textarea {
+        width: 100%;
+    }
 }

@@ -26,6 +26,28 @@ angular.module('nomadForm', [])
   //   console.log($scope.times);
   // }
 
+  /////////////////////////////////////
+  $scope.addressMsg = {
+    class: 'alert alert-warning',
+    msg: 'Select a new address.'
+  }
+
+  $scope.addedAddress = (check) =>{
+    if(check){
+      $scope.addressMsg = {
+        class: 'alert alert-success',
+        msg: 'The address was added.'
+      }
+    }else{
+      $scope.addressMsg = {
+        class: 'alert alert-warning',
+        msg: 'Select a new address.'
+      }
+    }
+    $scope.$apply();
+  }
+  /////////////////////////////////////
+
   $scope.useAddress = () => {
     address = document.getElementById('locSearch').value;
     geocoder.geocode( { address: address }, (results, status) => {
@@ -33,6 +55,9 @@ angular.module('nomadForm', [])
         lat = results[0].geometry.location.lat();
         lng = results[0].geometry.location.lng();
         console.log(lat, lng);
+        $scope.addedAddress(true); // set the message to know if address got added
+      }else{
+        $scope.addedAddress(false); // set the message to know if address got added
       }
     });
   }
