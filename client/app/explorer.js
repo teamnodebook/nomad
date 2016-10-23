@@ -212,10 +212,12 @@ angular.module('explorer', ['landingPage'])
     });
     map.fitBounds(bounds);
   };
+
   const listEvents = (events, list) => {
     events.forEach((event) => {
       list.push(event);
     });
+
     console.log('events: ', events);
   }
   return {

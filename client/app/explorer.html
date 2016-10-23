@@ -21,8 +21,9 @@
       <div id='eventDetail' class='col-md-3'>
         <h4>{{event.name}}</h4>
         hosted by {{event.host}}<br><br>
-        THU, OCT 20<br>
-        4:00pm - 5:00pm PST<br>
+        <div ng-repeat='time in event.time'>
+          {{ time.start }} - {{ time.end }}
+        </div>
       </div>
       <div id='eventDescription' class='col-md-6'>{{event.description}}</div>
       <div id='spacer' class='col-md-1'></div>
