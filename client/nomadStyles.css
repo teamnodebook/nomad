@@ -51,6 +51,11 @@ form, .title {
     form, .title, .time {
         padding-left: 0%;
     }
+    
+    .time {
+        margin-left: -.1%;
+    }
+
     input, textarea {
         width: 100%;
     }
