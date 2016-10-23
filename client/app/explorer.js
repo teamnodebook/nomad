@@ -1,5 +1,5 @@
-angular.module('explorer', [])
-.controller('mapCtrl', ($scope, Events, MapMath) => {
+angular.module('explorer', ['landingPage'])
+.controller('mapCtrl', ($scope, Events, MapMath, params) => {
   // initializes map and geolocates if browser allows
   const initializeMap = () => {
     const mapOptions = {
@@ -114,6 +114,29 @@ angular.module('explorer', [])
     //   Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers);
     // });
   });
+// need to import in landingPage and add params to explorer controller
+
+  // renders results from landing page
+    //not working - getting error from post request    
+  if(params.searchObj){
+    console.log("params: ", params.searchObj);
+    $scope.eventMarkers.forEach((marker) => {
+      marker.setMap(null);
+    });
+    $scope.eventMarkers = [];
+    $scope.bounds = new google.maps.LatLngBounds();
+
+    const searchObj = {
+      radius: MapMath.toKilometers(params.searchObj.radius),
+      lat: MapMath.toRad(params.searchObj.lat),
+      long: MapMath.toRad(params.searchObj.long)
+    }
+    $scope.eventList = [];
+    Events.getEvents(searchObj, (events) => {
+      Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers);
+      Events.listEvents(events, $scope.eventList);
+    });
+  }  
 
   // radiusChange function listening on ngChange of $scope.radius
   $scope.radiusChange = () => {
