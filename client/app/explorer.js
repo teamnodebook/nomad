@@ -114,6 +114,8 @@ angular.module('explorer', [])
     //   Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers);
     // });
   });
+// need to import in landingPage and add params to explorer controller
+
 
   // radiusChange function listening on ngChange of $scope.radius
   $scope.radiusChange = () => {
