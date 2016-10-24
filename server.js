@@ -28,12 +28,11 @@ app.post('/api/getEvent', (req,res) =>{
  		let newData = data;
  		
  		let times = _.reduce(data, (final, event) =>{
- 			const key = `${event.lat},${event.long},${event.name}` 			
  			final = final || {};
-
+ 			const key = `${event.lat},${event.long},${event.name}` 			
  			//format times to human readable
- 			const newStart = dateFormat(new Date(event.start_date), "ddd, mmm dS, yy, h:MM TT")
- 			const newEnd = dateFormat(new Date(event.end_date), "ddd, mmm dS, yy, h:MM TT")
+ 			const newStart = dateFormat(new Date(event.start_date), "mmm dS, yy, h:MM TT")
+ 			const newEnd = dateFormat(new Date(event.end_date), "mmm dS, yy, h:MM TT")
 
  			const timeObj = {
 				start: newStart, 
@@ -116,7 +115,8 @@ app.post('/api/createEvent', (req, res) =>{
 										console.log(err, 'check error')
 										console.log(result, ' result from insert statement')
 										res.send('Success').end();
-									});
+									}
+			);
 		});
 	};
 
@@ -140,7 +140,8 @@ app.post('/api/createEvent', (req, res) =>{
 									console.log(err, 'check error')
 									console.log(result, ' result from insert statement')
 									insertTimes(client);
-								});
+								}
+		);
 	});
 });
 
