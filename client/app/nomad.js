@@ -6,9 +6,9 @@ angular.module('nomadForm', [])
 
   var address, lat, lng;
 
-  $scope.eventName = params.eventName;
-  $scope.hostName = params.host;
-  $scope.description = params.description;
+  // $scope.eventName = params.eventName;
+  // $scope.hostName = params.host;
+  // $scope.description = params.description;
 
   var input = document.getElementById('locSearch');
   locSearch = new google.maps.places.SearchBox(input);
