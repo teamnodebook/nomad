@@ -165,7 +165,9 @@ angular.module('explorer', ['landingPage'])
     Events.getEvents(searchObj, (events, msgObj) => {
       setMessage(msgObj);
       Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers);
-      Events.listEvents(events, $scope.eventList);
+      Events.listEvents(events, $scope.eventList, () =>{
+        $scope.$apply();
+      });
     });
   }
 
