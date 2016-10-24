@@ -20,7 +20,6 @@ angular.module('nomadConfirm', ['nomadForm'])
     map: confirmMap
   });
 
-  console.log(params);
   $scope.redirectToEditPage = () => {
     console.log("inside redirectToEditPage");
     $location.url("nomad");
