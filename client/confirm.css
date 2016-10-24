@@ -1,0 +1,22 @@
+div#map {
+	width: 100%;
+	height: 180px;
+	background-color: grey;
+}
+
+div.description {
+	margin-top: 2.4%;
+}
+
+
+@media (max-width: 800px) {
+	div.description {
+		width: 100%;
+	}
+	div.btns {
+		padding-top: 10%;
+	}
+	div.content {
+		margin-left: 0%;
+	}
+}
