@@ -23,9 +23,7 @@
 <!-- END NAVBAR -->
 
 <!-- BODY CONTAINER -->
-<div ng-controller='mapCtrl' class="container-fluid" style="margin-top: 50px">
-  <link type='text/css' rel='stylesheet' href='explorer_temporary.css'>
-  
+<div ng-controller='mapCtrl' class="container-fluid" style="margin-top: 50px">  
   <!-- start map row -->
   <div class="row">
     <div class="col-md-12" style="padding:0px 0px 0px 0px">
@@ -66,18 +64,24 @@
   <!-- end error alert row -->
 
   <!-- start events list row -->    
-  <div class="row listElement {{event.other}}" id='listContainer' ng-repeat='event in eventList track by $index'>
+  <div class="row listElement {{event.other}}" id='listContainer' ng-repeat='event in eventList track by $index' style="padding: 2% 0% 2% 0%">
     <div class="col-md-2"></div>
     <div class="col-md-8">
+      
       <div class='col-md-5' style="padding:0px 0px 0px 0px ">
-        <h4>{{event.name}}</h4>
-        hosted by {{event.host}}<br><br>
+        <h4 style="margin-bottom: 3px">{{event.name}}</h4>
+        <span>Hosted by <strong>{{event.host}}</strong></span>        
+        <br><br>
         <div ng-repeat='time in event.time'>
-          {{ time.start }} - 
-          {{ time.end }}
-        </div>
+          <span style="font-family:'ProximaNova-light'; font-size: 14px">{{ time.start }} - 
+          {{ time.end }}</span>
+        </div>        
+        <br>
         <div>
-          {{event.address}}
+          <span style="display:inline-block; font-family:'ProximaNova-light'; ">
+            <img src="assets/map_icon_grey.png" style="height:15px"></img>
+            {{event.address}}
+          </span>
         </div>
       </div>
       </br>
