@@ -44,18 +44,27 @@
   <!-- end map row -->
 
   <!-- start events header row -->
-    <!-- does the following id's do anything? headerContainer, spacer -->
-  <div class="row" id='headerContainer'>
-    <div class="col-md-1" id='spacer'></div>
-    <div class="col-md-10" id='sectionHeader'>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
       <h3>Explore Events</h3>
-    </div>
-    <div class="col-md-1" id='descriptionHeader'></div>
+    </div>    
+    <div class="col-md-2"></div>
   </div>
   <!-- end events header row -->
-  <center>
-    <h4 class='alert alert-info {{message.cl}}'>{{message.msg}}</h4>
-  </center>
+  
+  <!-- start error alert row -->
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <center>
+        <div class='alert alert-info {{message.cl}}'>{{message.msg}}</div>
+      </center>
+    </div>
+    <div class="col-md-2"></div>  
+  </div>
+  <!-- end error alert row -->
+
   <!-- start events list row -->    
   <div class="row listElement {{event.other}}" id='listContainer' ng-repeat='event in eventList track by $index'>
     <div class="col-md-2"></div>
