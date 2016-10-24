@@ -47,6 +47,7 @@ angular.module('explorer', ['landingPage'])
   initializeSearch();
 
   // set markers and infowindow before search event
+  $scope.labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   $scope.searchLocMarker = [];
   $scope.eventMarkers = [];
   $scope.eventList = [];
@@ -164,7 +165,7 @@ angular.module('explorer', ['landingPage'])
 
     Events.getEvents(searchObj, (events, msgObj) => {
       setMessage(msgObj);
-      Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers);
+      Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers, $scope.labels);
       Events.listEvents(events, $scope.eventList, () =>{
         $scope.$apply();
       });
@@ -193,7 +194,7 @@ angular.module('explorer', ['landingPage'])
     $scope.eventList = [];
     Events.getEvents(searchObj, (events, msgObj) => {
       $scope.message = msgObj;
-      Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers);
+      Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers, $scope.labels);
       Events.listEvents(events, $scope.eventList, () =>{
         $scope.$apply();
       });
@@ -227,9 +228,8 @@ angular.module('explorer', ['landingPage'])
       console.log(err);
     });
   };
-  const mapEvents = (events, map, bounds, markers) => {
-    console.log('events: ', events);
-    var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+  const mapEvents = (events, map, bounds, markers, labels) => {
     var labelIndex = 0;
     events.forEach((event) => {
       // todo: change to better icon
@@ -264,6 +264,7 @@ angular.module('explorer', ['landingPage'])
     });
     if (markers.length > 0) {
       markers.forEach((marker) => {
+        console.log(marker.label);
         marker.setMap(map);
         bounds.extend(marker.getPosition());
       });
