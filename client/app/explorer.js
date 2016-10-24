@@ -265,12 +265,9 @@ angular.module('explorer', ['landingPage'])
       map.fitBounds(bounds);
     }
   };
-<<<<<<< HEAD
-  const listEvents = (events, list) => {
-=======
 
   const listEvents = (events, list, cb) => {
->>>>>>> [Feature] - added address to the events list
+    
     events.forEach((event) => {
 
       const lat = MapMath.toLatLong(event.lat);
