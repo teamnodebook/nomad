@@ -124,7 +124,7 @@ a.landing-pg-links:link, a.landing-pg-links:hover, a.landing-pg-links:active {
 /*alternating event list row color*/
 .color {
   background-color: #f4f4f4;
-  padding-bottom: 2%;
+  /*padding-bottom: 2%;*/
 }
 
 .alert {  
@@ -135,6 +135,7 @@ a.landing-pg-links:link, a.landing-pg-links:hover, a.landing-pg-links:active {
 .hidden {
   display: none;
 }
+
 
 @media (max-width: 940px) { 
   #radiusSelect {
