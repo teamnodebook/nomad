@@ -158,6 +158,7 @@ angular.module('explorer', ['landingPage'])
       Events.listEvents(events, $scope.eventList);
     });
   };
+  
 })
 .factory('Events', ($http, MapMath) => {
   const getEvents = (locationObj, cb) => {

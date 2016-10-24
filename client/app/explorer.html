@@ -1,4 +1,4 @@
-<div ng-controller='mapCtrl'>
+<div ng-controller='mapCtrl' class='container container-fluid'>
   <link type='text/css' rel='stylesheet' href='explorer_temporary.css'>
   <input id='locSearch' class='controls' type='text' placeholder='search events in location'>
   <select id='radiusSelect' class='controls' name='radiusSelect' ng-model='radius' ng-change='radiusChange()'>
@@ -16,11 +16,10 @@
     <div id='descriptionHeader' class='col-md-6'></div>
   </div>
   <div id='listContainer'>
-    <div id='listElement' class='row' ng-repeat='event in eventList track by $index'>
-      <div id='spacer' class='col-md-1'></div>
-      <div id='markerIcon' class='col-md-1'></div>
-      <div id='eventDetail' class='col-md-3'>
-        <div class='col-md-2 shape'><span class='num'>{{ $index + 1 }}</span></div>
+    <div class='row listElement {{event.other}}' ng-repeat='event in eventList track by $index'>
+      <div class='col-md-1 spacer'></div>
+      <div class='col-md-1 markerIcon'></div>
+      <div class='col-md-3 eventDetail'>
         <div class='col-md-10'>
           <h3>{{event.name}}</h3>
           hosted by {{event.host}}<br><br>
@@ -30,9 +29,8 @@
           </div>
         </div>
       </div>
-      <h4 id='eventDescription' class='col-md-6'>{{event.description}}</h4>
-      <hr class='col-md-9'>
-      <div id='spacer' class='col-md-1'></div>
+      <h4 class='col-md-6 eventDescription'>{{event.description}}</h4>
+      <div class='col-md-1 spacer'></div>
     </div>
   </div>
 </div>
