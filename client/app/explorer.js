@@ -55,13 +55,13 @@ angular.module('explorer', ['landingPage'])
 
   $scope.message = {
     msg: 'Choose an address, then choose a radius',
-    class: 'show'
+    cl: 'show'
   }
   //create a message to live in the event list
   $scope.choseAddress = () =>{
     $scope.message = {
       msg: 'Click an address from the search drop down.',
-      class: 'show'
+      cl: 'show'
     }
   }
 
@@ -70,7 +70,7 @@ angular.module('explorer', ['landingPage'])
     //(remove message)
     $scope.message = {
       msg: 'Choose a radius from the drop down selector.',
-      class: 'show'
+      cl: 'show'
     };
     $scope.$apply();
 
@@ -170,7 +170,7 @@ angular.module('explorer', ['landingPage'])
     }
     $scope.message = {
       msg: '',
-      class: 'hidden'
+      cl: 'hidden'
     };
     $scope.eventMarkers.forEach((marker) => {
       marker.setMap(null);
@@ -200,9 +200,17 @@ angular.module('explorer', ['landingPage'])
     })
     .then((resp) => {
       const events = resp.data.events;
+      let mgs = '';
+      let cl = 'hidden'
+
+      if(events.length === 0){
+        msg = 'No events in your location. Please choose a larger raidus or new location.'
+        cl = 'show';
+      }
+      
       cb(events, {
-        msg: '',
-        class: 'hidden'
+        msg: msg,
+        cl: cl
       });
     })
     .catch((err) => {
