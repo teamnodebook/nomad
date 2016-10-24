@@ -28,8 +28,11 @@ body{ background-color: #f1f1f1;}
 h1{ font-family: 'ProximaNova-reg';}
 h2{ font-family: 'ProximaNova-reg';}
 h3{ font-family: 'ProximaNova-reg';}
-h4{ font-family: 'ProximaNova-bold';}
-h5{ font-family: 'ProximaNova-reg';}
+h4{font-family: 'ProximaNova-bold';}
+h5{ 
+  font-family: 'ProximaNova-reg';
+  font-size: 16px;
+}
 h6{ font-family: 'ProximaNova-bold';}
 p { font-family: 'ProximaNova-reg';}
 
@@ -97,7 +100,7 @@ a.landing-pg-links:link, a.landing-pg-links:hover, a.landing-pg-links:active {
   border-radius: 0px;
   color:#fff;
   font-family:'ProximaNova-thin';
-  height:45px;
+  height:50px;
 }
 
 /*---------------------------------------------------------*/
@@ -119,11 +122,8 @@ a.landing-pg-links:link, a.landing-pg-links:hover, a.landing-pg-links:active {
 }
 
 #locSearch, #radiusSelect {
-  background-color: #fff;
-  font-family: Roboto;
-  font-size: 15px;
-  font-weight: 300;
-  margin-left: 12px;
+  font-family: 'ProximaNova-light';
+  font-size: 15px;  
   padding: 0 11px 0 13px;
   text-overflow: ellipsis;
   width: 200px;

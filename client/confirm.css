@@ -4,24 +4,11 @@ div#map {
 	background-color: grey;
 }
 
-div.message {
-	margin-top: 4%;
-	text-align: center;
-}
-
-div.content {
-	margin-left: 8%;
-}
-
 div.description {
 	margin-top: 1.4%;
 }
 
-div.btns {
-	text-align: center;
-	text-decoration: none;
-	margin-top: 5%;
-}
+
 
 input.button {
 	border: none;

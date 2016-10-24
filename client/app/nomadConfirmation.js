@@ -22,7 +22,7 @@ angular.module('nomadConfirm', ['nomadForm'])
 
   // console.log(params);
 
-  $scope.sendNomadInfo = () => {
+  $scope.sendNomadInfo = () => {    
     fetch('/api/createEvent', {
       method: 'POST',
       headers: {
