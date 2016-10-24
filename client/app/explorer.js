@@ -192,7 +192,9 @@ angular.module('explorer', ['landingPage'])
     Events.getEvents(searchObj, (events, msgObj) => {
       $scope.message = msgObj;
       Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers);
-      Events.listEvents(events, $scope.eventList);
+      Events.listEvents(events, $scope.eventList, () =>{
+        $scope.$apply();
+      });
     });
   };
 
@@ -263,9 +265,27 @@ angular.module('explorer', ['landingPage'])
       map.fitBounds(bounds);
     }
   };
+<<<<<<< HEAD
   const listEvents = (events, list) => {
+=======
+
+  const listEvents = (events, list, cb) => {
+>>>>>>> [Feature] - added address to the events list
     events.forEach((event) => {
-      list.push(event);
+
+      const lat = MapMath.toLatLong(event.lat);
+      const long = MapMath.toLatLong(event.long);
+
+      const geocoder = new google.maps.Geocoder();
+
+      geocoder.geocode({location: { lat: lat, lng: long}}, (results, status) =>{ 
+        if(status === 'OK' && results[0] !== null){
+          const address = results[0].formatted_address;
+          event.address = address;
+        }
+        list.push(event);
+        cb(); 
+      });
     });
   }
   return {
