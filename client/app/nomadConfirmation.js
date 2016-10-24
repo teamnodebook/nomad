@@ -1,5 +1,5 @@
 angular.module('nomadConfirm', ['nomadForm'])
-.controller('nomadConfirmCtrl', ($scope, params) => {
+.controller('nomadConfirmCtrl', ($scope, $location, params) => {
 
   $scope.location = params.address;
   $scope.date = params.date;
@@ -21,6 +21,10 @@ angular.module('nomadConfirm', ['nomadForm'])
   });
 
   // console.log(params);
+  $scope.redirectToEditPage = () => {
+    console.log("inside redirectToEditPage");
+    $location.url("nomad");
+  }
 
   $scope.sendNomadInfo = () => {    
     fetch('/api/createEvent', {
