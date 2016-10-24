@@ -52,9 +52,6 @@
         <div  ng-model='addressMsg' class='message {{ addressMsg.class }}'>{{ addressMsg.msg }}</div>
         <div class="input-group">          
           <input id='locSearch' type='text' placeholder='search for your location' class="form-control">
-          <span class="input-group-btn" style="float:left">
-            <button ng-click='useAddress()' class="btn btn-warning location-submit-button" type="button">Add Event Address</button>
-          </span>
         </div><!-- /input-group -->              
         <h5>Event Date</h5>
         <input type="date" value="yyyy-mm-dd" class="form-control input-medium search-query " onkeypress="return false" ng-model='date'>   
