@@ -53,8 +53,27 @@ angular.module('explorer', ['landingPage'])
   let infoWindow = null;
   let eventInfo = null;
 
+  $scope.message = {
+    msg: 'Choose an address, then choose a radius',
+    class: 'show'
+  }
+  //create a message to live in the event list
+  $scope.choseAddress = () =>{
+    $scope.message = {
+      msg: 'Click an address from the search drop down.',
+      class: 'show'
+    }
+  }
+
   // Listeners for searchbox inputs, and radius selects
   $scope.locSearch.addListener('places_changed', () => {
+    //(remove message)
+    $scope.message = {
+      msg: 'Choose a radius from the drop down selector.',
+      class: 'show'
+    };
+    $scope.$apply();
+
     // todo: clear event list when new place is searched
     $scope.eventList = [];
     // clear infowindow from previous search
@@ -142,6 +161,10 @@ angular.module('explorer', ['landingPage'])
     if ($scope.radius === '') {
       return console.log('Choose a proper radius.');
     }
+    $scope.message = {
+      msg: '',
+      class: 'hidden'
+    };
     $scope.eventMarkers.forEach((marker) => {
       marker.setMap(null);
     });

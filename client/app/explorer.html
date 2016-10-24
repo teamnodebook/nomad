@@ -29,7 +29,7 @@
   <!-- start map row -->
   <div class="row">
     <div class="col-md-12" style="padding:0px 0px 0px 0px">
-      <input id='locSearch' class='controls' type='text' placeholder='search events in location' style="margin-left: 12px">
+      <input id='locSearch' class='controls' type='text' placeholder='search events in location' style="margin-left: 12px" ng-model='addressSearch' ng-change='choseAddress()'>
       <select id='radiusSelect' class='controls' name='radiusSelect' ng-model='radius' ng-change='radiusChange()' style="margin-left: 12px;">
         <option value=''>select radius</option>
         <option value='1'>1 mile</option>
@@ -53,7 +53,9 @@
     <div class="col-md-1" id='descriptionHeader'></div>
   </div>
   <!-- end events header row -->
-  
+  <center>
+    <h4 class='alert alert-info {{message.class}}'>{{message.msg}}</h4>
+  </center>
   <!-- start events list row -->    
   <div class="row listElement {{event.other}}" id='listContainer' ng-repeat='event in eventList track by $index'>
     <div class="col-md-2"></div>
