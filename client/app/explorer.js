@@ -214,7 +214,7 @@ angular.module('explorer', ['landingPage'])
       let cl = 'hidden'
 
       if(events.length === 0){
-        msg = 'No events in your location. Please choose a larger raidus or new location.'
+        msg = 'No events in your location. Please choose a larger radius or new location.'
         cl = 'show';
       }
 
@@ -269,7 +269,7 @@ angular.module('explorer', ['landingPage'])
   };
 
   const listEvents = (events, list, cb) => {
-    
+
     events.forEach((event) => {
 
       const lat = MapMath.toLatLong(event.lat);
@@ -277,13 +277,13 @@ angular.module('explorer', ['landingPage'])
 
       const geocoder = new google.maps.Geocoder();
 
-      geocoder.geocode({location: { lat: lat, lng: long}}, (results, status) =>{ 
+      geocoder.geocode({location: { lat: lat, lng: long}}, (results, status) =>{
         if(status === 'OK' && results[0] !== null){
           const address = results[0].formatted_address;
           event.address = address;
         }
         list.push(event);
-        cb(); 
+        cb();
       });
     });
   }
