@@ -1,50 +1,5 @@
-h5 {
-    margin-top: 2em;
-}
-.time {
-    display: inline;
-    margin-left: 4%;
-}
-
-.create-event {
-    height: 1.5em;
-    font-size: 1em;
-    font-weight: 500;
-    color: #4d4c4c;
-}
-
-
-/*.rectangle-2 {
-    width: 30em;
-    height: 2em;
-    border-radius: .5em;
-    background-color: #ffffff;
-    border: solid .05em #979797;
-}
-
-.rectangle-3 {
-    width: 8em;
-    height: 2em;
-    border-radius: .5em;
-    background-color: #ffffff;
-    border: solid 0.05em #979797;
-}
-
-.rectangle-4 {
-    width: 30em;
-    height: 6em;
-    border-radius: .5em;
-    background-color: #ffffff;
-    border: solid 0.05em #979797;
-}
-*/
-
 .message {
     margin-top: 2%;
-}
-
-form, .title {
-    padding-left: 17%;
 }
 
 @media (max-width: 900px) {
