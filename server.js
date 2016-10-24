@@ -112,13 +112,14 @@ app.post('/api/getEvent', (req,res) =>{
 });
 
 app.post('/api/createEvent', (req, res) =>{
-
+	console.log(JSON.stringify(req.body, null, 3));
 	//turn lat and long into radians
 	req.body.location.lat = req.body.location.lat.toRad();
 	req.body.location.long = req.body.location.long.toRad();
 
 	let insertTimes = (client) =>{
 		_.each(req.body.time, (time) =>{
+			console.log(req.body.info.name, req.body.info.location)
 			client.query(`insert into public.dates
 									(start_date, end_date, fk_event)
 									values ('${time.start}',
