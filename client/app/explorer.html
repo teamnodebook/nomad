@@ -1,6 +1,6 @@
 <!-- START NAVBAR -->
 <nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">  
+  <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
@@ -25,7 +25,7 @@
 <!-- BODY CONTAINER -->
 <div ng-controller='mapCtrl' class="container-fluid" style="margin-top: 50px">
   <link type='text/css' rel='stylesheet' href='explorer_temporary.css'>
-  
+
   <!-- start map row -->
   <div class="row">
     <div class="col-md-12" style="padding:0px 0px 0px 0px">
@@ -48,11 +48,11 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
       <h3>Explore Events</h3>
-    </div>    
+    </div>
     <div class="col-md-2"></div>
   </div>
   <!-- end events header row -->
-  
+
   <!-- start error alert row -->
   <div class="row">
     <div class="col-md-2"></div>
@@ -61,19 +61,19 @@
         <div class='alert alert-info {{message.cl}}'>{{message.msg}}</div>
       </center>
     </div>
-    <div class="col-md-2"></div>  
+    <div class="col-md-2"></div>
   </div>
   <!-- end error alert row -->
 
-  <!-- start events list row -->    
-  <div class="row listElement {{event.other}}" id='listContainer' ng-repeat='event in eventList track by $index'>
+  <!-- start events list row -->
+  <div class="row listElement {{event.other}}" id='listContainer' ng-repeat='event in eventList | orderBy: "id" '>
     <div class="col-md-2"></div>
     <div class="col-md-8">
       <div class='col-md-5' style="padding:0px 0px 0px 0px ">
-        <h4>{{event.name}}</h4>
+        <h4 ng-model='labels'>{{labels[$index]}} {{event.name}}</h4>
         hosted by {{event.host}}<br><br>
         <div ng-repeat='time in event.time'>
-          {{ time.start }} - 
+          {{ time.start }} -
           {{ time.end }}
         </div>
         <div>
@@ -85,5 +85,5 @@
     </div>
     <div class="col-md-2"></div>
   </div>
-  <!-- end events list row -->  
+  <!-- end events list row -->
 </div>
