@@ -15,6 +15,8 @@ angular.module('nomadForm', [])
 
   geocoder = new google.maps.Geocoder();
 
+  document.getElementById('eventSubmission').style.display = 'none';
+
   $scope.times = ['start'];
 
   // $scope.addTimes = () => {
@@ -27,25 +29,40 @@ angular.module('nomadForm', [])
   // }
 
   /////////////////////////////////////
-  $scope.addressMsg = {
+  // $scope.addressMsg = {
+  //   class: 'alert alert-warning',
+  //   msg: 'Save your event address.'
+  // };
+
+  $scope.inputMsg = {
     class: 'alert alert-warning',
-    msg: 'Save your event address.'
+    msg: 'Complete all inputs.'
   };
 
-  $scope.addedAddress = (check) =>{
-    if(check){
-      $scope.addressMsg = {
+  // $scope.addedAddress = (check) =>{
+  //   if(check){
+  //     $scope.addressMsg = {
+  //       class: 'alert alert-success',
+  //       msg: 'Your event address was saved.'
+  //     }
+  //   }else{
+  //     $scope.addressMsg = {
+  //       class: 'alert alert-warning',
+  //       msg: 'Select a new address.'
+  //     }
+  //   }
+  //   $scope.$apply();
+  // };
+
+  $scope.allInputs = (check) => {
+    if (check) {
+      $scope.inputMsg = {
         class: 'alert alert-success',
-        msg: 'Your event address was saved.'
-      }
-    }else{
-      $scope.addressMsg = {
-        class: 'alert alert-warning',
-        msg: 'Select a new address.'
+        msg: 'All inputs saved.'
       }
     }
     $scope.$apply();
-  };
+  }
   /////////////////////////////////////
 
   locSearch.addListener('places_changed', () => {
@@ -54,20 +71,15 @@ angular.module('nomadForm', [])
       if (status === 'OK') {
         lat = results[0].geometry.location.lat();
         lng = results[0].geometry.location.lng();
-        console.log(lat, lng);
-        $scope.addedAddress(true); // set the message to know if address got added
-      }else{
-        $scope.addedAddress(false); // set the message to know if address got added
+        $scope.checkInputs();
       }
     });
   });
 
   $scope.checkInputs = () => {
     if (lat && lng && $scope.eventName && $scope.hostName && $scope.startTime && $scope.endTime && $scope.description) {
-      $scope.confirm();
-      $location.path('/nomadConfirmation');
-    } else {
-      alert('Some fields are missing');
+      document.getElementById('eventSubmission').style.display = 'block';
+      $scope.allInputs(true);
     }
   };
 
@@ -108,5 +120,6 @@ angular.module('nomadForm', [])
     params.eventName = $scope.eventName;
     params.host = $scope.hostName;
     params.description = $scope.description;
+    $location.path('/nomadConfirmation');
   };
 });
