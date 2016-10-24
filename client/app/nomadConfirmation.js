@@ -26,7 +26,7 @@ angular.module('nomadConfirm', ['nomadForm'])
     $location.url("nomad");
   }
 
-  $scope.sendNomadInfo = () => {    
+  $scope.sendNomadInfo = () => { 
     fetch('/api/createEvent', {
       method: 'POST',
       headers: {
@@ -48,5 +48,6 @@ angular.module('nomadConfirm', ['nomadForm'])
               }]
             })
     });
+    $location.path('/explorer');
   };
 });
