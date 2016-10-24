@@ -49,18 +49,21 @@
         <h5>Event Description</h5>
         <textarea ng-model='description' class="form-control" style="height:150px" ng-change='checkInputs()' ></textarea>                     
         <h5>Event Location</h5>             
-        <!-- <div  ng-model='addressMsg' class='message {{ addressMsg.class }}'>{{ addressMsg.msg }}</div> -->
         <div class="input-group">          
           <input id='locSearch' type='text' placeholder='search for your location' class="form-control">
         </div>           
-        <h5>Event Date</h5>
-        <input type="date" value="yyyy-mm-dd" class="form-control input-medium search-query " onkeypress="return false" ng-model='date' ng-change='checkInputs()'>   
+
         <div class="row">    
-          <div class="col-md-6">
+          <div class="col-md-4">
+            <h5>Event Date</h5>
+            <input type="date" value="yyyy-mm-dd" class="form-control input-medium search-query " onkeypress="return false" ng-model='date' ng-change='checkInputs()'> 
+          </div>        
+
+          <div class="col-md-4">
             <h5>Start Time</h5>
             <input ng-model='startTime' type='time' class="form-control" ng-change='checkInputs()'>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <h5>End Time</h5>
             <input type='time' ng-model='endTime' class="form-control" ng-change='checkInputs()'>
           </div>
