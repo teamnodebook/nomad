@@ -20,7 +20,7 @@ angular.module('nomadConfirm', ['nomadForm'])
     map: confirmMap
   });
 
-  // console.log(params);
+  console.log(params);
   $scope.redirectToEditPage = () => {
     console.log("inside redirectToEditPage");
     $location.url("nomad");
@@ -35,7 +35,7 @@ angular.module('nomadConfirm', ['nomadForm'])
       body: JSON.stringify({
               info: {
                 name: params.eventName,
-                host: params.hostName,
+                host: params.host,
                 description: params.description,
               },
               location: {
