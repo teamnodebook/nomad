@@ -29,14 +29,14 @@ angular.module('nomadForm', [])
   /////////////////////////////////////
   $scope.addressMsg = {
     class: 'alert alert-warning',
-    msg: 'Select a new address.'
+    msg: 'Save your event address.'
   }
 
   $scope.addedAddress = (check) =>{
     if(check){
       $scope.addressMsg = {
         class: 'alert alert-success',
-        msg: 'The address was added.'
+        msg: 'Your event address was saved.'
       }
     }else{
       $scope.addressMsg = {

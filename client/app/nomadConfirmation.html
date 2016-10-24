@@ -1,30 +1,108 @@
-<div class="container container-fluid" ng-controller='nomadConfirmCtrl'>
-<link type='text/css' rel='stylesheet' href='confirm.css'>
+START NAVBAR -->
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">  
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/#/">NOMAD</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li id="custom-nav"><a href='/#/nomad'>Create Event</a></li>
+          <li id="custom-nav"><a href='#/explorer'>Explore Events</a></li>
+          <li id="custom-nav"><a href='/#/'>Sign In</a></li>
+          <li><a href='/#/'>Sign Up</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- END NAVBAR -->
+
+<!-- BODY CONTAINER -->
+<div ng-controller='nomadConfirmCtrl' class="container-fluid" style="margin-top: 50px">
+  
+  <!-- start map row -->
   <div class="row">
-  <div id='map' class=''></div>
+      <div id='map'></div>      
+  </div>
+  <!-- end map row -->
+  
+  <!-- start  header row -->
+  <div class="row">
     <div class="col-md-1"></div>
     <div class="col-md-10">
-      
-      <div class="message alert alert-warning">
-        <h3><strong>Please review your event!</strong> Click confirm to save or edit to update event details.</h3>
-      </div>
-    </div>
-    <div class='content col-md-12'>
-      <div class='col-xs-6 col-sm-2'>
-        <h3 ng-model='eventName'> {{ eventName }} </h3>
-        <h4 ng-model='hostName'> {{ hostName }} </h4>
-        <h4 ng-model='date'> {{ date }} </h4>
-        <h4 ng-model='startTime' ng-model='endTime'> {{ startTime }} - {{ endTime }} </h4>
-      </div>
-      <div class='description col-xs-8'>
-        <h4 ng-model='location'> {{ location }} </h4>
-        <h5 ng-model='description'> {{ description }} </h5>
-      </div>
-    </div>
-    <div class='btns col-md-12'>
-      <a href='#/nomad' class='btn btn-primary'><input type='button' value='EDIT' class='button'> </a>
-      <input type='button' value='CONFIRM' ng-click='sendNomadInfo()' class='btn btn-default'>
+      <h3>Page Header</h3>
     </div>
     <div class="col-md-1"></div>
   </div>
+  <!-- end header row -->
+
+  <!-- start body content row -->
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <h3>Body Content</h3>
+      <div class="alert alert-warning">
+        <strong>Please review your event!</strong> Click confirm to save or edit to update event details.
+      </div>
+    
+    <div class='col-xs-6 col-sm-2'>
+      <h3 ng-model='eventName'> {{ eventName }} </h3>
+      <h4 ng-model='hostName'> {{ hostName }} </h4>
+      <h4 ng-model='date'> {{ date }} </h4>
+      <h4 ng-model='startTime' ng-model='endTime'> {{ startTime }} - {{ endTime }} </h4>
+    </div>
+    
+    <div class='description col-xs-8'>
+      <h4 ng-model='location'> {{ location }} </h4>
+      <h5 ng-model='description'> {{ description }} </h5>
+    </div>
+    
+    <div class='btns col-md-12'>
+      <input ng-click='redirectToEditPage()' type='button' value='Edit' class="btn btn-default">
+      <input ng-click='sendNomadInfo()' type='button' value='Confirm' class='btn btn-primary'>
+    </div>
+    <br>
+    <br>
+
+
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <!-- end body content row -->
 </div>
+
+<!-- <div class="container container-fluid" ng-controller='nomadConfirmCtrl'> -->
+<!-- <link type='text/css' rel='stylesheet' href='confirm.css'> -->
+  <!-- <div class="row"> -->
+  
+    <!-- <div class="col-md-1"></div> -->
+    <!-- <div class="col-md-10"> -->
+            <!-- <div class="message alert alert-warning">
+        <strong>Please review your event!</strong> Click confirm to save or edit to update event details.
+      </div> -->
+    <!-- </div> -->
+    <!-- <div class='content col-md-12'> -->
+    <!-- <div class='col-xs-6 col-sm-2'>
+      <h3 ng-model='eventName'> {{ eventName }} </h3>
+      <h4 ng-model='hostName'> {{ hostName }} </h4>
+      <h4 ng-model='date'> {{ date }} </h4>
+      <h4 ng-model='startTime' ng-model='endTime'> {{ startTime }} - {{ endTime }} </h4>
+    </div>
+
+    <div class='description col-xs-8'>
+      <h4 ng-model='location'> {{ location }} </h4>
+      <h5 ng-model='description'> {{ description }} </h5>
+    </div>
+    
+    <div class='btns col-md-12'>
+      <a href='#/nomad' class='btn btn-primary'><input type='button' value='EDIT' class='button'> </a>
+      <input type='button' value='CONFIRM' ng-click='sendNomadInfo()' class='btn btn-default'>
+    </div> -->
+    <!-- <div class="col-md-1"></div> -->
+  <!-- </div> -->
+<!-- </div>
