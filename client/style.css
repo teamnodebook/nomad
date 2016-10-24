@@ -31,6 +31,11 @@ a.nav-link:hover, a.nav-link:active {
   /*need to add css for active link in nav*/
 }
 
+.menuselect {
+  width: 90%;
+  height: 3px;
+  background-color: black;
+}
 
 /*---------------------------------------------------------*/
 /*------------------- Landing Page ------------------------*/
