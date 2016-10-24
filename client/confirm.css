@@ -5,10 +5,8 @@ div#map {
 }
 
 div.description {
-	margin-top: 1.4%;
+	margin-top: 2.4%;
 }
-
-
 
 
 @media (max-width: 800px) {
