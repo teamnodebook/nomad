@@ -1,50 +1,34 @@
-#listElement {
+.listElement {
   margin-bottom: 20px;
 }
 
-#eventDescription {
+.eventDescription {
   display: inline-block;
   vertical-align: middle;
   float: none;
   margin-top: 2.3%;
 }
 
-hr {
-  border: 0;
-  clear:both;
-  display:block;
-  width: 96%;               
-  background-color: RGBA(216, 216, 216, .50);
-  height: 2px;
-  margin-left: 12%;
+.color {
+	background-color: #D8D8D8;
+	padding-bottom: 2%;
 }
 
-.shape {
-	width: 30px;
-	height: 30px;
-	border-radius: 20px;
-	background-color: #3DA3AC;
-	text-align: center;
-	margin-top: 15%;
-}
-
-.num {
-	font-family: AvenirNext;
-	font-size: 20px;
-	margin-left: -5;
-	font-weight: bold;
-	color: #f1f8ff;
-}
 
 @media (max-width: 940px) { 
+	#radiusSelect {
+		width: 25%;
+	}
 	hr {
 		margin-left: 0%;
 	}
-	#listContainer {
+	.listContainer, .listElement {
 		text-align: center;
 	}
 	.shape {
-		margin-top: 0%;
-		margin-left: 3%;
+		width: 20%;
+	}
+	#map {
+		margin-left: -3.5%;
 	}
 }

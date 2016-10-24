@@ -50,6 +50,8 @@ app.post('/api/getEvent', (req,res) =>{
  			return final;
  		}, {});
  
+		let count = 1;
+
  		return _.chain(newData).map((event) =>{
  			const key = `${event.lat},${event.long},${event.name}`;
  			
@@ -63,6 +65,17 @@ app.post('/api/getEvent', (req,res) =>{
  			return event; 
  		}).filter((event) =>{
  			return event.time !== undefined || null;
+ 		}).map((event) =>{
+
+ 			if(count % 2 === 0){
+ 				event.other = 'color';
+ 			}else{
+ 				event.other = 'notcolor';
+ 			}
+
+ 			count++;
+
+ 			return event;
  		});
  	};
 
