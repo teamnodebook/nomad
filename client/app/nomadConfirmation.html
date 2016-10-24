@@ -51,13 +51,14 @@
     
       <div class='col-md-3 col-sm-12 col-xs-12 '>
         <h4 ng-model='eventName'> {{ eventName }} </h4>
-        <p ng-model='hostName'> {{ hostName }} </p>
+        <p ng-model='hostName'>hosted by <strong>{{ hostName }}</strong> </p>
         <p ng-model='date'> {{ date }} </p>
         <p ng-model='startTime' ng-model='endTime'> {{ startTime }} - {{ endTime }} </p>
         <h6 ng-model='location'> {{ location }} </h6>
       </div>
-    
-      <div class='col-md-4 col-sm-12 col-xs-12'>        
+      
+      </br>
+      <div class='col-md-4 col-sm-12 col-xs-12'>    
         <p ng-model='description'> {{ description }} </p>
       </div>
       
