@@ -228,10 +228,12 @@ angular.module('explorer', ['landingPage'])
     });
   };
   const mapEvents = (events, map, bounds, markers) => {
+    console.log('events: ', events);
+    var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var labelIndex = 0;
     events.forEach((event) => {
       // todo: change to better icon
       const icon = {
-        url: 'http://maps.google.com/mapfiles/ms/micons/red-dot.png',
         size: new google.maps.Size(71, 71),
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(17, 34),
@@ -239,6 +241,7 @@ angular.module('explorer', ['landingPage'])
       };
       const marker = new google.maps.Marker({
         map: map,
+        label: labels[labelIndex++ % labels.length],
         icon: icon,
         title: event.name,
         position: {lat: MapMath.toLatLong(Number(event.lat)), lng: MapMath.toLatLong(Number(event.long))}
