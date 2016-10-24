@@ -200,7 +200,7 @@ angular.module('explorer', ['landingPage'])
     })
     .then((resp) => {
       const events = resp.data.events;
-      let mgs = '';
+      let msg = '';
       let cl = 'hidden'
 
       if(events.length === 0){
