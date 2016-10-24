@@ -19,20 +19,20 @@ angular.module('explorer', ['landingPage'])
 
     $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const pos = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-
-        $scope.map.setCenter(pos);
-      }, function() {
-        handleLocationError(true, $scope.infoWindow, $scope.map.getCenter());
-      });
-    } else {
-      handleLocationError(false, $scope.infoWindow, $scope.map.getCenter());
-    }
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition((position) => {
+    //     const pos = {
+    //       lat: position.coords.latitude,
+    //       lng: position.coords.longitude
+    //     };
+    //
+    //     $scope.map.setCenter(pos);
+    //   }, function() {
+    //     handleLocationError(true, $scope.infoWindow, $scope.map.getCenter());
+    //   });
+    // } else {
+    //   handleLocationError(false, $scope.infoWindow, $scope.map.getCenter());
+    // }
   };
   initializeMap();
 
@@ -67,6 +67,10 @@ angular.module('explorer', ['landingPage'])
 
   // Listeners for searchbox inputs, and radius selects
   $scope.locSearch.addListener('places_changed', () => {
+    $scope.eventMarkers.forEach((marker) => {
+      marker.setMap(null);
+    });
+    $scope.eventMarkers = [];
     //(remove message)
     $scope.message = {
       msg: 'Choose a radius from the drop down selector.',
@@ -77,10 +81,10 @@ angular.module('explorer', ['landingPage'])
     // todo: clear event list when new place is searched
     $scope.eventList = [];
     // clear infowindow from previous search
-    if (infoWindow) {
-      infoWindow.close();
-    }
-    infoWindow = new google.maps.InfoWindow({map: $scope.map});
+    // if (infoWindow) {
+    //   infoWindow.close();
+    // }
+    // infoWindow = new google.maps.InfoWindow({map: $scope.map});
     const places = $scope.locSearch.getPlaces();
     if (places.length === 0) {
       return;
@@ -100,7 +104,6 @@ angular.module('explorer', ['landingPage'])
     }
     // icon settings
     const icon = {
-      url: $scope.searchLoc.icon,
       size: new google.maps.Size(71, 71),
       origin: new google.maps.Point(0, 0),
       anchor: new google.maps.Point(17, 34),
@@ -114,35 +117,39 @@ angular.module('explorer', ['landingPage'])
       position: $scope.searchLoc.geometry.location
     }));
     // set 'here' infowindow
-    infoWindow.setPosition($scope.searchLoc.geometry.location);
-    infoWindow.setContent('You here fam.');
+    // infoWindow.setPosition($scope.searchLoc.geometry.location);
+    // infoWindow.setContent('You here fam.');
     if ($scope.searchLoc.geometry.viewport) {
       $scope.bounds.union($scope.searchLoc.geometry.viewport);
     } else {
       $scope.bounds.extend($scope.searchLoc.geometry.location);
     }
     $scope.map.fitBounds($scope.bounds);
-
-    // get events using getEvents factory
-    const searchObj = {
-      radius: MapMath.toKilometers(.5),
-      lat: MapMath.toRad($scope.searchLoc.geometry.location.lat()),
-      long: MapMath.toRad($scope.searchLoc.geometry.location.lng())
-    }
-    // Events.getEvents(searchObj, (events) => {
-    //   Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers);
-    // });
   });
 // need to import in landingPage and add params to explorer controller
  // renders results from landing page
-    //not working - getting error from post request    
+    //not working - getting error from post request
   if(params.searchObj){
-    console.log("params: ", params.searchObj);
     $scope.eventMarkers.forEach((marker) => {
       marker.setMap(null);
     });
     $scope.eventMarkers = [];
+    $scope.searchLocMarker = [];
     $scope.bounds = new google.maps.LatLngBounds();
+    const icon = {
+      size: new google.maps.Size(71, 71),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(25, 25)
+    };
+    // create a marker for location
+    $scope.searchLocMarker.push(new google.maps.Marker({
+      map: $scope.map,
+      icon: icon,
+      position: {lat: params.searchObj.lat, lng: params.searchObj.long}
+    }));
+    $scope.bounds.extend({lat: params.searchObj.lat, lng: params.searchObj.long});
+    $scope.map.fitBounds($scope.bounds);
 
     const searchObj = {
       radius: MapMath.toKilometers(params.searchObj.radius),
@@ -152,7 +159,6 @@ angular.module('explorer', ['landingPage'])
     $scope.eventList = [];
 
     const setMessage = (msgObj) =>{
-      console.log('we are setting the msgobj')
       $scope.message = msgObj;
     };
 
@@ -161,7 +167,7 @@ angular.module('explorer', ['landingPage'])
       Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers);
       Events.listEvents(events, $scope.eventList);
     });
-  }  
+  }
 
   // radiusChange function listening on ngChange of $scope.radius
   $scope.radiusChange = () => {
@@ -189,7 +195,7 @@ angular.module('explorer', ['landingPage'])
       Events.listEvents(events, $scope.eventList);
     });
   };
-  
+
 })
 .factory('Events', ($http, MapMath) => {
   const getEvents = (locationObj, cb) => {
@@ -207,7 +213,7 @@ angular.module('explorer', ['landingPage'])
         msg = 'No events in your location. Please choose a larger raidus or new location.'
         cl = 'show';
       }
-      
+
       cb(events, {
         msg: msg,
         cl: cl
@@ -249,19 +255,18 @@ angular.module('explorer', ['landingPage'])
       });
       markers.push(marker);
     });
-    markers.forEach((marker) => {
-      marker.setMap(map);
-      bounds.extend(marker.getPosition());
-    });
-    map.fitBounds(bounds);
+    if (markers.length > 0) {
+      markers.forEach((marker) => {
+        marker.setMap(map);
+        bounds.extend(marker.getPosition());
+      });
+      map.fitBounds(bounds);
+    }
   };
-
   const listEvents = (events, list) => {
     events.forEach((event) => {
       list.push(event);
     });
-
-    console.log('events: ', events);
   }
   return {
     getEvents: getEvents,
@@ -285,6 +290,3 @@ angular.module('explorer', ['landingPage'])
     toKilometers: toKilometers
   };
 })
-.factory('', () => {
-
-});
