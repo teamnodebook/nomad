@@ -4,11 +4,14 @@
 body{ 
   background-color: #f1f1f1;
   margin-bottom: 20px;
+  font-color: #333;
 }
 p { font-family: 'ProximaNova-reg';}
 h1{ font-family: 'ProximaNova-reg';}
 h2{ font-family: 'ProximaNova-reg';}
-h3{ font-family: 'ProximaNova-reg';}
+h3{ 
+  font-family: 'ProximaNova-thin';  
+}
 h4{ font-family: 'ProximaNova-bold';}
 h5{ 
   font-family: 'ProximaNova-reg';
@@ -25,12 +28,15 @@ h6{
 /*---------------------------------------------------------*/
 #custom-nav{
   border-right: .5px solid #D2D6DF;
+  /*font-color: #4D4C4C;*/
 }
 
-a.nav-link:hover, a.nav-link:active {
-  /*need to add css for active link in nav*/
+.navbar-default .navbar-nav>li>a {
+  color: #484848;
 }
-
+.navbar-default .navbar-brand {
+  color: #484848;
+}
 
 /*---------------------------------------------------------*/
 /*------------------- Landing Page ------------------------*/
@@ -55,8 +61,8 @@ a.landing-pg-links:link, a.landing-pg-links:hover, a.landing-pg-links:active {
 }
 
 .landing-pg-links-main {
-  font-size: 30px;
-  font-family:'ProximaNova-Bold';
+  font-size: 26px;
+  font-family:'ProximaNova-reg';
   color:#fff;
   padding-top:90px;
 }
@@ -105,8 +111,8 @@ a.landing-pg-links:link, a.landing-pg-links:hover, a.landing-pg-links:active {
   padding-bottom: 2%;
 }
 
-.alert-info {
-  width: 50%;
+.alert {  
+  width:100%;
   text-align: center;
 }
 
