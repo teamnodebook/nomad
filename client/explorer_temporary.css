@@ -6,4 +6,45 @@
   display: inline-block;
   vertical-align: middle;
   float: none;
+  margin-top: 2.3%;
+}
+
+hr {
+  border: 0;
+  clear:both;
+  display:block;
+  width: 96%;               
+  background-color: RGBA(216, 216, 216, .50);
+  height: 2px;
+  margin-left: 12%;
+}
+
+.shape {
+	width: 30px;
+	height: 30px;
+	border-radius: 20px;
+	background-color: #3DA3AC;
+	text-align: center;
+	margin-top: 15%;
+}
+
+.num {
+	font-family: AvenirNext;
+	font-size: 20px;
+	margin-left: -5;
+	font-weight: bold;
+	color: #f1f8ff;
+}
+
+@media (max-width: 940px) { 
+	hr {
+		margin-left: 0%;
+	}
+	#listContainer {
+		text-align: center;
+	}
+	.shape {
+		margin-top: 0%;
+		margin-left: 3%;
+	}
 }
