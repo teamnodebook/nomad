@@ -30,7 +30,7 @@ angular.module('nomadForm', [])
   $scope.addressMsg = {
     class: 'alert alert-warning',
     msg: 'Save your event address.'
-  }
+  };
 
   $scope.addedAddress = (check) =>{
     if(check){
@@ -45,10 +45,10 @@ angular.module('nomadForm', [])
       }
     }
     $scope.$apply();
-  }
+  };
   /////////////////////////////////////
 
-  $scope.useAddress = () => {
+  locSearch.addListener('places_changed', () => {
     address = document.getElementById('locSearch').value;
     geocoder.geocode( { address: address }, (results, status) => {
       if (status === 'OK') {
@@ -60,17 +60,16 @@ angular.module('nomadForm', [])
         $scope.addedAddress(false); // set the message to know if address got added
       }
     });
-  }
+  });
 
   $scope.checkInputs = () => {
-    console.log($scope.startTime);
     if (lat && lng && $scope.eventName && $scope.hostName && $scope.startTime && $scope.endTime && $scope.description) {
       $scope.confirm();
       $location.path('/nomadConfirmation');
     } else {
       alert('Some fields are missing');
     }
-  }
+  };
 
   $scope.confirm = () => {
     // time
