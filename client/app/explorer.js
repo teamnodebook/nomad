@@ -55,13 +55,13 @@ angular.module('explorer', ['landingPage'])
 
   $scope.message = {
     msg: 'Choose an address, then choose a radius',
-    class: 'show'
+    cl: 'show'
   }
   //create a message to live in the event list
   $scope.choseAddress = () =>{
     $scope.message = {
       msg: 'Click an address from the search drop down.',
-      class: 'show'
+      cl: 'show'
     }
   }
 
@@ -70,7 +70,7 @@ angular.module('explorer', ['landingPage'])
     //(remove message)
     $scope.message = {
       msg: 'Choose a radius from the drop down selector.',
-      class: 'show'
+      cl: 'show'
     };
     $scope.$apply();
 
@@ -150,7 +150,14 @@ angular.module('explorer', ['landingPage'])
       long: MapMath.toRad(params.searchObj.long)
     }
     $scope.eventList = [];
-    Events.getEvents(searchObj, (events) => {
+
+    const setMessage = (msgObj) =>{
+      console.log('we are setting the msgobj')
+      $scope.message = msgObj;
+    };
+
+    Events.getEvents(searchObj, (events, msgObj) => {
+      setMessage(msgObj);
       Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers);
       Events.listEvents(events, $scope.eventList);
     });
@@ -163,7 +170,7 @@ angular.module('explorer', ['landingPage'])
     }
     $scope.message = {
       msg: '',
-      class: 'hidden'
+      cl: 'hidden'
     };
     $scope.eventMarkers.forEach((marker) => {
       marker.setMap(null);
@@ -176,7 +183,8 @@ angular.module('explorer', ['landingPage'])
       long: MapMath.toRad($scope.searchLoc.geometry.location.lng())
     }
     $scope.eventList = [];
-    Events.getEvents(searchObj, (events) => {
+    Events.getEvents(searchObj, (events, msgObj) => {
+      $scope.message = msgObj;
       Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers);
       Events.listEvents(events, $scope.eventList);
     });
@@ -192,7 +200,18 @@ angular.module('explorer', ['landingPage'])
     })
     .then((resp) => {
       const events = resp.data.events;
-      cb(events);
+      let msg = '';
+      let cl = 'hidden'
+
+      if(events.length === 0){
+        msg = 'No events in your location. Please choose a larger raidus or new location.'
+        cl = 'show';
+      }
+      
+      cb(events, {
+        msg: msg,
+        cl: cl
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -268,4 +287,4 @@ angular.module('explorer', ['landingPage'])
 })
 .factory('', () => {
 
-})
+});
