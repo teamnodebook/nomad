@@ -26,12 +26,12 @@
 <!-- BODY CONTAINER -->
 <div ng-controller='nomadCtrl' class="container-fluid" style="margin-top: 50px">
   <!-- start  header row -->
-  <div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-10">
+  <div class="row">    
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
       <h3>Create Event</h3>
     </div>
-    <div class="col-md-1"></div>
+    <div class="col-md-2"></div>
   </div>
   <!-- end header row -->
   
@@ -39,15 +39,15 @@
   <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-      </br>
-      <form class="form-group">
-        </br>
+      <div  ng-model='inputMsg' class='message {{ inputMsg.class }}'>{{ inputMsg.msg }}</div>
+
+      <form class="form-group">        
         <h5>Event Name</h5>
         <input ng-model='eventName' type="text" placeholder="" class="form-control" ng-change='checkInputs()' ></input>
         <h5>Host Name</h5>
         <input ng-model='hostName' type='text' class="form-control" ng-change='checkInputs()' >
         <h5>Event Description</h5>
-        <textarea ng-model='description' class="form-control" style="height:150px" ng-change='checkInputs()' ></textarea>                     
+        <textarea ng-model='description' class="form-control" style="height:75px" ng-change='checkInputs()' ></textarea>                     
         <h5>Event Location</h5>             
         <div class="input-group">          
           <input id='locSearch' type='text' placeholder='search for your location' class="form-control">
@@ -68,7 +68,6 @@
           </div>
         </div> 
         </br>
-        <div  ng-model='inputMsg' class='message {{ inputMsg.class }}'>{{ inputMsg.msg }}</div>
         </br>
         <button id='eventSubmission' type="button" class="btn btn-primary location-submit-button" ng-click='confirm()' style="float:right">Submit Event</button>
         </br>
