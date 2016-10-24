@@ -5,6 +5,7 @@ body{
   background-color: #f1f1f1;
   margin-bottom: 20px;
   font-color: #333;
+  height: 96%;
 }
 p { font-family: 'ProximaNova-reg';}
 h1{ font-family: 'ProximaNova-reg';}
@@ -60,7 +61,7 @@ h6{
 .landing-bg {
   background: url(./assets/landing-bg.jpg) no-repeat;
   background-size: cover;
-  height: 100%;
+  height: 78%;
   background-position: center;
   text-align: center;
 }
