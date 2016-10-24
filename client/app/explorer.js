@@ -150,7 +150,14 @@ angular.module('explorer', ['landingPage'])
       long: MapMath.toRad(params.searchObj.long)
     }
     $scope.eventList = [];
-    Events.getEvents(searchObj, (events) => {
+
+    const setMessage = (msgObj) =>{
+      console.log('we are setting the msgobj')
+      $scope.message = msgObj;
+    };
+
+    Events.getEvents(searchObj, (events, msgObj) => {
+      setMessage(msgObj);
       Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers);
       Events.listEvents(events, $scope.eventList);
     });
@@ -176,7 +183,8 @@ angular.module('explorer', ['landingPage'])
       long: MapMath.toRad($scope.searchLoc.geometry.location.lng())
     }
     $scope.eventList = [];
-    Events.getEvents(searchObj, (events) => {
+    Events.getEvents(searchObj, (events, msgObj) => {
+      $scope.message = msgObj;
       Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers);
       Events.listEvents(events, $scope.eventList);
     });
@@ -192,7 +200,10 @@ angular.module('explorer', ['landingPage'])
     })
     .then((resp) => {
       const events = resp.data.events;
-      cb(events);
+      cb(events, {
+        msg: '',
+        class: 'hidden'
+      });
     })
     .catch((err) => {
       console.log(err);
@@ -268,4 +279,4 @@ angular.module('explorer', ['landingPage'])
 })
 .factory('', () => {
 
-})
+});
