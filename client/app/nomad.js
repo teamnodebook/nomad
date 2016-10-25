@@ -22,8 +22,6 @@ angular.module('nomadForm', [])
   $scope.addTimes = () => {
     if ($scope.times[$scope.times.length - 1].date && $scope.times[$scope.times.length - 1].startTime && $scope.times[$scope.times.length - 1].endTime) {
       $scope.times.push({});
-    } else {
-      console.log('poop');
     }
   }
 
@@ -89,7 +87,10 @@ angular.module('nomadForm', [])
       if ($scope.times[i].date && $scope.times[i].startTime && $scope.times[i].endTime) {
         params.convertedTimes.push({
           start: $scope.times[i].date.toISOString().split('T')[0] + 'T' + $scope.times[i].startTime.toISOString().split('T')[1],
-          end: $scope.times[i].date.toISOString().split('T')[0] + 'T' + $scope.times[i].endTime.toISOString().split('T')[1]
+          end: $scope.times[i].date.toISOString().split('T')[0] + 'T' + $scope.times[i].endTime.toISOString().split('T')[1],
+          date: $scope.times[i].date.toString().slice(0, 15),
+          origStart: $scope.times[i].startTime.toString().slice(16, 21),
+          origEnd: $scope.times[i].endTime.toString().slice(16, 21)
         });
       }
     }
