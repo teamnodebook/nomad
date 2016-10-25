@@ -86,10 +86,12 @@ angular.module('nomadForm', [])
     // time
     params.convertedTimes = [];
     for (var i = 0; i < $scope.times.length; i++) {
-      params.convertedTimes.push({
-        start: $scope.times[i].date.toISOString().split('T')[0] + 'T' + $scope.times[i].startTime.toISOString().split('T')[1],
-        end: $scope.times[i].date.toISOString().split('T')[0] + 'T' + $scope.times[i].endTime.toISOString().split('T')[1]
-      });
+      if ($scope.times[i].date && $scope.times[i].startTime && $scope.times[i].endTime) {
+        params.convertedTimes.push({
+          start: $scope.times[i].date.toISOString().split('T')[0] + 'T' + $scope.times[i].startTime.toISOString().split('T')[1],
+          end: $scope.times[i].date.toISOString().split('T')[0] + 'T' + $scope.times[i].endTime.toISOString().split('T')[1]
+        });
+      }
     }
 
     // location
