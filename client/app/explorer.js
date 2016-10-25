@@ -300,7 +300,9 @@ angular.module('explorer', ['landingPage'])
         }
         list.push(event);
       });
+
     });
+    console.log(JSON.stringify(list, null, 3))
     cb();
   }
   return {
