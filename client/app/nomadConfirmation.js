@@ -1,5 +1,5 @@
-angular.module('nomadConfirm', ['nomadForm'])
-.controller('nomadConfirmCtrl', ($scope, $location, params) => {
+angular.module('nomadConfirm', ['nomadForm', 'explorer'])
+.controller('nomadConfirmCtrl', ($scope, $location, params, MapMath) => {
 
   $scope.location = params.address;
   $scope.date = params.date;
@@ -26,7 +26,7 @@ angular.module('nomadConfirm', ['nomadForm'])
   }
 
   $scope.sendNomadInfo = () => {
-    console.log(params);
+    console.log(MapMath);
     fetch('/api/createEvent', {
       method: 'POST',
       headers: {
@@ -39,8 +39,8 @@ angular.module('nomadConfirm', ['nomadForm'])
                 description: params.description,
               },
               location: {
-                lat: params.lat,
-                long: params.long
+                lat: MapMath.toRad(params.lat),
+                long: MapMath.toRad(params.long)
               },
               time: params.convertedTimes
             })
