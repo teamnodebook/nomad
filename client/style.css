@@ -113,10 +113,11 @@ a.landing-pg-links:link, a.landing-pg-links:hover, a.landing-pg-links:active {
 
 @media (max-width: 700px) {
   .landingDesc {
-    margin-top: -10%;
+    margin-top: -40%;
   }
   .searchEvnt {
-    margin-top: -15%;
+    margin-top: -10%;
+    margin-left: -17%;
   }
 }
 
