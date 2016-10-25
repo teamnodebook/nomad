@@ -3,8 +3,7 @@ angular.module('nomadConfirm', ['nomadForm', 'explorer'])
 
   $scope.location = params.address;
   $scope.date = params.date;
-  $scope.startTime = params.startTime;
-  $scope.endTime = params.endTime;
+  $scope.convertedTimes = params.convertedTimes;
   $scope.eventName = params.eventName;
   $scope.hostName = params.host;
   $scope.description = params.description;
@@ -21,7 +20,6 @@ angular.module('nomadConfirm', ['nomadForm', 'explorer'])
   });
 
   $scope.redirectToEditPage = () => {
-    console.log("inside redirectToEditPage");
     $location.url("nomad");
   }
 
