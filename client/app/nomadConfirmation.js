@@ -26,7 +26,6 @@ angular.module('nomadConfirm', ['nomadForm', 'explorer'])
   }
 
   $scope.sendNomadInfo = () => {
-    console.log(MapMath);
     fetch('/api/createEvent', {
       method: 'POST',
       headers: {
@@ -39,8 +38,8 @@ angular.module('nomadConfirm', ['nomadForm', 'explorer'])
                 description: params.description,
               },
               location: {
-                lat: MapMath.toRad(params.lat),
-                long: MapMath.toRad(params.long)
+                lat: params.lat,
+                long: params.long
               },
               time: params.convertedTimes
             })
