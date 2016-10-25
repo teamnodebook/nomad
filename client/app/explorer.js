@@ -233,7 +233,12 @@ angular.module('explorer', ['landingPage'])
     var labelIndex = 0;
     events.forEach((event) => {
       // todo: change to better icon
+        // icon: iconBase + 'assets/shape.png';
+        // width: 22px;
+        // height: 40px;
+
       const icon = {
+        // url: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2%7C46ADB5',
         size: new google.maps.Size(71, 71),
         origin: new google.maps.Point(0, 0),
         anchor: new google.maps.Point(17, 34),
@@ -241,8 +246,14 @@ angular.module('explorer', ['landingPage'])
       };
       const marker = new google.maps.Marker({
         map: map,
-        label: labels[labelIndex++ % labels.length],
-        icon: icon,
+        // label: labels[labelIndex++ % labels.length],
+        icon: 'assets/map_icon_color_opacity.png',
+        label: {
+          text: labels[labelIndex++ % labels.length],
+          color: 'white',
+          fontFamily: 'ProximaNova-bold',
+          fontSize: '12px'
+        },
         title: event.name,
         position: {lat: MapMath.toLatLong(Number(event.lat)), lng: MapMath.toLatLong(Number(event.long))}
       });
