@@ -17,16 +17,15 @@ angular.module('nomadForm', [])
 
   document.getElementById('eventSubmission').style.display = 'none';
 
-  $scope.times = ['start'];
+  $scope.times = [ {} ];
 
-  // $scope.addTimes = () => {
-  //   $scope.times.push({
-  //     startTime: $scope.startTime,
-  //     endTime: $scope.endTime
-  //   });
-  //   console.log($scope.startTime);
-  //   console.log($scope.times);
-  // }
+  $scope.addTimes = () => {
+    if ($scope.times[$scope.times.length - 1].date && $scope.times[$scope.times.length - 1].startTime && $scope.times[$scope.times.length - 1].endTime) {
+      $scope.times.push({});
+    } else {
+      console.log('poop');
+    }
+  }
 
   /////////////////////////////////////
   // $scope.addressMsg = {
@@ -61,7 +60,6 @@ angular.module('nomadForm', [])
         msg: 'All inputs saved.'
       }
     }
-    $scope.$apply();
   }
   /////////////////////////////////////
 
@@ -77,7 +75,8 @@ angular.module('nomadForm', [])
   });
 
   $scope.checkInputs = () => {
-    if (lat && lng && $scope.eventName && $scope.hostName && $scope.startTime && $scope.endTime && $scope.description) {
+    // console.log($scope.times);
+    if (lat && lng && $scope.eventName && $scope.hostName && $scope.times[$scope.times.length - 1].date && $scope.times[$scope.times.length - 1].startTime && $scope.times[$scope.times.length - 1].endTime && $scope.description) {
       document.getElementById('eventSubmission').style.display = 'block';
       $scope.allInputs(true);
     }
@@ -85,38 +84,19 @@ angular.module('nomadForm', [])
 
   $scope.confirm = () => {
     // time
-    var startTime = $scope.startTime;
-    var endTime = $scope.endTime;
-    var startHour = Number(startTime.toISOString().slice(11, 13)) - 8;
-    var startMinutes = Number(startTime.toISOString().slice(14, 16));
-    var endHour = Number(endTime.toISOString().slice(11, 13)) - 8;
-    var endMinutes = Number(endTime.toISOString().slice(14, 16));
-    if (startHour < 0) {
-      startHour += 24;
+    params.convertedTimes = [];
+    for (var i = 0; i < $scope.times.length; i++) {
+      params.convertedTimes.push({
+        start: $scope.times[i].date.toISOString().split('T')[0] + 'T' + $scope.times[i].startTime.toISOString().split('T')[1],
+        end: $scope.times[i].date.toISOString().split('T')[0] + 'T' + $scope.times[i].endTime.toISOString().split('T')[1]
+      });
     }
-    if (endHour < 0) {
-      endHour += 24;
-    }
-    if (startMinutes < 10) {
-      startMinutes = '0' + String(startMinutes);
-    }
-    if (endMinutes < 10) {
-      endMinutes = '0' + String(endMinutes);
-    }
-
-    // date
-    params.date = $scope.date.toString().slice(0, 10);
-    params.origStartTime = startTime.toISOString();
-    params.origEndTime = endTime.toISOString();
-    params.origDate = $scope.date.toISOString();
 
     // location
     params.address = address;
     params.lat = lat;
     params.long = lng;
 
-    params.startTime = String(startHour) + ':' + startMinutes;
-    params.endTime = String(endHour) + ':' + endMinutes;
     params.eventName = $scope.eventName;
     params.host = $scope.hostName;
     params.description = $scope.description;
