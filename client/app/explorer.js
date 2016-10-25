@@ -219,6 +219,7 @@ angular.module('explorer', ['landingPage'])
         cl = 'show';
       }
 
+      console.log(JSON.stringify(events, null, 3));
       cb(events, {
         msg: msg,
         cl: cl
@@ -298,9 +299,9 @@ angular.module('explorer', ['landingPage'])
           event.address = address;
         }
         list.push(event);
-        cb();
       });
     });
+    cb();
   }
   return {
     getEvents: getEvents,
