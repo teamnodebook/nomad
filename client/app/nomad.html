@@ -52,21 +52,21 @@
         <div class="input-group">          
           <input id='locSearch' type='text' placeholder='search for your location' class="form-control">
         </div>
-        <div class="row">    
+        <div class="row" ng-repeat='time in times track by $index'>    
           <div class="col-md-4">
             <h5>Event Date</h5>
-            <input type="date" value="yyyy-mm-dd" class="form-control input-medium search-query " onkeypress="return false" ng-model='date' ng-change='checkInputs()'> 
-          </div>        
-
+            <input id='date{{$index}}' type="date" value="yyyy-mm-dd" class="form-control input-medium search-query " onkeypress="return false" ng-model='times[$index].date' ng-change='checkInputs()'> 
+          </div>
           <div class="col-md-4">
             <h5>Start Time</h5>
-            <input ng-model='startTime' type='time' class="form-control" ng-change='checkInputs()'>
+            <input id='startTime{{$index}}' ng-model='times[$index].startTime' type='time' class="form-control" ng-change='checkInputs()'>
           </div>
           <div class="col-md-4">
             <h5>End Time</h5>
-            <input type='time' ng-model='endTime' class="form-control" ng-change='checkInputs()'>
+            <input id='endTime{{$index}}' type='time' ng-model='times[$index].endTime' class="form-control" ng-change='checkInputs()'>
           </div>
-        </div> 
+        </div>
+        <div ng-click='addTimes()'>Add Time</div>
         </br>
         </br>
         <button id='eventSubmission' type="button" class="btn btn-primary location-submit-button" ng-click='confirm()' style="float:right">Submit Event</button>
