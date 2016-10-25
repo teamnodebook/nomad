@@ -45,6 +45,6 @@ angular.module('nomadConfirm', ['nomadForm'])
               time: params.convertedTimes
             })
     });
-    // $location.path('/explorer');
+    $location.path('/explorer');
   };
 });
