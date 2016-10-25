@@ -166,9 +166,29 @@ angular.module('explorer', ['landingPage'])
     Events.getEvents(searchObj, (events, msgObj) => {
       setMessage(msgObj);
       Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers, $scope.labels);
-      Events.listEvents(events, $scope.eventList, () =>{
-        $scope.$apply();
-      });
+      Events.listEvents(events, $scope.eventList
+        // , (list) =>{
+
+        //   return list.map((event) => {
+        //     const lat = MapMath.toLatLong(event.lat);
+        //     const long = MapMath.toLatLong(event.long);
+        //     const geocoder = new google.maps.Geocoder();
+
+        //     geocoder.geocode({location: { lat: lat, lng: long}}, (results, status) =>{
+              
+        //       if(status === 'OK' && results[0] !== null){
+        //         console.log(results[0], event.name)
+        //         const address = results[0].formatted_address;
+        //         event.address = address;
+        //       }
+
+        //       return event;
+        //     });
+
+        //   });
+
+        // }
+      );
     });
   }
 
@@ -195,9 +215,29 @@ angular.module('explorer', ['landingPage'])
     Events.getEvents(searchObj, (events, msgObj) => {
       $scope.message = msgObj;
       Events.mapEvents(events, $scope.map, $scope.bounds, $scope.eventMarkers, $scope.labels);
-      Events.listEvents(events, $scope.eventList, () =>{
-        $scope.$apply();
-      });
+      Events.listEvents(events, $scope.eventList
+        // , (list) =>{
+
+        //   return list.map((event) => {
+        //     const lat = MapMath.toLatLong(event.lat);
+        //     const long = MapMath.toLatLong(event.long);
+        //     const geocoder = new google.maps.Geocoder();
+
+        //     geocoder.geocode({location: { lat: lat, lng: long}}, (results, status) =>{
+              
+        //       if(status === 'OK' && results[0] !== null){
+        //         console.log(results[0], event.name)
+        //         const address = results[0].formatted_address;
+        //         event.address = address;
+        //       }
+
+        //       return event;
+        //     });
+
+        //   });
+
+        // }
+      );
     });
   };
 
@@ -219,7 +259,6 @@ angular.module('explorer', ['landingPage'])
         cl = 'show';
       }
 
-      console.log(JSON.stringify(events, null, 3));
       cb(events, {
         msg: msg,
         cl: cl
@@ -276,7 +315,6 @@ angular.module('explorer', ['landingPage'])
     });
     if (markers.length > 0) {
       markers.forEach((marker) => {
-        console.log(marker.label);
         marker.setMap(map);
         bounds.extend(marker.getPosition());
       });
@@ -285,23 +323,10 @@ angular.module('explorer', ['landingPage'])
   };
 
   const listEvents = (events, list, cb) => {
-
     events.forEach((event) => {
-
-      const lat = MapMath.toLatLong(event.lat);
-      const long = MapMath.toLatLong(event.long);
-
-      const geocoder = new google.maps.Geocoder();
-
-      geocoder.geocode({location: { lat: lat, lng: long}}, (results, status) =>{
-        if(status === 'OK' && results[0] !== null){
-          const address = results[0].formatted_address;
-          event.address = address;
-        }
         list.push(event);
-      });
     });
-    cb();
+    cb(list);
   }
   return {
     getEvents: getEvents,
