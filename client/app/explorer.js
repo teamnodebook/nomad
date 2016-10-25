@@ -326,7 +326,7 @@ angular.module('explorer', ['landingPage'])
     events.forEach((event) => {
         list.push(event);
     });
-    cb(list);
+    // cb(list);
   }
   return {
     getEvents: getEvents,
