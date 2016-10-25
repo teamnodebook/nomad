@@ -5,6 +5,7 @@ body{
   background-color: #f1f1f1;
   margin-bottom: 20px;
   font-color: #333;
+  height: 96%;
 }
 p { font-family: 'ProximaNova-reg';}
 h1{ font-family: 'ProximaNova-reg';}
@@ -21,7 +22,6 @@ h6{
   font-family: 'ProximaNova-thin';
   font-size: 16px;
 }
-
 
 /*---------------------------------------------------------*/
 /*--------------------- Navbar ----------------------------*/
@@ -60,7 +60,7 @@ h6{
 .landing-bg {
   background: url(./assets/landing-bg.jpg) no-repeat;
   background-size: cover;
-  height: 100%;
+  height: 78%;
   background-position: center;
   text-align: center;
 }
@@ -110,6 +110,15 @@ a.landing-pg-links:link, a.landing-pg-links:hover, a.landing-pg-links:active {
   height:50px;
 }
 
+
+@media (max-width: 700px) {
+  .landingDesc {
+    margin-top: -10%;
+  }
+  .searchEvnt {
+    margin-top: -15%;
+  }
+}
 
 /*---------------------------------------------------------*/
 /*------------------- Explorer Page ------------------------*/
