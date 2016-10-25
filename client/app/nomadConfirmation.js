@@ -25,7 +25,8 @@ angular.module('nomadConfirm', ['nomadForm'])
     $location.url("nomad");
   }
 
-  $scope.sendNomadInfo = () => { 
+  $scope.sendNomadInfo = () => {
+    console.log(params);
     fetch('/api/createEvent', {
       method: 'POST',
       headers: {
@@ -41,10 +42,7 @@ angular.module('nomadConfirm', ['nomadForm'])
                 lat: params.lat,
                 long: params.long
               },
-              time: [{
-                start: String(params.origDate).split('T')[0] + 'T' + String(params.origStartTime).split('T')[1],
-                end: String(params.origDate).split('T')[0] + 'T' + String(params.origEndTime).split('T')[1]
-              }]
+              time: params.convertedTimes
             })
     });
     $location.path('/explorer');

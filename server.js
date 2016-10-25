@@ -117,7 +117,7 @@ app.post('/api/createEvent', (req, res) =>{
 	req.body.location.lat = req.body.location.lat.toRad();
 	req.body.location.long = req.body.location.long.toRad();
 
-	let insertTimes = (client) =>{
+	let insertTimes = (client, cb) =>{
 		_.each(req.body.time, (time) =>{
 			console.log(req.body.info.name, req.body.info.location)
 			client.query(`insert into public.dates
@@ -128,10 +128,10 @@ app.post('/api/createEvent', (req, res) =>{
 									(err, result) =>{
 										console.log(err, 'check error')
 										console.log(result, ' result from insert statement')
-										res.send('Success').end();
 									}
 			);
 		});
+		cb();
 	};
 
 	// insert into public.events (name, host, description, lat, long) values(,,,,,,);
@@ -153,7 +153,9 @@ app.post('/api/createEvent', (req, res) =>{
 								(err, result) =>{
 									console.log(err, 'check error')
 									console.log(result, ' result from insert statement')
-									insertTimes(client);
+									insertTimes(client, () => {
+										res.send();
+									});
 								}
 		);
 	});
