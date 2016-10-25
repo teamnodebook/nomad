@@ -117,6 +117,8 @@ app.post('/api/createEvent', (req, res) =>{
 	req.body.location.lat = req.body.location.lat.toRad();
 	req.body.location.long = req.body.location.long.toRad();
 
+	console.log(req.body)
+
 	let insertTimes = (client, cb) =>{
 		_.each(req.body.time, (time) =>{
 			console.log(req.body.info.name, req.body.info.location)
