@@ -66,11 +66,13 @@
   <!-- start events list row -->
   <div class="row listElement {{event.other}}" id='listContainer' ng-repeat='event in eventList | orderBy: "id" ' style="padding: 2% 0% 2% 0%">
     <div class="col-md-2"></div>
-    <div class="col-md-8">
-      
-      <div class='col-md-5' style="padding:0px 0px 0px 0px ">
-
-        <h4 ng-model='labels'>{{labels[$index]}} </h4>
+    <div class="col-md-8">      
+      <div class='col-md-1' style="padding: 10px 15px 0px 0px">
+        <div class="map_icon" ng-model='labels'>
+         {{labels[$index]}}          
+        </div>  
+      </div>
+      <div class='col-md-5' style="padding:0px 0px 0px 0px ">            
         <h4 style="margin-bottom: 3px">{{event.name}}</h4>
         <span>Hosted by <strong>{{event.host}}</strong></span>        
         <br><br>
@@ -82,13 +84,13 @@
 
         <div>
           <span style="display:inline-block; font-family:'ProximaNova-light'; ">
-            <img src="assets/map_icon_grey.png" style="height:15px"></img>
+            <img src="assets/map_icon_grey.png" style="height:15px">
             {{event.address}}
           </span>
         </div>
       </div>
       </br>
-      <p class='col-md-7 eventDescription'>{{event.description}}</p>
+      <p class='col-md-6 eventDescription'>{{event.description}}</p>
     </div>
     <div class="col-md-2"></div>
   </div>
