@@ -114,11 +114,24 @@ a.landing-pg-links:link, a.landing-pg-links:hover, a.landing-pg-links:active {
 /*---------------------------------------------------------*/
 /*------------------- Explorer Page ------------------------*/
 /*---------------------------------------------------------*/
+
+.map_icon {
+  background-image: url("assets/map_icon_color.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  color:#fff; 
+  font-family:'ProximaNova-bold';
+  font-size: 14px;
+  height: 47px;
+  width:  37px;
+  padding: 10px 0px 0px 0px;
+  text-align: center
+}
+
 .eventDescription {
   display: inline-block;
   vertical-align: middle;
-  float: none;
-  margin-top: 2.3%;
+  float: none;  
 }
 
 /*alternating event list row color*/
