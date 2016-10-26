@@ -3,6 +3,7 @@
 		"info": { 
 			"name":"Rap battle",
 			"host":"Jemil",
+			"paypal":"http://paypal.me/miteaisgreener",
 			"description":"Lets battle"
 		},
 		"location": { 
@@ -18,6 +19,7 @@
 		"info": { 
 			"name":"Music on the corner",
 			"host":"Jake Smith",
+			"paypal":"http://paypal.me/miteaisgreener",
 			"description":"A place to listen to the hits on my new album."
 		},
 		"location": { 
@@ -33,6 +35,7 @@
 		"info": { 
 			"name":"Break dancing on Market",
 			"host":"Sam Johnson",
+			"paypal":"http://paypal.me/miteaisgreener",
 			"description":"I like to break dance."
 		},
 		"location": { 
@@ -48,6 +51,7 @@
 		"info": { 
 			"name":"Live music",
 			"host":"Alex Grahmn",
+			"paypal":"http://paypal.me/miteaisgreener",
 			"description":"I play a variety of instruments."
 		},
 		"location": { 
@@ -63,6 +67,7 @@
 		"info": { 
 			"name":"Magic show",
 			"host":"Greg Manson",
+			"paypal":"http://paypal.me/miteaisgreener",
 			"description":"A show to remember."
 		},
 		"location": { 
@@ -78,6 +83,7 @@
 		"info": { 
 			"name":"Dancing",
 			"host":"Jason Miller",
+			"paypal":"http://paypal.me/miteaisgreener",
 			"description":"I do a variety of dances."
 		},
 		"location": { 
@@ -93,6 +99,7 @@
 		"info": { 
 			"name":"Card tricks",
 			"host":"Avery Kister",
+			"paypal":"http://paypal.me/miteaisgreener",
 			"description":"I will blow your mind."
 		},
 		"location": { 
@@ -108,6 +115,7 @@
 		"info": { 
 			"name":"Painting",
 			"host":"Sarah Crandof",
+			"paypal":"http://paypal.me/miteaisgreener",
 			"description":"I am selling my paintings."
 		},
 		"location": { 
@@ -123,6 +131,7 @@
 		"info": { 
 			"name":"Save the whales",
 			"host":"Jessica Sonders",
+			"paypal":"http://paypal.me/miteaisgreener",
 			"description":"We need to protect our oceans."
 		},
 		"location": { 
@@ -138,6 +147,7 @@
 		"info": { 
 			"name":"Seafood sale",
 			"host":"James Frank",
+			"paypal":"http://paypal.me/miteaisgreener",
 			"description":"I'm selling my catch of the day."
 		},
 		"location": { 
@@ -153,6 +163,7 @@
 		"info": { 
 			"name":"Jewlery sale",
 			"host":"Nick Seller",
+			"paypal":"http://paypal.me/miteaisgreener",
 			"description":"I make handcrafter jewlery with real stones."
 		},
 		"location": { 

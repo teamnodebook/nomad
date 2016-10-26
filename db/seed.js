@@ -99,6 +99,7 @@ const createTablesQuery = (clientInstance) => {
 			description varchar,
 			lat decimal,
 			long decimal,
+			paypal varchar,
 			Primary key (id)
 		);
 
@@ -124,12 +125,14 @@ const seedTablesQuery = (clientInstance) => {
 	}; 
 	_.each(data, (obj) => {
 		clientInstance.query(`insert into public.events
-										(name, host, description, lat, long)
+										(name, host, description, paypal, lat, long)
 										values ('${obj.info.name.replace(/(')/g, '\"')}',
 										'${obj.info.host.replace(/(')/g, '\"')}',
 										'${obj.info.description.replace(/(')/g, '\"')}',
+										'${obj.info.paypal}',
 										${obj.location.lat},
 										${obj.location.long})`).then(insertTimes(clientInstance, obj))
+								
 	});
 };
 

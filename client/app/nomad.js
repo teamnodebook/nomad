@@ -65,6 +65,7 @@ angular.module('nomadForm', [])
     address = document.getElementById('locSearch').value;
     geocoder.geocode( { address: address }, (results, status) => {
       if (status === 'OK') {
+        console.log(results[0]);
         lat = results[0].geometry.location.lat();
         lng = results[0].geometry.location.lng();
         $scope.checkInputs();
@@ -74,7 +75,8 @@ angular.module('nomadForm', [])
 
   $scope.checkInputs = () => {
     // console.log($scope.times);
-    if (lat && lng && $scope.eventName && $scope.hostName && $scope.times[$scope.times.length - 1].date && $scope.times[$scope.times.length - 1].startTime && $scope.times[$scope.times.length - 1].endTime && $scope.description) {
+    if (lat && lng && $scope.eventName && $scope.hostName && $scope.paypal && $scope.times[$scope.times.length - 1].date && $scope.times[$scope.times.length - 1].startTime && $scope.times[$scope.times.length - 1].endTime && $scope.description) {
+      console.log($scope.paypal);
       document.getElementById('eventSubmission').style.display = 'block';
       $scope.allInputs(true);
     }
@@ -102,6 +104,7 @@ angular.module('nomadForm', [])
 
     params.eventName = $scope.eventName;
     params.host = $scope.hostName;
+    params.paypal = $scope.paypal;
     params.description = $scope.description;
     $location.path('/nomadConfirmation');
   };
