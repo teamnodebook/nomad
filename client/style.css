@@ -1,0 +1,350 @@
+/*---------------------------------------------------------*/
+/*--------------------- APP-WIDE CSS ----------------------*/
+/*---------------------------------------------------------*/
+body{ 
+  background-color: #f1f1f1;
+  margin-bottom: 20px;
+  font-color: #333;
+  height: 96%;
+}
+p { font-family: 'ProximaNova-reg';}
+h1{ font-family: 'ProximaNova-reg';}
+h2{ font-family: 'ProximaNova-reg';}
+h3{ 
+  font-family: 'ProximaNova-thin';  
+}
+h4{ font-family: 'ProximaNova-bold';}
+h5{ 
+  font-family: 'ProximaNova-reg';
+  font-size: 16px;
+}
+h6{ 
+  font-family: 'ProximaNova-thin';
+  font-size: 16px;
+}
+
+/*---------------------------------------------------------*/
+/*--------------------- Navbar ----------------------------*/
+/*---------------------------------------------------------*/
+#custom-nav{
+  border-right: .5px solid #D2D6DF;
+  /*font-color: #4D4C4C;*/
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: #484848;
+}
+.navbar-default .navbar-brand {
+  color: #484848;
+}
+
+.menuselect {
+  width: 100%;
+  height: 3px;
+  background-color: #a48bc2;
+  margin-top: -2.5%;
+}
+
+@media (max-width: 740px) { 
+  .menuselect {
+    width: 50%;
+    margin-top: -1%;
+    margin-left: 2%;
+    height: 1px;
+  }
+}
+
+
+
+/****** LOGIN MODAL ******/
+.loginmodal-container {
+  padding: 30px;
+  max-width: 350px;
+  width: 100% !important;
+  background-color: #191919;
+  margin: 0 auto;
+  border-radius: 2px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.loginmodal-container h1 {
+  text-align: center;
+  font-size: 1.8em;
+  color: #fff;
+}
+
+.loginmodal-container input[type=submit] {
+  width: 100%;
+  display: block;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.loginmodal-container input[type=text], input[type=password] {
+  height: 44px;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 10px;
+  -webkit-appearance: none;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-top: 1px solid #c0c0c0;
+  /* border-radius: 2px; */
+  padding: 0 8px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.loginmodal-container input[type=text]:hover, input[type=password]:hover {
+  border: 1px solid #b9b9b9;
+  border-top: 1px solid #a0a0a0;
+  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.loginmodal {
+  text-align: center;
+  font-size: 14px;
+  font-family: 'Arial', sans-serif;
+  font-weight: 700;
+  height: 36px;
+  padding: 0 8px;
+/* border-radius: 3px; */
+/* -webkit-user-select: none;
+  user-select: none; */
+}
+
+.loginmodal-submit {
+  /* border: 1px solid #3079ed; */
+  border: 0px;
+  color: #fff;
+  text-shadow: 0 1px rgba(0,0,0,0.1); 
+  background-color: #313638;
+  padding: 17px 0px;
+  font-size: 14px;
+  /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
+}
+
+.loginmodal-submit:hover {
+  /* border: 1px solid #2f5bb7; */
+  border: 0px;
+  text-shadow: 0 1px rgba(0,0,0,0.3);
+  background-color: #4c4c4c;
+  /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
+}
+
+.loginmodal-container a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 400;
+  text-align: center;
+  display: inline-block;
+  opacity: 0.6;
+  transition: opacity ease 0.5s;
+} 
+
+.login-help{
+  font-size: 12px;
+}
+
+/*---------------------------------------------------------*/
+/*------------------- Landing Page ------------------------*/
+/*---------------------------------------------------------*/
+.landing-bg {
+  background: url(./assets/landing-bg.jpg) no-repeat;
+  background-size: cover;
+  height: 78%;
+  background-position: center;
+  text-align: center;
+}
+
+.landing-links{
+  vertical-align: middle;
+}
+
+a.landing-pg-links:link, a.landing-pg-links:hover, a.landing-pg-links:active {
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+  font-family:'ProximaNova-Reg';
+}
+
+.landing-pg-links-main {
+  font-size: 26px;
+  font-family:'ProximaNova-reg';
+  color:#fff;
+  padding-top:90px;
+}
+
+.landing-sub-img-1 {
+  background: url(./assets/pic1.jpg) no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  height: 175px;
+  background-position: center;
+  text-align: center;
+}
+
+.landing-sub-img-2 {
+  background: url(./assets/pic2.jpg) no-repeat;
+  background-size: cover;
+  overflow: hidden;
+  height: 175px;
+  background-position: center;
+  text-align: center;
+}
+
+#location-submit-button {
+  background-color: #4AC1C0;
+  border: 1.75px #4AC1C0 solid;
+  border-radius: 0px;
+  color:#fff;
+  font-family:'ProximaNova-thin';
+  height:50px;
+}
+
+
+@media (max-width: 700px) {
+  .landingDesc {
+    margin-top: -40%;
+  }
+  .searchEvnt {
+    margin-top: -20%;
+    margin-left: -10%;
+  }
+}
+
+/*---------------------------------------------------------*/
+/*------------------- Explorer Page ------------------------*/
+/*---------------------------------------------------------*/
+
+.map_icon {
+  background-image: url("assets/map_icon_color.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  color:#fff; 
+  font-family:'ProximaNova-bold';
+  font-size: 14px;
+  height: 47px;
+  width:  37px;
+  padding: 10px 0px 0px 0px;
+  text-align: center
+}
+
+.eventDescription {
+  display: inline-block;
+  vertical-align: middle;
+  float: none;  
+}
+
+/*alternating event list row color*/
+.color {
+  background-color: #f4f4f4;
+  /*padding-bottom: 2%;*/
+}
+
+.alert {  
+  width:100%;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+
+@media (max-width: 940px) { 
+  #radiusSelect {
+    width: 25%;
+  }
+  hr {
+    margin-left: 0%;
+  }
+  .listContainer, .listElement {
+    text-align: center;
+  }
+  .shape {
+    width: 20%;
+  }
+  #map {
+    margin-left: -3.5%;
+  }
+}
+
+
+/*---------------------------------------------------------*/
+/*------------- Map, Map Search, and Radius ---------------*/
+/*---------------------------------------------------------*/
+#map {
+  height: 250px;
+}
+
+.controls {
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#locSearch, #radiusSelect {
+  font-family: 'ProximaNova-light';
+  font-size: 15px;    
+  text-overflow: ellipsis;
+  width: 200px;
+  height: 34px;
+  padding: 6px 12px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#locSearch:focus, #radiusSelect:focus {
+  border-color: #4d90fe;
+}
+
+#submitSearch {
+  font-family: 'ProximaNova-light';
+  font-size: 15px;
+  background-color: #fff;    
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+}
+
+#submitSearch:focus {
+  border-color: #4d90fe;
+}
+
+
+/*---------------------------------------------------------*/
+/*------------------------ FONTS --------------------------*/
+/*---------------------------------------------------------*/
+@font-face {
+  font-family: 'ProximaNova-Reg';
+  src: url('/fonts/ProximaNova-Reg.otf');
+}
+@font-face {
+  font-family: 'ProximaNova-Black';
+  src: url('/fonts/ProximaNova-Black.otf');
+}
+@font-face {
+  font-family: 'ProximaNova-Bold';
+  src: url('/fonts/ProximaNova-Bold.otf');
+}
+@font-face {
+  font-family: 'ProximaNova-Thin';
+  src: url('/fonts/ProximaNova-Thin.otf');
+}
+@font-face {
+  font-family: 'ProximaNova-Light';
+  src: url('/fonts/ProximaNova-Light.otf');
+}
