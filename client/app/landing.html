@@ -1,0 +1,57 @@
+<div id='landing' class="landing-bg" >
+	<div class="row" style="padding:25px 0px 0px 0px; margin: 0px 0px 0px 0px;"">
+	  <div class="col-md-1"></div>
+	  <div class="col-md-1" style="font-size: 34px; font-family:'ProximaNova-Reg'; color:#fff">NOMAD</div>
+	  <div class="col-md-7"></div>	
+		<div class="col-md-1" style="padding-top:10px;">
+			<a href='#/' class="landing-pg-links" style="color:#fff">LOG IN</a>
+		</div>
+	  <div class="col-md-1" style="padding-top:10px;">
+			<a href='#/' class="landing-pg-links" style="color:#fff">SIGN UP</a>
+	  </div>	  
+	  <div class="col-md-1"></div>
+	</div>
+	<div class="row" style="padding: 150px 0px 0px 0px; margin: 0px 0px 0px 0px">
+	  <div class="col-md-1"></div>
+	  <div class="col-md-10 landingDesc">
+	  	<span style="font-size: 34px; font-family:'ProximaNova-Bold';color:#fff">
+	  		Discover Street Performers and Popup Events Near You
+	  	</span>
+	  </div>				 
+	  <div class="col-md-1"></div>
+	</div>
+	<div class="row" style="padding:60px 0px 0px 0px; margin: 0px 0px 0px 0px">
+		<div class="col-md-4 col-sm-2 col-xs-1"></div>
+		<div class="col-md-2 col-sm-4 col-xs-6">
+			<center ng-controller='landingCtrl' class='col-md-12 searchEvnt'>	  		 	
+		  	<div class="input-group">				  
+				  <input id='locSearch' class='form-control control' type='text' placeholder='search events in location' style="font-family:'ProximaNova-thin';height:50px; border-radius: 0px">
+				  <div class="input-group-btn">
+				    <button id="location-submit-button" type="button" class="btn btn-default" ng-click='setMapCenter()'>See Events</button>
+				  </div>
+				</div>	  	
+			</center>			  				
+		</div>
+		<div class="col-md-5 col-sm-6 col-xs-5"></div>
+	</div>
+</div>
+<div class="row bottomImages" style="padding:0px 0px 0px 0px; margin: 0px 0px 0px 0px">
+  <div class="col-md-6" style="padding: 0px 0px 0px 0px;">
+  	<a href="#/nomad" class="landing-pg-links">
+  		<div class="landing-sub-img-2"> 
+	  		<span>
+	  			<p class="landing-pg-links-main">Create an Event</p>
+	  		</span>
+  		</div>
+  	</a>
+  </div>
+  <div class="col-md-6" style="padding: 0px 0px 0px 0px;">
+  	<a href="#/explorer" class="landing-pg-links">
+  		<div class="landing-sub-img-1"> 
+		  	<span>
+		  		<p class="landing-pg-links-main">Explore all Events</p>
+		  	</span>  	
+	  	</div>
+	  </a>
+  </div>
+</div>

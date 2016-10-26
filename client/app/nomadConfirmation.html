@@ -1,0 +1,76 @@
+<!-- START NAVBAR -->
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">  
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/#/">NOMAD</a>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav navbar-right">
+        <li id="custom-nav"><a href='/#/nomad'>Create Event</a></li>
+          <li id="custom-nav"><a href='#/explorer'>Explore Events</a></li>
+          <li id="custom-nav"><a href='/#/'>Sign In</a></li>
+          <li><a href='/#/'>Sign Up</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- END NAVBAR -->
+
+<!-- BODY CONTAINER -->
+<div ng-controller='nomadConfirmCtrl' class="container-fluid" style="margin-top: 50px">
+  <!-- start map row -->
+  <div class="row">
+      <div id='map'></div>      
+  </div>
+  <!-- end map row -->
+  
+  <!-- start  header row -->
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <h3>Confirmation Page</h3>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <!-- end header row -->
+
+  <!-- start body content row -->
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">      
+      <div class="alert alert-warning">
+        <strong>Please review your event!</strong> Click confirm to save or edit to update event details.
+      </div>
+    
+      <div class='col-md-3 col-sm-12 col-xs-12 '>
+        <h4 ng-model='eventName'> {{ eventName }} </h4>
+        <p ng-model='hostName'>hosted by <strong>{{ hostName }}</strong> </p>
+     <!--    <p ng-model='date'> {{ date }} </p>
+        <p ng-model='startTime' ng-model='endTime'> {{ startTime }} - {{ endTime }} </p> -->
+        <div ng-repeat='time in convertedTimes'>
+          <p> {{ time.date }} from {{ time.origStart }} to {{ time.origEnd }} </p>
+        </div>
+        <h6 ng-model='location'> {{ location }} </h6>
+      </div>
+      
+      </br>
+      <div class='col-md-4 col-sm-12 col-xs-12'>    
+        <p ng-model='description'> {{ description }} </p>
+      </div>
+      
+      <br>
+      <div class='col-md-12 col-sm-12 col-xs-12'>
+        <input ng-click='redirectToEditPage()' type='button' value='Edit' class="btn btn-default">
+        <input ng-click='sendNomadInfo()' type='button' value='Confirm' class='btn btn-primary'>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+  <!-- end body content row -->
+</div>
