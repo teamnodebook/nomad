@@ -1,3 +1,5 @@
+"use strict";
+
 const pool = require('./postgresConnect.js');
 const _ = require('underscore');
 
