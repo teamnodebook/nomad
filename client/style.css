@@ -466,8 +466,13 @@ a.landing-pg-links:link, a.landing-pg-links:hover, a.landing-pg-links:active {
 }
 
 .everything{
-  padding-left: 35px;
-  padding-right: 35px;
+  padding-left: 25px;
+  padding-right: 25px;
   padding-top: 45px;
+}
+
+div.well{
+  background-color: #50575F;
+  border-color: #50575F
 }
 
