@@ -1,5 +1,13 @@
 -- postgres schemas
 
+create table public.users(
+	id serial,
+	name varchar,
+	email varchar,
+	password varchar,
+	primary key(id)
+);
+
 create table public.events(
 	id serial,
 	name varchar,
@@ -7,8 +15,10 @@ create table public.events(
 	description varchar,
 	lat decimal,
 	long decimal,
+	userid int,
 	paypal varchar,
-	Primary key (id)
+	Primary key (id),
+	foreign key (userid) references public.users(id)
 );
 
 create table public.dates(
@@ -17,19 +27,9 @@ create table public.dates(
 	end_date varchar,
 	fk_event int,
 	primary key (id),
-	foreign key (fk_event) references public.events(id) 
+	foreign key (fk_event) references public.events(id)
 );
 
-create table public.users(
-	id serial,
-	userevent int,
-	username varchar
-	name varchar,
-	email varchar,
-	password varchar,
-	primary key(id),
-	foreign key (userevent) references public.events(id)
-);
 
 -- query for finding db items that fall within requested radius
 select name, host, description, lat, long, start_date, end_date 
@@ -37,8 +37,7 @@ select name, host, description, lat, long, start_date, end_date
 			WHERE acos(sin(LAT_CENTERPOINT_RAIDIANS) * sin(lat) + cos(LAT_CENTERPOINT_RAIDIANS) 
 								* cos(lat) * cos(long - (LONG_CENTERPOINT_RAIDIANS))) * 6371 <= KILOMETERS;
 
-select name, start_date, username
-			from events inner join dates on dates.fk_event = events.id 
-			inner join users on users.userevent = events.id;
+-- select name, username, description
+-- 			from events inner join users on users.id = events.userid
 
 
