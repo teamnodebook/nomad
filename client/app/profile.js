@@ -1,4 +1,4 @@
-angular.module('nomadProfile',['ngPassword'])
+angular.module('nomadProfile',[])
 
 .controller('profileCtrl', function($scope, params, $http, $location,$modalInstance){
 	$scope.username;
