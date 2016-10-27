@@ -10,6 +10,12 @@
 			"lat":0.6592801829561475,
 			"long":-2.136829010137056
 		},
+		"userinfo": {
+			"name": "Michelle",
+			"username": "I love money",
+			"password": "payme",
+			"email": "michelle@gmail.com"
+		},
 		"time": [ 
 			{"start":"2016-11-14T21:43:21.809Z","end":"2016-11-16T22:43:22.809Z"},
 			{"start":"2016-11-15T23:43:22.809Z","end":"2016-11-17T01:43:22.809Z"}
@@ -25,6 +31,12 @@
 		"location": { 
 			"lat":0.6594646118982058,
 			"long":-2.136359798928147
+		},
+		"userinfo": {
+			"name": "Michelle",
+			"username": "I love money",
+			"password": "payme",
+			"email": "michelle@gmail.com"
 		},
 		"time": [ 
 			{"start":"2016-11-14T21:43:21.809Z","end":"2016-11-16T22:43:22.809Z"},
@@ -42,6 +54,12 @@
 			"lat":0.659468783235118,
 			"long":-2.1363317514870674
 		},
+		"userinfo": {
+			"name": "Michelle",
+			"username": "I love money",
+			"password": "payme",
+			"email": "michelle@gmail.com"
+		},
 		"time": [ 
 			{"start":"2016-11-14T21:43:21.809Z","end":"2016-11-16T22:43:22.809Z"},
 			{"start":"2016-11-15T23:43:22.809Z","end":"2016-11-17T01:43:22.809Z"}
@@ -57,6 +75,12 @@
 		"location": { 
 			"lat":0.6595675514174882, 
 			"long":-2.136291120222081
+		},
+		"userinfo": {
+			"name": "Michelle",
+			"username": "I love money",
+			"password": "payme",
+			"email": "michelle@gmail.com"
 		},
 		"time": [ 
 			{"start":"2016-11-14T21:43:21.809Z","end":"2016-11-16T22:43:22.809Z"},
@@ -74,89 +98,15 @@
 			"lat":0.6595921082000639,
 			"long":-2.136227939303159
 		},
+		"userinfo": {
+			"name": "Michelle",
+			"username": "I love money",
+			"password": "payme",
+			"email": "michelle@gmail.com"
+		},
 		"time": [ 
 			{"start":"2016-11-14T21:43:21.809Z","end":"2016-11-16T22:43:22.809Z"},
 			{"start":"2016-11-15T23:43:22.809Z","end":"2016-11-17T01:43:22.809Z"}
-		]
-	},
-	{
-		"info": { 
-			"name":"Dancing",
-			"host":"Jason Miller",
-			"paypal":"http://paypal.me/miteaisgreener",
-			"description":"I do a variety of dances."
-		},
-		"location": { 
-			"lat":0.6594884007359104, 
-			"long":-2.136230225684479
-		},
-		"time": [ 
-			{"start":"2016-12-14T11:43:21.809Z","end":"2016-12-16T12:43:22.809Z"},
-			{"start":"2016-12-15T13:43:22.809Z","end":"2016-12-17T14:43:22.809Z"}
-		]
-	},
-	{
-		"info": { 
-			"name":"Card tricks",
-			"host":"Avery Kister",
-			"paypal":"http://paypal.me/miteaisgreener",
-			"description":"I will blow your mind."
-		},
-		"location": { 
-			"lat":0.6594395315168545, 
-			"long":-2.1366008288978477
-		},
-		"time": [ 
-			{"start":"2016-12-14T11:43:21.809Z","end":"2016-12-16T12:43:22.809Z"},
-			{"start":"2016-12-15T13:43:22.809Z","end":"2016-12-17T14:43:22.809Z"}
-		]
-	},
-	{
-		"info": { 
-			"name":"Painting",
-			"host":"Sarah Crandof",
-			"paypal":"http://paypal.me/miteaisgreener",
-			"description":"I am selling my paintings."
-		},
-		"location": { 
-			"lat":0.6593031165825187, 
-			"long":-2.1365134402622
-		},
-		"time": [ 
-			{"start":"2016-12-14T11:43:21.809Z","end":"2016-12-16T12:43:22.809Z"},
-			{"start":"2016-12-15T13:43:22.809Z","end":"2016-12-17T14:43:22.809Z"}
-		]
-	},
-	{
-		"info": { 
-			"name":"Save the whales",
-			"host":"Jessica Sonders",
-			"paypal":"http://paypal.me/miteaisgreener",
-			"description":"We need to protect our oceans."
-		},
-		"location": { 
-			"lat":0.6593096441139212, 
-			"long":-2.1364020009894604
-		},
-		"time": [ 
-			{"start":"2016-12-14T11:43:21.809Z","end":"2016-12-16T12:43:22.809Z"},
-			{"start":"2016-12-15T13:43:22.809Z","end":"2016-12-17T14:43:22.809Z"}
-		]
-	},
-	{
-		"info": { 
-			"name":"Seafood sale",
-			"host":"James Frank",
-			"paypal":"http://paypal.me/miteaisgreener",
-			"description":"I'm selling my catch of the day."
-		},
-		"location": { 
-			"lat":0.6595981121326908, 
-			"long":-2.1361156797256706
-		},
-		"time": [ 
-			{"start":"2016-12-14T11:43:21.809Z","end":"2016-12-16T12:43:22.809Z"},
-			{"start":"2016-12-15T13:43:22.809Z","end":"2016-12-17T14:43:22.809Z"}
 		]
 	},
 	{
@@ -169,6 +119,12 @@
 		"location": { 
 			"lat":0.659584795270498, 
 			"long":-2.1361285951621354
+		},
+		"userinfo": {
+			"name": "Michelle",
+			"username": "I love money",
+			"password": "payme",
+			"email": "michelle@gmail.com"
 		},
 		"time": [ 
 			{"start":"2016-12-14T11:43:21.809Z","end":"2016-12-16T12:43:22.809Z"},
