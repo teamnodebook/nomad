@@ -164,6 +164,10 @@ app.post('/api/createEvent', (req, res) =>{
 	});
 });
 
+app.post('/api/createUser', function(req,res){
+	console.log(req.body)
+})
+
 app.listen(port, () =>{
 	// listening
 	console.log('Nomad Wandering on: ', port);
