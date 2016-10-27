@@ -32,7 +32,7 @@ angular.module('nomadForm', [])
   // };
 
   $scope.inputMsg = {
-    class: 'alert alert-warning',
+    class: 'hidden',
     msg: 'Complete all inputs.'
   };
 
