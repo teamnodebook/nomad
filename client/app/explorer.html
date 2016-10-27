@@ -74,16 +74,16 @@
       </div>
       <div class='col-md-5' style="padding:0px 0px 0px 0px ">            
         <h4 style="margin-bottom: 3px">{{event.name}}</h4>
-        <span>Hosted by <strong>{{event.host}}</strong></span>        
+        <span class="event">Hosted by <strong>{{event.host}}</strong></span>        
         <br><br>
         <div ng-repeat='time in event.time'>
-          <span style="font-family:'ProximaNova-light'; font-size: 14px">{{ time.start }} - 
+          <span class="event" style="font-family:'ProximaNova-light'; font-size: 14px">{{ time.start }} - 
           {{ time.end }}</span>
         </div>        
         <br>
 
         <div>
-          <span style="display:inline-block; font-family:'ProximaNova-light'; ">
+          <span style="display:inline-block; font-family:'ProximaNova-light'; color: #FFFFFF; ">
             <img src="assets/map_icon_grey.png" style="height:15px">
             <!-- {{event.address}} -->
           </span>
@@ -92,7 +92,7 @@
       </br>
       <p class='col-md-6 eventDescription'>{{event.description}}
       </br>
-      <a ng-href={{event.paypal}} target="_blank"> Tip Me! </a> 
+      <a ng-href={{event.paypal}} id="paypal" target="_blank" class="btn btn-info" role="button">Tip Me!</a>
       </p> 
 
     </div>
