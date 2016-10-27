@@ -470,15 +470,15 @@ a.landing-pg-links:link, a.landing-pg-links:hover, a.landing-pg-links:active {
 .btn-pref .btn {
     -webkit-border-radius:0 !important;
 }
-
+.tab-content{
+    color: #363636;
+}
 .everything{
-  padding-left: 25px;
-  padding-right: 25px;
-  padding-top: 45px;
+  padding-top: 30px;
 }
 
 div.well{
-  background-color: #50575F;
-  border-color: #50575F
+  background-color: #363636;
+  border-color: #363636
 }
 
