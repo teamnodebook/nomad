@@ -10,6 +10,9 @@ body{
 .event {
   color: #FFFFFF;
 }
+.mapper {
+  color: #0E0E0E;
+}
 p { 
   font-family: 'ProximaNova-reg';
   color: #FFFFFF; 

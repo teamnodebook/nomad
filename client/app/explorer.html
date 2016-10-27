@@ -62,7 +62,7 @@
 <!-- BODY CONTAINER -->
 <div ng-controller='mapCtrl' class="container-fluid" style="margin-top: 50px">  
   <!-- start map row -->
-  <div class="row">
+  <div class="row mapper">
     <div class="col-md-12" style="padding:0px 0px 0px 0px">
       <input id='locSearch' class='controls' type='text' placeholder='search events in location' style="margin-left: 12px" ng-model='addressSearch' ng-change='choseAddress()'>
       <select id='radiusSelect' class='controls' name='radiusSelect' ng-model='radius' ng-change='radiusChange()' style="margin-left: 12px;">
@@ -93,7 +93,7 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
       <center>
-        <div class='alert alert-info {{message.cl}}'>{{message.msg}}</div>
+        <div class='{{message.cl}}'> <h3 style="font-size: 230%"> {{message.msg}} </h3> </div>
       </center>
     </div>
     <div class="col-md-2"></div>
@@ -110,7 +110,7 @@
         </div>  
       </div>
       <div class='col-md-5' style="padding:0px 0px 0px 0px ">            
-        <h4 style="margin-bottom: 3px">{{event.name}}</h4>
+        <h3 style="margin-bottom: 3px; font-family: 'ProximaNova-reg';">{{event.name}}</h3>
         <span class="event">Hosted by <strong>{{event.host}}</strong></span>        
         <br><br>
         <div ng-repeat='time in event.time'>
@@ -129,7 +129,7 @@
       </br>
       <p class='col-md-6 eventDescription'>{{event.description}}
       </br>
-      <a ng-href={{event.paypal}} id="paypal" target="_blank" class="btn btn-info" role="button">Tip Me!</a>
+      <a style="background-color:#30AEB4; border-color: #30AEB4; " ng-href={{event.paypal}} id="paypal" target="_blank" class="btn btn-info" role="button">Tip Me!</a>
       </p> 
 
     </div>
