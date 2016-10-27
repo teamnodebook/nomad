@@ -17,4 +17,7 @@ angular.module('nomad', ['ngRoute', 'explorer', 'nomadForm', 'nomadConfirm', 'la
       templateUrl: 'app/nomadConfirmation.html',
       // controller: 'explorerCtrl'
     })
+    .when('/profile',{
+      templateUrl: 'app/profile.html'
+    })
 })
