@@ -17,6 +17,9 @@ p {
   font-family: 'ProximaNova-reg';
   color: #FFFFFF; 
 }
+input {
+  color: #0E0E0E;
+}
 h1{ 
   font-family: 'ProximaNova-reg';
   color: #FFFFFF; 
