@@ -104,7 +104,7 @@ angular.module('nomadForm', [])
 
     params.eventName = $scope.eventName;
     params.host = $scope.hostName;
-    params.paypal = $scope.paypal;
+    params.paypal = "https://www.paypal.me/" + $scope.paypal;
     params.description = $scope.description;
     $location.path('/nomadConfirmation');
   };
