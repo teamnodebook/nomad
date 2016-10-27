@@ -86,9 +86,9 @@ const data = require('../data.json');
 
 
 //=========================== REFACTORED VERSION ====================================
-const dropTableQuery = (clientInstance) => {
-  clientInstance.query('drop table public.events, public.dates');
-};
+// const dropTableQuery = (clientInstance) => {
+//   clientInstance.query('drop table public.events, public.dates');
+// };
 
 const createTablesQuery = (clientInstance) => {
 	clientInstance.query(
@@ -110,6 +110,17 @@ const createTablesQuery = (clientInstance) => {
 			fk_event int,
 			primary key (id),
 			foreign key (fk_event) references public.events(id) 
+		);
+
+		create table public.users(
+			id serial,
+			userevent int,
+			username varchar,
+			name varchar,
+			email varchar,
+			password varchar,
+			primary key(id),
+			foreign key (userevent) references public.events(id)
 		);`)
 };
 
@@ -134,6 +145,16 @@ const seedTablesQuery = (clientInstance) => {
 										${obj.location.long})`).then(insertTimes(clientInstance, obj))
 								
 	});
+	_.each(data, (obj) => {
+		clientInstance.query(`insert into public.users
+										(username, name, email, password, userevent)
+										values ('${obj.userinfo.username}',
+										'${obj.userinfo.name}',
+										'${obj.userinfo.email}',
+										'${obj.userinfo.password}',
+										(select id from public.events where name='${obj.info.name.replace(/(')/g, '\"')}' and lat=${obj.location.lat} and long=${obj.location.long}))`).then(insertTimes(clientInstance, obj))							
+	});	
+
 };
 
 new Promise((resolve, reject) =>{
@@ -145,7 +166,7 @@ new Promise((resolve, reject) =>{
 	  }	  
 	});
 }).then((client) => {
-	dropTableQuery(client);
+	// dropTableQuery(client);
 	createTablesQuery(client);
 	seedTablesQuery(client);
 }).catch((err) => {
