@@ -32,11 +32,12 @@
             <div class="modal-dialog">
             <div class="loginmodal-container">
               <h1>Sign up</h1><br>
-              <form name='form' novalidate>
+              <form name='form' ng-submit='addUser()' novalidate>
               <input ng-model='username' type="text" name="name" placeholder="Name" ng-model-options="{updateOn: 'blur'}" required pattern=".{2,}" />
               <div class="error-message" ng-show="form.name.$invalid && !form.name.$pristine"> We need a name with 2 chars or more.</div>
               <input ng-model='email' type="text" name="email" placeholder="Your email">
-              <input type="password" name="password" ng-model='password' required pattern=".{2,}" placeholder="Password">
+              <input type="password" name="password" ng-model='password' required pattern=".{6,}" placeholder="Password">
+              <div class="error-message" ng-show="form.password.$invalid && !form.password.$pristine"> We need a password with 6 chars or more.</div>
               <input type="submit" name="login" class="login loginmodal-submit" value="Sign Up" ng-disabled="form.$invalid">
               </form>
             </div>
