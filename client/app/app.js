@@ -18,6 +18,6 @@ angular.module('nomad', ['ngRoute', 'explorer', 'nomadForm', 'nomadConfirm', 'la
       // controller: 'explorerCtrl'
     })
     .when('/profile',{
-      templateUrl: 'app/profile.html'
+      templateUrl: 'app/profile.html',
     })
 })

@@ -1,6 +1,6 @@
 angular.module('nomadProfile',[])
 
-.controller('profileCtrl', function($scope, params, $http, $location,$modalInstance){
+.controller('profileCtrl', function($scope, params, $http, $location){
 	$scope.username;
 	$scope.email;
 	$scope.password;
