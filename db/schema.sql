@@ -7,6 +7,7 @@ create table public.events(
 	description varchar,
 	lat decimal,
 	long decimal,
+	paypal varchar,
 	Primary key (id)
 );
 
@@ -23,4 +24,4 @@ create table public.dates(
 select name, host, description, lat, long, start_date, end_date 
 			from events inner join dates on dates.fk_event = events.id  
 			WHERE acos(sin(LAT_CENTERPOINT_RAIDIANS) * sin(lat) + cos(LAT_CENTERPOINT_RAIDIANS) 
-								* cos(lat) * cos(long - (LONG_CENTERPOINT__RAIDIANS))) * 6371 <= KILOMETERS;
+								* cos(lat) * cos(long - (LONG_CENTERPOINT_RAIDIANS))) * 6371 <= KILOMETERS;
