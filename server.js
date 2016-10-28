@@ -3,13 +3,18 @@ const http = require('http');
 const express = require('express');
 const bodyParser = require('body-parser');
 const multer = require('multer');
+const passport = require('passport');
+const session = require('express-session');
 const upload = multer();
 const path = require('path');
+const flash = require('connect-flash');
+const LocalStrategy = require('passport-local').Strategy;
 const _ = require('underscore');
 const dateFormat = require('dateformat');
 const app = express();
 
-const pool = require('./db/postgresConnect.js');
+
+const pool = require('./db/postgresConnect.js'); //database
 
 const port = process.env.PORT || 5000; // port
 
@@ -20,6 +25,49 @@ Number.prototype.toRad = function() {
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.static(path.join(__dirname, '/client'))); // static files
+// -> Passport Middleware Setup <- //
+app.use(session({secret: 'mySecretKey'})); //session secret key
+app.use(passport.initialize()); //initialize passport
+app.use(passport.session()); // initialize session
+
+// used to serialize the user for the session
+passport.serializeUser(function(user, done) {
+  console.log(user.u_id +" was seralized");
+  done(null, user.u_id);
+});
+
+// used to deserialize the user
+passport.deserializeUser(function(id, done) {
+  console.log(id + "is deserialized");
+  User.findById(id, function(err, user) {
+    done(err, user);
+  });
+});
+
+passport.use('login', new LocalStrategy({
+  usernameField : 'email',
+  passwordField : 'password',
+  passReqToCallback : true 
+  },
+
+  function(req, email, password, done){
+  	// query based on the email
+  	pool.query('SELECT * from public.users where email=$1', [email], function(err, results){
+  	  if(err){
+  	  	console.log(err);
+  	  	return done(err);
+  	  }
+
+  	  if(results.rows.length === 0){
+  	  	console.log('User Not Found with username '+ email);
+          return done(null, false, 
+                req.flash('message', 'User Not found.'));
+  	  }
+
+  	})
+  }
+
+))
 
 app.post('/api/getEvent', (req,res) =>{
 
