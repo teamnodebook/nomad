@@ -12,6 +12,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const _ = require('underscore');
 const dateFormat = require('dateformat');
 const app = express();
+const bcrypt = require('bcrypt-nodejs');
 
 
 const pool = require('./db/postgresConnect.js'); //database
@@ -231,26 +232,12 @@ app.post('/api/createEvent', (req, res) =>{
 app.post('/api/createUser', function(req,res){
 
 
-	console.log(req.body)
-
-	// let insertTimes = (client, cb) =>{
-	// 	_.each(req.body.time, (time) =>{
-	// 		console.log(req.body.info.name, req.body.info.location)
-	// 		client.query(`insert into public.dates
-	// 								(start_date, end_date, fk_event)
-	// 								values ('${time.start}',
-	// 								'${time.end}',
-	// 								(select id from public.events where name='${req.body.info.name}' and lat=${req.body.location.lat} and long=${req.body.location.long}))`,
-	// 								(err, result) =>{
-	// 									console.log(err, 'check error')
-	// 									console.log(result, ' result from insert statement')
-	// 								}
-	// 		);
-	// 	});
-	// 	cb();
-	// };
-
-	// insert into public.events (name, host, description, lat, long) values(,,,,,,);
+	console.log('user', req.body)
+	var createHash = function(password){
+	return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+	}
+	req.body.userinfo.password = createHash(req.body.userinfo.password);
+	console.log ('HERE IS YOUR HASHED PASSWORD YOU FUCK:',	req.body.userinfo.password)
 	new Promise((resolve, reject) =>{
 		pool.connect(function(err, client, done) {
 		  if(err) {
