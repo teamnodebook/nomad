@@ -52,6 +52,16 @@ passport.use('login', new LocalStrategy({
 
   function(req, email, password, done){
   	// query based on the email
+
+  	var isValidPassword = function(user, password){
+      return bcrypt.compare(password, user.password, function(err, res){
+      	if(err){
+      		return false
+      	} 
+      	return true;
+      });
+    }
+
   	pool.query('SELECT * from public.users where email=$1', [email], function(err, results){
   	  if(err){
   	  	console.log(err);
@@ -64,10 +74,16 @@ passport.use('login', new LocalStrategy({
                 req.flash('message', 'User Not found.'));
   	  }
 
+  	  if(!isValidPassword(results.rows[0], password)){
+  	  	console.log('Invalid Password');
+          return done(null, false, 
+              req.flash('message', 'Invalid Password'));
+  	  }
+  	  return done(null, user);
   	})
   }
 
-))
+));
 
 app.post('/api/getEvent', (req,res) =>{
 
