@@ -94,6 +94,7 @@ const createTablesQuery = (clientInstance) => {
 	clientInstance.query(
 		`create table public.users(
 			id serial,
+			username varchar,
 			name varchar,
 			email varchar,
 			password varchar,
@@ -107,8 +108,8 @@ const createTablesQuery = (clientInstance) => {
 			description varchar,
 			lat decimal,
 			long decimal,
-			userid int,
 			paypal varchar,
+			userid int,
 			primary key (id),
 			foreign key (userid) references public.users(id)
 		);
@@ -119,7 +120,7 @@ const createTablesQuery = (clientInstance) => {
 			end_date varchar,
 			fk_event int,
 			primary key (id),
-			foreign key (fk_event) references public.events(id)
+			foreign key (fk_event) references public.events(id) 
 		);`)
 };
 
@@ -133,26 +134,29 @@ const seedTablesQuery = (clientInstance) => {
 													(select id from public.events where name='${obj.info.name.replace(/(')/g, '\"')}' and lat=${obj.location.lat} and long=${obj.location.long}))`)
 		});
 	}; 
+
 	_.each(data, (obj) => {
 		clientInstance.query(`insert into public.users
 										(username, name, email, password)
 										values ('${obj.userinfo.username}',
 										'${obj.userinfo.name}',
 										'${obj.userinfo.email}',
-										'${obj.userinfo.password}'`).then(insertTimes(clientInstance, obj))							
+										'${obj.userinfo.password}')`).then(insertTimes(clientInstance, obj))						
 	});	
+
 	_.each(data, (obj) => {
 		clientInstance.query(`insert into public.events
-										(name, host, description, paypal, lat, long)
+										(name, host, description, paypal, lat, long, userid)
 										values ('${obj.info.name.replace(/(')/g, '\"')}',
 										'${obj.info.host.replace(/(')/g, '\"')}',
 										'${obj.info.description.replace(/(')/g, '\"')}',
 										'${obj.info.paypal}',
 										${obj.location.lat},
-										${obj.location.long}),
-										(select id from public.users where name='${obj.userinfo.name}' and description='${obj.info.description.replace(/(')/g, '\"')}'))`).then(insertTimes(clientInstance, obj))
+										${obj.location.long},
+										(select id from public.users where name='${obj.userinfo.name}' and password='${obj.userinfo.password}'))`).then(insertTimes(clientInstance, obj))
 								
-	});	
+	});
+
 };
 
 new Promise((resolve, reject) =>{
@@ -167,6 +171,7 @@ new Promise((resolve, reject) =>{
 	dropTableQuery(client);
 	createTablesQuery(client);
 	seedTablesQuery(client);
+	console.log("seeding complete")
 }).catch((err) => {
 	console.log("catch error: ", err);
 });
