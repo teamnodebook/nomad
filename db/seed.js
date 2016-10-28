@@ -86,13 +86,22 @@ const data = require('../data.json');
 
 
 //=========================== REFACTORED VERSION ====================================
-// const dropTableQuery = (clientInstance) => {
-//   clientInstance.query('drop table public.events, public.dates');
-// };
+const dropTableQuery = (clientInstance) => {
+  clientInstance.query('drop table public.events, public.dates, public.users');
+};
 
 const createTablesQuery = (clientInstance) => {
 	clientInstance.query(
-		`create table public.events(
+		`create table public.users(
+			id serial,
+			username varchar,
+			name varchar,
+			email varchar,
+			password varchar,
+			primary key(id)
+		);
+
+		create table public.events(
 			id serial,
 			name varchar,
 			host varchar,
@@ -100,7 +109,9 @@ const createTablesQuery = (clientInstance) => {
 			lat decimal,
 			long decimal,
 			paypal varchar,
-			Primary key (id)
+			userid int,
+			primary key (id),
+			foreign key (userid) references public.users(id)
 		);
 
 		create table public.dates(
@@ -110,17 +121,6 @@ const createTablesQuery = (clientInstance) => {
 			fk_event int,
 			primary key (id),
 			foreign key (fk_event) references public.events(id) 
-		);
-
-		create table public.users(
-			id serial,
-			userevent int,
-			username varchar,
-			name varchar,
-			email varchar,
-			password varchar,
-			primary key(id),
-			foreign key (userevent) references public.events(id)
 		);`)
 };
 
@@ -134,26 +134,28 @@ const seedTablesQuery = (clientInstance) => {
 													(select id from public.events where name='${obj.info.name.replace(/(')/g, '\"')}' and lat=${obj.location.lat} and long=${obj.location.long}))`)
 		});
 	}; 
+
+	_.each(data, (obj) => {
+		clientInstance.query(`insert into public.users
+										(username, name, email, password)
+										values ('${obj.userinfo.username}',
+										'${obj.userinfo.name}',
+										'${obj.userinfo.email}',
+										'${obj.userinfo.password}')`).then(insertTimes(clientInstance, obj))						
+	});	
+
 	_.each(data, (obj) => {
 		clientInstance.query(`insert into public.events
-										(name, host, description, paypal, lat, long)
+										(name, host, description, paypal, lat, long, userid)
 										values ('${obj.info.name.replace(/(')/g, '\"')}',
 										'${obj.info.host.replace(/(')/g, '\"')}',
 										'${obj.info.description.replace(/(')/g, '\"')}',
 										'${obj.info.paypal}',
 										${obj.location.lat},
-										${obj.location.long})`).then(insertTimes(clientInstance, obj))
+										${obj.location.long},
+										(select id from public.users where name='${obj.userinfo.name}' and password='${obj.userinfo.password}'))`).then(insertTimes(clientInstance, obj))
 								
 	});
-	_.each(data, (obj) => {
-		clientInstance.query(`insert into public.users
-										(username, name, email, password, userevent)
-										values ('${obj.userinfo.username}',
-										'${obj.userinfo.name}',
-										'${obj.userinfo.email}',
-										'${obj.userinfo.password}',
-										(select id from public.events where name='${obj.info.name.replace(/(')/g, '\"')}' and lat=${obj.location.lat} and long=${obj.location.long}))`).then(insertTimes(clientInstance, obj))							
-	});	
 
 };
 
@@ -166,9 +168,10 @@ new Promise((resolve, reject) =>{
 	  }	  
 	});
 }).then((client) => {
-	// dropTableQuery(client);
+	dropTableQuery(client);
 	createTablesQuery(client);
 	seedTablesQuery(client);
+	console.log("seeding complete")
 }).catch((err) => {
 	console.log("catch error: ", err);
 });
