@@ -229,7 +229,49 @@ app.post('/api/createEvent', (req, res) =>{
 });
 
 app.post('/api/createUser', function(req,res){
+
+
 	console.log(req.body)
+
+	// let insertTimes = (client, cb) =>{
+	// 	_.each(req.body.time, (time) =>{
+	// 		console.log(req.body.info.name, req.body.info.location)
+	// 		client.query(`insert into public.dates
+	// 								(start_date, end_date, fk_event)
+	// 								values ('${time.start}',
+	// 								'${time.end}',
+	// 								(select id from public.events where name='${req.body.info.name}' and lat=${req.body.location.lat} and long=${req.body.location.long}))`,
+	// 								(err, result) =>{
+	// 									console.log(err, 'check error')
+	// 									console.log(result, ' result from insert statement')
+	// 								}
+	// 		);
+	// 	});
+	// 	cb();
+	// };
+
+	// insert into public.events (name, host, description, lat, long) values(,,,,,,);
+	new Promise((resolve, reject) =>{
+		pool.connect(function(err, client, done) {
+		  if(err) {
+		  	reject(err);
+		  }
+		  resolve(client);
+		});
+	}).then((client) =>{
+		client.query(`insert into public.users
+									(name, email, password)
+									values ('${req.body.userinfo.name}',
+									'${req.body.userinfo.email}',
+									'${req.body.userinfo.password}')`,
+
+								(err, result) =>{
+									console.log(err, 'check error')
+									console.log(result, ' result from insert statement')
+									res.send();
+								}
+		);
+	});
 })
 
 app.listen(port, () =>{

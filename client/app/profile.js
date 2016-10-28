@@ -1,21 +1,24 @@
 angular.module('nomadProfile',[])
 
-.controller('profileCtrl', function($scope, params, $http, $location){
-	$scope.username;
+.controller('profileCtrl', function($scope, $http, $location){
+	$scope.name;
 	$scope.email;
 	$scope.password;
 	$scope.addUser = () => {
-	  var newUser = {
-	  	username: $scope.username,
-	    email: $scope.email,
-	    password: $scope.password
-	    }
+	  
 	  fetch('/api/createUser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(newUser)
+      body: JSON.stringify(
+      	{
+      	userinfo: {
+	  	name: $scope.username,
+	    email: $scope.email,
+	    password: $scope.password
+			}
+	    })
     });
       // $location.path('/profile');
     };
