@@ -8,7 +8,9 @@ const session = require('express-session');
 const upload = multer();
 const path = require('path');
 const flash = require('connect-flash');
+// const cookieSession = require('cookie-session')
 const LocalStrategy = require('passport-local').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 const _ = require('underscore');
 const dateFormat = require('dateformat');
 const app = express();
@@ -30,20 +32,9 @@ app.use(express.static(path.join(__dirname, '/client'))); // static files
 app.use(session({secret: 'mySecretKey'})); //session secret key
 app.use(passport.initialize()); //initialize passport
 app.use(passport.session()); // initialize session
+// app.use(cookieSession({ secret: 'tobo!', maxAge: 360*5 }));
+app.use(flash());
 
-// used to serialize the user for the session
-passport.serializeUser(function(user, done) {
-  console.log(user.u_id +" was seralized");
-  done(null, user.u_id);
-});
-
-// used to deserialize the user
-passport.deserializeUser(function(id, done) {
-  console.log(id + "is deserialized");
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
 
 passport.use('login', new LocalStrategy({
   usernameField : 'email',
@@ -55,12 +46,7 @@ passport.use('login', new LocalStrategy({
   	// query based on the email
 
   	var isValidPassword = function(user, password){
-      return bcrypt.compare(password, user.password, function(err, res){
-      	if(err){
-      		return false
-      	} 
-      	return true;
-      });
+      return bcrypt.compareSync(password, user.password)
     }
 
   	pool.query('SELECT * from public.users where email=$1', [email], function(err, results){
@@ -75,7 +61,7 @@ passport.use('login', new LocalStrategy({
                 req.flash('message', 'User Not found.'));
   	  }
 
-  	  if(!isValidPassword(results.rows[0], password)){
+  	  if(!isValidPassword(password, results.rows[0])){
   	  	console.log('Invalid Password');
           return done(null, false, 
               req.flash('message', 'Invalid Password'));
@@ -85,6 +71,45 @@ passport.use('login', new LocalStrategy({
   }
 
 ));
+
+passport.serializeUser(function(user, done) {
+	console.log('serialize')
+	console.log('user', user)
+  done(null, user);
+});
+ 
+passport.deserializeUser(function(user, done) {
+    done(null, user);
+});	
+
+passport.use( new FacebookStrategy({
+	clientID: '618793941624094',
+	clientSecret: 'dfcf86bf3f9e3db4876e9a3ded63075f',
+    callbackURL: "http://localhost:5000/auth/facebook/callback",
+    profileFields: ['id', 'displayName', 'photos', 'email']
+},
+  function(accessToken, refreshToken, profile, done) {
+  	console.log('profile', profile);
+  	console.log(accessToken, 'access');
+  	console.log(refreshToken, 'refresh')
+  	done(null, profile.displayName)
+  }
+
+));
+
+app.post('/login', passport.authenticate('login', {
+	successRedirect: '/#/profile',
+	failureRedirect: '/',
+	failureFlash: true
+}))
+
+app.get('/auth/facebook', passport.authenticate('facebook'));
+
+app.get('/auth/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/'}),
+	function(req,res){
+		console.log('user', req.user)
+		res.redirect('/#/profile')
+	});
 
 app.post('/api/getEvent', (req,res) =>{
 

@@ -10,13 +10,13 @@
                   <div class="modal-dialog">
                   <div class="loginmodal-container">
                     <h1>Login to Your Account</h1><br>
-                    <form>
+                    <form action='/login' method='POST'>
                     <input type="text" name="email-login" placeholder="Email">
                     <input type="password" name="pass-login" placeholder="Password">
                     <input type="submit" name="login" class="login loginmodal-submit" value="Login">
                     <div class="col-md-12">
                       <div class="btn-group btn-group-justified">
-                      <a href="#" class="btn btn-primary">Facebook</a>
+                      <a href="auth/facebook" class="btn btn-primary">Facebook</a>
                       <a href="#" class="btn btn-danger">Google</a>
                       </div>
                     </div>
