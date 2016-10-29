@@ -44,6 +44,7 @@ passport.use('login', new LocalStrategy({
 
   function(req, email, password, done){
   	// query based on the email
+  	console.log('request:' , req);
 
   	var isValidPassword = function(user, password){
   		console.log('49 - Password: ', password);
@@ -52,7 +53,7 @@ passport.use('login', new LocalStrategy({
     }
 
   	pool.query('SELECT * from public.users where email=$1', [email], function(err, results){
-  		console.log('hash: ', results.rows[0].password);
+  		// console.log('hash: ', results.rows[0].password);
   		var user = {id: results.rows[0].id}
   	  if(err){
   	  	console.log('line 54: ', err);
@@ -61,33 +62,46 @@ passport.use('login', new LocalStrategy({
 
   	  if(results.rows.length === 0){
   	  	console.log('User Not Found with username '+ email);
-          return done(null, false, 
-                req.flash('message', 'User Not found.'));
+          return done(null, false, req.flash('message', 'User Not found.'));
   	  }
 
   	  if(!isValidPassword(password, results.rows[0].password)){
   	  	console.log('Invalid Password');
-          return done(null, false, {message: "Incorrect password"}); 
-              // req.flash('message', 'Invalid Password');
+      	return done(null, false, {message: "Incorrect password"}); 
+      	// req.flash('message', 'Invalid Password');
+  	  } else {
+  	  	return done(null, user);
   	  }
-  	  return done(null, user);
   	})
   }
 
 ));
 
-passport.serializeUser(function(user, done) {
-	console.log('serialize')
-	console.log('user', user)
-	console.log('user id: ', user.id);
-  done(null, user.id);
-});
+// passport.serializeUser(function(user, done) {
+// 	console.log('serialize')
+// 	console.log('user', user)
+// 	console.log('user id: ', user.id);
+//   done(null, user.id);
+// });
  
-passport.deserializeUser(function(id, done) {
-    User.findById(id, function(err,user){
-    	done(err,user);
-    })
-});	
+// passport.deserializeUser(function(id, done) {
+//     User.findById(id, function(err,user){
+//     	done(err,user);
+//     })
+// });	
+
+passport.serializeUser(function(user, done) {
+	console.log("user", user)
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  // User.findById(id, function(err, user) {
+    done(null, user);
+  // });
+});
+
+
 
 passport.use( new FacebookStrategy({
 	clientID: '618793941624094',
@@ -104,11 +118,10 @@ passport.use( new FacebookStrategy({
 
 ));
 
-app.post('/login', passport.authenticate('login', {
-	successRedirect: '/profile',
-	failureRedirect: '/',
-	failureFlash: true
-}))
+app.post('/login', passport.authenticate('login'), function(req, res, next) {
+	console.log('i got here!!!!!');
+	res.send({ status: "Logged in!" });
+})
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 
@@ -120,7 +133,7 @@ app.get('/profile', function(req,res){
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/'}),
 	function(req,res){
 		console.log('userAuthentication: ', req.isAuthenticated())
-		res.redirect('/profile')
+		res.redirect('/#/profile')
 	});
 
 app.post('/api/getEvent', (req,res) =>{

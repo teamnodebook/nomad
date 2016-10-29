@@ -34,16 +34,23 @@ angular.module('nomadProfile',[])
       	  email: $scope.email,
       	  password: $scope.password
       	})
-      }).then(function(response){
-      	    $rootScope.$apply(function() {
-              $location.path("/profile");
-              console.log($location.path());
-          })
+      }).then(function(data){
+      	if(data.status === 200) {
+      		console.log('here I am');
+      		$rootScope.$apply(() => $location.path('/profile'))
+      	} else {
+      		// todo: close modal here
+      		$rootScope.$apply(() => $location.path('/'))
+      	}
+      	      	   //  $rootScope.$apply(function() {
+          //     $location.path("/profile");
+          //     console.log($location.path());
+          // })
       }).catch(function(err){
-      	$rootScope.$apply(function() {
-              $location.path("/");
-              console.log($location.path());
-          })
+      	// $rootScope.$apply(function() {
+       //        $location.path("/");
+       //        console.log($location.path());
+       //    })
       })
     }
 })
