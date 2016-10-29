@@ -8,7 +8,7 @@ const session = require('express-session');
 const upload = multer();
 const path = require('path');
 const flash = require('connect-flash');
-// const cookieSession = require('cookie-session')
+const cookieParser = require('cookie-parser');
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const _ = require('underscore');
@@ -32,7 +32,7 @@ app.use(express.static(path.join(__dirname, '/client'))); // static files
 app.use(session({secret: 'mySecretKey'})); //session secret key
 app.use(passport.initialize()); //initialize passport
 app.use(passport.session()); // initialize session
-// app.use(cookieSession({ secret: 'tobo!', maxAge: 360*5 }));
+app.use(cookieParser());
 app.use(flash());
 
 
@@ -46,12 +46,16 @@ passport.use('login', new LocalStrategy({
   	// query based on the email
 
   	var isValidPassword = function(user, password){
-      return bcrypt.compareSync(password, user.password)
+  		console.log('49 - Password: ', password);
+  		console.log('50 - user.password: ', user)
+      return bcrypt.compareSync(user, password);
     }
 
   	pool.query('SELECT * from public.users where email=$1', [email], function(err, results){
+  		console.log('hash: ', results.rows[0].password);
+  		var user = {id: results.rows[0].id}
   	  if(err){
-  	  	console.log(err);
+  	  	console.log('line 54: ', err);
   	  	return done(err);
   	  }
 
@@ -61,10 +65,10 @@ passport.use('login', new LocalStrategy({
                 req.flash('message', 'User Not found.'));
   	  }
 
-  	  if(!isValidPassword(password, results.rows[0])){
+  	  if(!isValidPassword(password, results.rows[0].password)){
   	  	console.log('Invalid Password');
-          return done(null, false, 
-              req.flash('message', 'Invalid Password'));
+          return done(null, false, {message: "Incorrect password"}); 
+              // req.flash('message', 'Invalid Password');
   	  }
   	  return done(null, user);
   	})
@@ -75,11 +79,14 @@ passport.use('login', new LocalStrategy({
 passport.serializeUser(function(user, done) {
 	console.log('serialize')
 	console.log('user', user)
-  done(null, user);
+	console.log('user id: ', user.id);
+  done(null, user.id);
 });
  
-passport.deserializeUser(function(user, done) {
-    done(null, user);
+passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err,user){
+    	done(err,user);
+    })
 });	
 
 passport.use( new FacebookStrategy({
@@ -98,17 +105,22 @@ passport.use( new FacebookStrategy({
 ));
 
 app.post('/login', passport.authenticate('login', {
-	successRedirect: '/#/profile',
+	successRedirect: '/profile',
 	failureRedirect: '/',
 	failureFlash: true
 }))
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 
+app.get('/profile', function(req,res){
+	console.log('redirecting...')
+	res.end()
+})
+
 app.get('/auth/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/'}),
 	function(req,res){
-		console.log('user', req.user)
-		res.redirect('/#/profile')
+		console.log('userAuthentication: ', req.isAuthenticated())
+		res.redirect('/profile')
 	});
 
 app.post('/api/getEvent', (req,res) =>{
@@ -259,7 +271,7 @@ app.post('/api/createUser', function(req,res){
 
 	console.log('user', req.body)
 	var createHash = function(password){
-	return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+	return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 	}
 	req.body.userinfo.password = createHash(req.body.userinfo.password);
 	console.log ('HERE IS YOUR HASHED PASSWORD YOU FUCK:',	req.body.userinfo.password)
