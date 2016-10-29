@@ -38,7 +38,7 @@ angular.module('nomadProfile',[])
   };
 })
 
-.controller('profileCtrl', function($scope, $http, $location, UserEvents, MapMath){
+.controller('profileCtrl', function($scope, $http, $location, $rootScope, UserEvents, MapMath){
 
 	$scope.name;
 	$scope.email;
