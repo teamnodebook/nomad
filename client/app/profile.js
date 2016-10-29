@@ -1,6 +1,6 @@
 angular.module('nomadProfile',[])
 
-<<<<<<< HEAD
+
 .factory('UserEvents', ($http) => {
   const getEvents = (locationObj, cb) => {
     return $http({
@@ -39,9 +39,7 @@ angular.module('nomadProfile',[])
 })
 
 .controller('profileCtrl', function($scope, $http, $location, UserEvents, MapMath){
-=======
-.controller('profileCtrl', function($scope, $http, $location, $rootScope){
->>>>>>> 5977465479f222c2ba07c9f060e67400ba9c1348
+
 	$scope.name;
 	$scope.email;
 	$scope.password;
@@ -63,7 +61,7 @@ angular.module('nomadProfile',[])
     }); 
       
     };
-<<<<<<< HEAD
+
    $scope.userFetch = () => {
     // $scope.eventMarkers.forEach((marker) => {
     //   marker.setMap(null);
@@ -82,7 +80,6 @@ angular.module('nomadProfile',[])
       UserEvents.listEvents(events, $scope.eventList);
   });
 };
-=======
 
     $scope.userLogin = () =>{
 
@@ -114,6 +111,5 @@ angular.module('nomadProfile',[])
        //    })
       })
     }
->>>>>>> 5977465479f222c2ba07c9f060e67400ba9c1348
 })
 
