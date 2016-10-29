@@ -8,7 +8,9 @@ const session = require('express-session');
 const upload = multer();
 const path = require('path');
 const flash = require('connect-flash');
+const cookieParser = require('cookie-parser');
 const LocalStrategy = require('passport-local').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 const _ = require('underscore');
 const dateFormat = require('dateformat');
 const app = express();
@@ -30,20 +32,9 @@ app.use(express.static(path.join(__dirname, '/client'))); // static files
 app.use(session({secret: 'mySecretKey'})); //session secret key
 app.use(passport.initialize()); //initialize passport
 app.use(passport.session()); // initialize session
+app.use(cookieParser());
+app.use(flash());
 
-// used to serialize the user for the session
-passport.serializeUser(function(user, done) {
-  console.log(user.u_id +" was seralized");
-  done(null, user.u_id);
-});
-
-// used to deserialize the user
-passport.deserializeUser(function(id, done) {
-  console.log(id + "is deserialized");
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
 
 passport.use('login', new LocalStrategy({
   usernameField : 'email',
@@ -53,38 +44,97 @@ passport.use('login', new LocalStrategy({
 
   function(req, email, password, done){
   	// query based on the email
+  	console.log('request:' , req);
 
   	var isValidPassword = function(user, password){
-      return bcrypt.compare(password, user.password, function(err, res){
-      	if(err){
-      		return false
-      	} 
-      	return true;
-      });
+  		console.log('49 - Password: ', password);
+  		console.log('50 - user.password: ', user)
+      return bcrypt.compareSync(user, password);
     }
 
   	pool.query('SELECT * from public.users where email=$1', [email], function(err, results){
+  		// console.log('hash: ', results.rows[0].password);
+  		var user = {id: results.rows[0].id}
   	  if(err){
-  	  	console.log(err);
+  	  	console.log('line 54: ', err);
   	  	return done(err);
   	  }
 
   	  if(results.rows.length === 0){
   	  	console.log('User Not Found with username '+ email);
-          return done(null, false, 
-                req.flash('message', 'User Not found.'));
+          return done(null, false, req.flash('message', 'User Not found.'));
   	  }
 
-  	  if(!isValidPassword(results.rows[0], password)){
+  	  if(!isValidPassword(password, results.rows[0].password)){
   	  	console.log('Invalid Password');
-          return done(null, false, 
-              req.flash('message', 'Invalid Password'));
+      	return done(null, false, {message: "Incorrect password"}); 
+      	// req.flash('message', 'Invalid Password');
+  	  } else {
+  	  	return done(null, user);
   	  }
-  	  return done(null, user);
   	})
   }
 
 ));
+
+// passport.serializeUser(function(user, done) {
+// 	console.log('serialize')
+// 	console.log('user', user)
+// 	console.log('user id: ', user.id);
+//   done(null, user.id);
+// });
+ 
+// passport.deserializeUser(function(id, done) {
+//     User.findById(id, function(err,user){
+//     	done(err,user);
+//     })
+// });	
+
+passport.serializeUser(function(user, done) {
+	console.log("user", user)
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  // User.findById(id, function(err, user) {
+    done(null, user);
+  // });
+});
+
+
+
+passport.use( new FacebookStrategy({
+	clientID: '618793941624094',
+	clientSecret: 'dfcf86bf3f9e3db4876e9a3ded63075f',
+    callbackURL: "http://localhost:5000/auth/facebook/callback",
+    profileFields: ['id', 'displayName', 'photos', 'email']
+},
+  function(accessToken, refreshToken, profile, done) {
+  	console.log('profile', profile);
+  	console.log(accessToken, 'access');
+  	console.log(refreshToken, 'refresh')
+  	done(null, profile.displayName)
+  }
+
+));
+
+app.post('/login', passport.authenticate('login'), function(req, res, next) {
+	console.log('i got here!!!!!');
+	res.send({ status: "Logged in!" });
+})
+
+app.get('/auth/facebook', passport.authenticate('facebook'));
+
+app.get('/profile', function(req,res){
+	console.log('redirecting...')
+	res.end()
+})
+
+app.get('/auth/facebook/callback', passport.authenticate('facebook', {failureRedirect: '/'}),
+	function(req,res){
+		console.log('userAuthentication: ', req.isAuthenticated())
+		res.redirect('/#/profile')
+	});
 
 app.post('/api/getEvent', (req,res) =>{
 
@@ -310,7 +360,7 @@ app.post('/api/createEvent', (req, res) =>{
 app.post('/api/createUser', function(req,res){
 	console.log('user', req.body)
 	var createHash = function(password){
-	return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
+	return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 	}
 	req.body.userinfo.password = createHash(req.body.userinfo.password);
 	console.log ('HERE IS YOUR HASHED PASSWORD YOU FUCK:',	req.body.userinfo.password)
