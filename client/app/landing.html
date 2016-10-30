@@ -1,4 +1,4 @@
-<div id='landing' class="landing-bg" >
+<div id='landing' class="landing-bg" ng-controller="profileCtrl">
 	<div class="row" style="padding:25px 0px 0px 0px; margin: 0px 0px 0px 0px;"">
 	  <div class="col-md-1"></div>
 	  <div class="col-md-1" style="font-size: 34px; font-family:'ProximaNova-Reg'; color:#fff">NOMAD</div>
@@ -8,9 +8,9 @@
 		</div>
 		          <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
                   <div class="modal-dialog">
-                  <div class="loginmodal-container" ng-controller="profileCtrl">
+                  <div class="loginmodal-container">
                     <h1>Login to Your Account</h1><br>
-                    <form name='myForm' ng-submit='userLogin()'>
+                    <form name='myForm' ng-submit='userLogin(); cancel()'>
                     <input type="text" ng-model='email' name="email-login" placeholder="Email">
                     <input type="password" ng-model='password' name="pass-login" placeholder="Password">
                     <input type="submit" name="login" class="login loginmodal-submit" value="Login">
@@ -47,7 +47,7 @@
   <div class="modal-dialog">
     <div class="loginmodal-container">
       <h1>Sign up</h1><br>
-        <form ng-controller='profileCtrl'>
+        <form>
           <input ng-model='username' type="text" name="firstName" placeholder="Name">
           <input ng-model='email' type="text" name="email-signup" placeholder="Your email">
           <input ng-model='password' type="password" name="pass-signup" placeholder="Password">

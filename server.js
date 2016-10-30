@@ -29,7 +29,12 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.static(path.join(__dirname, '/client'))); // static files
 // -> Passport Middleware Setup <- //
-app.use(session({secret: 'mySecretKey'})); //session secret key
+app.use(session({secret: 'mySecretKey',
+				resave: true,
+				saveUninstalized: true,
+				cookie: { secure: true,
+							maxAge: 60000}
+				})); //session secret key
 app.use(passport.initialize()); //initialize passport
 app.use(passport.session()); // initialize session
 app.use(cookieParser());
@@ -119,8 +124,10 @@ passport.use( new FacebookStrategy({
 ));
 
 app.post('/login', passport.authenticate('login'), function(req, res, next) {
-	console.log('i got here!!!!!');
-	res.send({ status: "Logged in!" });
+	console.log('HERE IS YOUR user id YOU FUCK:', req.user);
+	// res.send({ body: res.body,
+	// 			user: req.user });
+	res.send(req.user);
 })
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
@@ -219,90 +226,19 @@ app.post('/api/getEvent', (req,res) =>{
 									}
 		);
 	});
+})
 
-app.post('/api/userEvents', (req,res) =>{
-
-	//data is an array
-	const structure = (data) =>{
- 		let newData = data;
- 		
- 		let times = _.reduce(data, (final, event) =>{
- 			final = final || {};
- 			const key = `${event.lat},${event.long},${event.name}` 			
- 			//format times to human readable
- 			const newStart = dateFormat(new Date(event.start_date), "mmm dS, yy, h:MM TT")
- 			const newEnd = dateFormat(new Date(event.end_date), "mmm dS, yy, h:MM TT")
-
- 			const timeObj = {
-				start: newStart, 
-				end: newEnd
-			};
- 			
- 			if(final[key] === undefined){
- 				final[key] = {check: false};
- 				// console.log(new Date(event.start_date), new Date(event.end_date));
- 				final[key].times = [timeObj];
- 			}else{
- 				final[key].times.push(timeObj);
- 			}
-
- 			return final;
- 		}, {});
- 
-		let count = 1;
-
- 		return _.chain(newData).map((event) =>{
- 			const key = `${event.lat},${event.long},${event.name}`;
- 			
- 			if(times[key].check === false){
- 				event.time = times[key].times;
- 				times[key].check = true;
- 				delete event.start_date;
- 				delete event.end_date;
- 			}
-
- 			return event; 
- 		}).filter((event) =>{
- 			return event.time !== undefined || null;
- 		}).map((event) =>{
-
- 			if(count % 2 === 0){
- 				event.other = 'color';
- 			}else{
- 				event.other = 'notcolor';
- 			}
-
- 			count++;
-
- 			return event;
- 		});
- 	};
-
-	new Promise((resolve, reject) =>{
-		pool.connect(function(err, client, done) {
-		  if(err) {
-		  	reject(err);
-		  }
-		  resolve(client);
-		});
-	}).then((client) => {
-		client.query(`select public.events.id, public.users.id name, host, description, paypal, lat, long, start_date, end_date, userid
-									from public.events inner join public.dates on public.dates.fk_event = public.events.id
-									where ${req.body.userid} = public.users.id`,
-									(err, result)=>{
-										console.log(err, 'check error');
-										// console.log(result.rows, 'result from getEvent');
-										const events = {
-											events: structure(result.rows)
-										};
-										console.log('HERE ARE YOUR EVENTS YOU FUCKING USER:', JSON.stringify(events.events, null, 3));
-										res.send(events).end();
-									}
-		);
+app.get('/api/userEvents', (req,res) =>{
+	console.log("HERE IS YOUR userEVENTS req you fuck" , req.body.id);
+client.query(`select * from public.events where userid='${req.body.id})'`)
+	.on('row',function(row){
+		console.log(row);
 	});
+		
+	
+})
 
- });
-});
+
 
 app.post('/api/createEvent', (req, res) =>{
 	console.log(JSON.stringify(req.body, null, 3));
@@ -338,12 +274,14 @@ app.post('/api/createEvent', (req, res) =>{
 		  resolve(client);
 		});
 	}).then((client) =>{
+		console.log('HERE IS YOUR INFO YOU FUCK:', req.body.info)
 		client.query(`insert into public.events
-									(name, host, description, paypal, lat, long)
+									(name, host, description, paypal, userid, lat, long)
 									values ('${req.body.info.name}',
 									'${req.body.info.host}',
 									'${req.body.info.description}',
 									'${req.body.info.paypal}',
+									${req.body.info.userid},
 									${req.body.location.lat},
 									${req.body.location.long})`,
 								(err, result) =>{
@@ -358,7 +296,6 @@ app.post('/api/createEvent', (req, res) =>{
 });
 
 app.post('/api/createUser', function(req,res){
-	console.log('user', req.body)
 	var createHash = function(password){
 	return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 	}

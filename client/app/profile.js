@@ -2,12 +2,14 @@ angular.module('nomadProfile',[])
 
 
 .factory('UserEvents', ($http) => {
-  const getEvents = (locationObj, cb) => {
+  const getEvents = () => {
     return $http({
-      method: 'POST',
+      method: 'GET',
       url: '/api/userEvents',
       // We want this to be the user id - 1 is a test
-      data: {userid: 1}
+      data: JSON.stringify({
+          userid: window.userId,
+        })
     })
     .then((resp) => {
       const events = resp.data.events;
@@ -62,53 +64,43 @@ angular.module('nomadProfile',[])
       
     };
 
-   $scope.userFetch = () => {
-    // $scope.eventMarkers.forEach((marker) => {
-    //   marker.setMap(null);
-    // });
-    // $scope.eventMarkers = [];
-    // $scope.bounds = new google.maps.LatLngBounds();
-    const searchObj = {
-      radius: MapMath.toKilometers(1000),
-      lat: MapMath.toRad(0),
-      long: MapMath.toRad(0)
+   $scope.userFetch = () =>{
+    return $http({
+      url: '/api/userEvents',
+      method: 'GET',
+      headers: {'Content-Type': 'application/json'},
+      data: JSON.stringify({
+        userid: window.userId
+      })
+    })
+   }
+
+
+    $scope.cancel = () => {
+      console.log('DO IT')
+      $('.modal-backdrop').remove();
     }
-    // var searchObj = {};
-    $scope.eventList = [];
-    UserEvents.getEvents(searchObj, (events, msgObj) => {
-      $scope.message = msgObj;
-      UserEvents.listEvents(events, $scope.eventList);
-  });
-};
 
     $scope.userLogin = () =>{
 
-      fetch('/login', {
+      return $http({
+        url: '/login', 
       	method: 'POST',
-      	headers:{
-      	  'Content-Type': 'application/json'
-      	},
-      	body: JSON.stringify({
+      	headers: {'Content-Type': 'application/json'},
+      	data: JSON.stringify({
       	  email: $scope.email,
       	  password: $scope.password
-      	})
-      }).then(function(data){
-      	if(data.status === 200) {
-      		console.log('here I am');
-      		$rootScope.$apply(() => $location.path('/profile'))
+      	})})
+        .then(function(data){
+        	if(data.status === 200) {
+      		console.log('here I am', data.data.id);
+          window.userId = data.data.id;
+      		$location.path('/profile');
       	} else {
-      		// todo: close modal here
+      		
       		$rootScope.$apply(() => $location.path('/'))
       	}
-      	      	   //  $rootScope.$apply(function() {
-          //     $location.path("/profile");
-          //     console.log($location.path());
-          // })
-      }).catch(function(err){
-      	// $rootScope.$apply(function() {
-       //        $location.path("/");
-       //        console.log($location.path());
-       //    })
+  
       })
     }
 })

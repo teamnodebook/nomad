@@ -1,3 +1,4 @@
+
 angular.module('nomadConfirm', ['nomadForm', 'explorer'])
 .controller('nomadConfirmCtrl', ($scope, $location, params, MapMath) => {
 
@@ -25,7 +26,7 @@ angular.module('nomadConfirm', ['nomadForm', 'explorer'])
   }
 
   $scope.sendNomadInfo = () => {
-    console.log($scope.paypal);
+    console.log('HERE IS YOUR EXPORTED ID YOU FUCK:', window.userId);
     fetch('/api/createEvent', {
       method: 'POST',
       headers: {
@@ -36,7 +37,8 @@ angular.module('nomadConfirm', ['nomadForm', 'explorer'])
                 name: params.eventName,
                 host: params.host,
                 description: params.description,
-                paypal: params.paypal
+                paypal: params.paypal,
+                userid: window.userId
               },
               location: {
                 lat: params.lat,
