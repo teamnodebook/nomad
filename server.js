@@ -11,6 +11,7 @@ const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const _ = require('underscore');
 const dateFormat = require('dateformat');
 const app = express();
@@ -82,6 +83,16 @@ passport.use('login', new LocalStrategy({
 
 ));
 
+passport.use(new GoogleStrategy({
+    clientID: '522655539394-stb3c3vkcaibnkg8nqt8e1brf1l16pg6.apps.googleusercontent.com',
+    clientSecret: 'nhD_2iN0w-oqydEUhCQWSyR1',
+    callbackURL: "http://localhost:5000/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, done) {
+       	console.log(profile);
+         done(null, profile);
+  }
+));
 // passport.serializeUser(function(user, done) {
 // 	console.log('serialize')
 // 	console.log('user', user)
@@ -132,6 +143,9 @@ app.post('/login', passport.authenticate('login'), function(req, res, next) {
 
 app.get('/auth/facebook', passport.authenticate('facebook'));
 
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+
 app.get('/profile', function(req,res){
 	console.log('redirecting...')
 	res.end()
@@ -142,6 +156,12 @@ app.get('/auth/facebook/callback', passport.authenticate('facebook', {failureRed
 		console.log('userAuthentication: ', req.isAuthenticated())
 		res.redirect('/#/profile')
 	});
+
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/' }),
+  function(req, res) {
+    res.redirect('/#/profile');
+  });
 
 app.post('/api/getEvent', (req,res) =>{
 
