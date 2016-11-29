@@ -6,10 +6,6 @@ angular.module('nomadForm', [])
 
   var address, lat, lng;
 
-  // $scope.eventName = params.eventName;
-  // $scope.hostName = params.host;
-  // $scope.description = params.description;
-
   var input = document.getElementById('locSearch');
   locSearch = new google.maps.places.SearchBox(input);
 
@@ -25,31 +21,11 @@ angular.module('nomadForm', [])
     }
   }
 
-  /////////////////////////////////////
-  // $scope.addressMsg = {
-  //   class: 'alert alert-warning',
-  //   msg: 'Save your event address.'
-  // };
-
   $scope.inputMsg = {
     class: 'hidden',
     msg: 'Complete all inputs.'
   };
 
-  // $scope.addedAddress = (check) =>{
-  //   if(check){
-  //     $scope.addressMsg = {
-  //       class: 'alert alert-success',
-  //       msg: 'Your event address was saved.'
-  //     }
-  //   }else{
-  //     $scope.addressMsg = {
-  //       class: 'alert alert-warning',
-  //       msg: 'Select a new address.'
-  //     }
-  //   }
-  //   $scope.$apply();
-  // };
 
   $scope.allInputs = (check) => {
     if (check) {
@@ -59,7 +35,7 @@ angular.module('nomadForm', [])
       }
     }
   }
-  /////////////////////////////////////
+
 
   locSearch.addListener('places_changed', () => {
     address = document.getElementById('locSearch').value;
@@ -83,7 +59,7 @@ angular.module('nomadForm', [])
   };
 
   $scope.confirm = () => {
-    // time
+    // time parameters
     params.convertedTimes = [];
     for (var i = 0; i < $scope.times.length; i++) {
       if ($scope.times[i].date && $scope.times[i].startTime && $scope.times[i].endTime) {
@@ -97,7 +73,7 @@ angular.module('nomadForm', [])
       }
     }
 
-    // location
+    // location parameters
     params.address = address;
     params.lat = lat;
     params.long = lng;

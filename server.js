@@ -93,18 +93,7 @@ passport.use(new GoogleStrategy({
          done(null, profile);
   }
 ));
-// passport.serializeUser(function(user, done) {
-// 	console.log('serialize')
-// 	console.log('user', user)
-// 	console.log('user id: ', user.id);
-//   done(null, user.id);
-// });
- 
-// passport.deserializeUser(function(id, done) {
-//     User.findById(id, function(err,user){
-//     	done(err,user);
-//     })
-// });	
+
 
 passport.serializeUser(function(user, done) {
 	console.log("user", user)
@@ -135,7 +124,6 @@ passport.use( new FacebookStrategy({
 ));
 
 app.post('/login', passport.authenticate('login'), function(req, res, next) {
-	console.log('HERE IS YOUR user id YOU FUCK:', req.user);
 	// res.send({ body: res.body,
 	// 			user: req.user });
 	res.send(req.user);
@@ -236,12 +224,9 @@ app.post('/api/getEvent', (req,res) =>{
 									cos(public.events.long - (${req.body.long}))) * 6371 <= ${req.body.radius} and 
 									to_timestamp(public.dates.start_date, 'YYYY-MM-DD') >= now() order by public.events.id;`,
 									(err, result)=>{
-										console.log(err, 'check error');
-										// console.log(result.rows, 'result from getEvent');
 										const events = {
 											events: structure(result.rows)
 										};
-										console.log('HERE ARE YOUR EVENTS YOU FUCK:', JSON.stringify(events.events, null, 3));
 										res.send(events).end();
 									}
 		);
@@ -249,7 +234,6 @@ app.post('/api/getEvent', (req,res) =>{
 })
 
 app.get('/api/userEvents', (req,res) =>{
-	console.log("HERE IS YOUR userEVENTS req you fuck" , req.body.id);
 client.query(`select * from public.events where userid='${req.body.id})'`)
 	.on('row',function(row){
 		console.log(row);
@@ -257,8 +241,6 @@ client.query(`select * from public.events where userid='${req.body.id})'`)
 		
 	
 })
-
-
 
 app.post('/api/createEvent', (req, res) =>{
 	console.log(JSON.stringify(req.body, null, 3));
@@ -294,7 +276,6 @@ app.post('/api/createEvent', (req, res) =>{
 		  resolve(client);
 		});
 	}).then((client) =>{
-		console.log('HERE IS YOUR INFO YOU FUCK:', req.body.info)
 		client.query(`insert into public.events
 									(name, host, description, paypal, userid, lat, long)
 									values ('${req.body.info.name}',
@@ -320,7 +301,6 @@ app.post('/api/createUser', function(req,res){
 	return bcrypt.hashSync(password, bcrypt.genSaltSync(10));
 	}
 	req.body.userinfo.password = createHash(req.body.userinfo.password);
-	console.log ('HERE IS YOUR HASHED PASSWORD YOU FUCK:',	req.body.userinfo.password)
 	new Promise((resolve, reject) =>{
 		pool.connect(function(err, client, done) {
 		  if(err) {
@@ -346,7 +326,6 @@ app.post('/api/createUser', function(req,res){
 
 app.listen(port, () =>{
 	// listening
-	console.log('Nomad Wandering on: ', port);
 });
 
 // posting an event has a request body like so

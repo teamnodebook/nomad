@@ -26,7 +26,6 @@ angular.module('nomadConfirm', ['nomadForm', 'explorer'])
   }
 
   $scope.sendNomadInfo = () => {
-    console.log('HERE IS YOUR EXPORTED ID YOU FUCK:', window.userId);
     fetch('/api/createEvent', {
       method: 'POST',
       headers: {

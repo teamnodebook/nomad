@@ -75,7 +75,6 @@ angular.module('nomadProfile',[])
     })
    }
 
-
     $scope.cancel = () => {
       console.log('DO IT')
       $('.modal-backdrop').remove();

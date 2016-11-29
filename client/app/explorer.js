@@ -19,20 +19,6 @@ angular.module('explorer', ['landingPage'])
 
     $scope.map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-    // if (navigator.geolocation) {
-    //   navigator.geolocation.getCurrentPosition((position) => {
-    //     const pos = {
-    //       lat: position.coords.latitude,
-    //       lng: position.coords.longitude
-    //     };
-    //
-    //     $scope.map.setCenter(pos);
-    //   }, function() {
-    //     handleLocationError(true, $scope.infoWindow, $scope.map.getCenter());
-    //   });
-    // } else {
-    //   handleLocationError(false, $scope.infoWindow, $scope.map.getCenter());
-    // }
   };
   initializeMap();
 
@@ -268,7 +254,7 @@ angular.module('explorer', ['landingPage'])
       console.log(err);
     });
   };
-
+ 
   const mapEvents = (events, map, bounds, markers, labels) => {
     var labelIndex = 0;
     events.forEach((event) => {
