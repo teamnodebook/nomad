@@ -252,15 +252,15 @@ app.post('/api/createEvent', (req, res) =>{
 
 	let insertTimes = (client, cb) =>{
 		_.each(req.body.time, (time) =>{
-			console.log(req.body.info.name, req.body.info.location)
+			console.log(req.body.info.name, req.body.info.location);
 			client.query(`insert into public.dates
 									(start_date, end_date, fk_event)
 									values ('${time.start}',
 									'${time.end}',
 									(select id from public.events where name='${req.body.info.name}' and lat=${req.body.location.lat} and long=${req.body.location.long}))`,
 									(err, result) =>{
-										console.log(err, 'check error')
-										console.log(result, ' result from insert statement')
+										console.log(err, 'check error');
+										console.log(result, ' result from insert statement');
 									}
 			);
 		});
@@ -277,17 +277,16 @@ app.post('/api/createEvent', (req, res) =>{
 		});
 	}).then((client) =>{
 		client.query(`insert into public.events
-									(name, host, description, paypal, userid, lat, long)
+									(name, host, description, lat, long, paypal)
 									values ('${req.body.info.name}',
 									'${req.body.info.host}',
 									'${req.body.info.description}',
-									'${req.body.info.paypal}',
-									${req.body.info.userid},
 									${req.body.location.lat},
-									${req.body.location.long})`,
+									${req.body.location.long},
+									'${req.body.info.paypal}')`,
 								(err, result) =>{
-									console.log(err, 'check error')
-									console.log(result, ' result from insert statement')
+									console.log(err, 'check error');
+									console.log(result, ' result from insert statement');
 									insertTimes(client, () => {
 										res.send();
 									});

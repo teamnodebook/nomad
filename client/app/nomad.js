@@ -51,7 +51,7 @@ angular.module('nomadForm', [])
 
   $scope.checkInputs = () => {
     // console.log($scope.times);
-    if (lat && lng && $scope.eventName && $scope.hostName && $scope.paypal && $scope.times[$scope.times.length - 1].date && $scope.times[$scope.times.length - 1].startTime && $scope.times[$scope.times.length - 1].endTime && $scope.description) {
+    if ($scope.eventName && $scope.hostName && $scope.paypal && $scope.times[$scope.times.length - 1].date && $scope.times[$scope.times.length - 1].startTime && $scope.times[$scope.times.length - 1].endTime && $scope.description) {
       console.log($scope.paypal);
       document.getElementById('eventSubmission').style.display = 'block';
       $scope.allInputs(true);
